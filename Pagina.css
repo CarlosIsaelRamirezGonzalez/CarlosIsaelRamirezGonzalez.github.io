@@ -1,0 +1,43 @@
+body {
+    font-family: Georgia, serif;
+    text-align: center;
+    color: #444; /* Color del texto */
+    padding: 20px; /* Espacio alrededor del texto */
+    background-color: #F5F5F5; /* Color de fondo */
+}
+
+#los-puchus {
+    font-size: 48px;
+    cursor: pointer;
+}
+  
+.letter {
+    display: inline-block;
+    transition: color 0.3s;
+}
+
+.highlight {
+    color: crimson;
+    font-weight: bold;
+}
+  
+.letter:hover {
+    color: red; /* Cambia el color al pasar el mouse */
+}
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    justify-items: center;
+    margin-top: 20px;
+}
+
+.grid-item {
+    width: 100%;
+    max-width: 300px;
+    transition: transform 0.3s;
+}
+
+.grid-item:hover {
+    transform: scale(1.1);
+}
