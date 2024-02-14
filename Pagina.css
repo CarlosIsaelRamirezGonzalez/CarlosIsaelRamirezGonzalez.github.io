@@ -10,7 +10,7 @@ body {
     font-size: 48px;
     cursor: pointer;
 }
-  
+
 .letter {
     display: inline-block;
     transition: color 0.3s;
@@ -20,7 +20,7 @@ body {
     color: crimson;
     font-weight: bold;
 }
-  
+
 .letter:hover {
     color: red; /* Cambia el color al pasar el mouse */
 }
