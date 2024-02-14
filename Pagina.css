@@ -55,5 +55,20 @@ body {
 
     .grid-item {
         max-width: 100%; /* Permite que los items ocupen toda la anchura en dispositivos más pequeños */
-    }
+}
+button {
+    background-color: crimson;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    background-color: #9c1b3b;
+}
 }
