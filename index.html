@@ -42,6 +42,22 @@
         <img src="Imagenes/Img4.jpeg" class="grid-item">
     </div>    
     <p style="color: crimson; font-family: 'Brush Script MT', cursive; font-size: 60px;">¿Quieres ser mi San Valentín?</p>
+    <p>
+        <button id="btn-yes">Sí</button>
+        <button id="btn-no">No</button>
+    </p>
     <script src="Pagina.js"></script>
+        <script>
+        const btnNo = document.getElementById('btn-no');
+        
+        btnNo.addEventListener('mouseover', () => {
+            const x = Math.floor(Math.random() * window.innerWidth);
+            const y = Math.floor(Math.random() * window.innerHeight);
+            
+            btnNo.style.position = 'absolute';
+            btnNo.style.left = x + 'px';
+            btnNo.style.top = y + 'px';
+        });
+    </script>
 </body>
 </html>
