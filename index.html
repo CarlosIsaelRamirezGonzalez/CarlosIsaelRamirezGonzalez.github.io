@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,20 +8,36 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="img/laptop.png">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/styles.css">
     <title>Carlos Ramirez: Software Developer</title>
 </head>
 <body>
    <header class="header">
         <nav class="navbar">
-            <a href="#" class="nav-link nav-logo">Carlos</a>
-            <a href="#" class="nav-link nav-home">Index</a>
-            <a href="#" class="nav-link nav-about">Sobre</a>
-            <a href="#" class="nav-link nav-proyects">Proyectos</a>
-            <a href="#" class="nav-link nav-skills">Habilidades</a>
-            <a href="#" class="nav-link nav-contact">Contacto</a>
-            <div class="nav-language">Hola</div>
+            <a href="#" class="nav-static-link nav-logo">Carlos</a>
+            <a href="#home" class="nav-link nav-home">Index</a>
+            <a href="#about" class="nav-link nav-about">Sobre mi</a>
+            <a href="#projects" class="nav-link nav-proyects">Proyectos</a>
+            <a href="#skills" class="nav-link nav-skills">Habilidades</a>
+            <a href="#contact" class="nav-link nav-contact">Contacto</a>
+            <div class="nav-language">
+                <a id="nav-esp" href="#" class="nav-static-link">ES</a>
+                <a id="nav-eng" href="#" class="nav-static-link">EN</a>
+            </div>
         </nav>
    </header>
+   <main class="main">
+    <section id="home" class="home">
+        
+
+    </section>
+    <section id="about">Sobre mi</section>
+    <section id="projects">Proyectos</section>
+    <section id="skills">Habilidades</section>
+    <section id="contact">Contacto</section>
+   </main>
+
+   
+   <script src="js/language-selector.js"></script>
 </body>
 </html>
