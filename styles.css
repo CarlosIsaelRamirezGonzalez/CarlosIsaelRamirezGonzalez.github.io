@@ -1,74 +1,81 @@
+/* common styles */
+html {
+    font-size: 62.5%;
+    box-sizing: border-box;
+}
+
 body {
-    font-family: Georgia, serif;
-    text-align: center;
-    color: #444; /* Color del texto */
-    padding: 20px; /* Espacio alrededor del texto */
-    background-color: #F5F5F5; /* Color de fondo */
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
 }
+/* end of common styles */
 
-#los-puchus {
-    font-size: 48px;
-    cursor: pointer;
-}
-
-.letter {
-    display: inline-block;
-    transition: color 0.3s;
-}
-
-.highlight {
-    color: crimson;
-    font-weight: bold;
-}
-
-.letter:hover {
-    color: red; /* Cambia el color al pasar el mouse */
-}
-
-.grid-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    justify-items: center;
-    margin-top: 20px;
-}
-
-.grid-item {
+/* navbar */
+.header {
     width: 100%;
-    max-width: 300px;
-    transition: transform 0.3s;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    box-shadow: 0 1px 4px rgba(146, 161, 176, 0.15);
 }
 
-.grid-item:hover {
-    transform: scale(1.1);
+.navbar {
+    height: 7.5rem;
+    width: 80%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(10, minmax(6rem, 1fr));
+    grid-template-rows: 1fr; 
 }
 
-/* Responsive Design */
-@media screen and (max-width: 768px) {
-    #los-puchus {
-        font-size: 24px; /* Reduce el tamaño de la fuente en dispositivos más pequeños */
-    }
-
-    .grid-container {
-        grid-template-columns: 1fr; /* Cambia el layout de la grid a una sola columna en dispositivos más pequeños */
-    }
-
-    .grid-item {
-        max-width: 100%; /* Permite que los items ocupen toda la anchura en dispositivos más pequeños */
-}
-button {
-    background-color: crimson;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    margin: 5px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: transform 0.3s, background-color 0.3s;
+.nav-link {
+    text-align: center;
+    margin: auto;
+    font-family: 'Inter', sans-serif;
+    color: black;
+    text-decoration: none; 
+    font-weight: 50;
+    font-size: 1.5rem;
+    font-style: normal;
+    grid-row: 1 / 2;
 }
 
-button:hover {
-    transform: translateY(-2px);
-    background-color: #9c1b3b;
+.nav-link:link, 
+.nav-link:visited, 
+.nav-link:hover, 
+.nav-link:active {
+    color: black; 
+    text-decoration: none; 
 }
+
+.nav-logo {
+    grid-column: 1 / 2;
 }
+
+.nav-home {
+    grid-column: 5 / 6;
+}
+
+.nav-about {
+    grid-column: 6 / 7;
+}
+
+.nav-proyects {
+    grid-column: 7 / 8;
+}
+
+.nav-skills {
+    grid-column: 8 / 9;
+}
+
+.nav-contact {
+    grid-column: 9 / 10;
+}
+
+.nav-language {
+    grid-column: 10 / 11;
+}
+
+/* end of navbar */
