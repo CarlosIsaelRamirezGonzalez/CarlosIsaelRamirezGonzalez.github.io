@@ -1,7 +1,7 @@
 /* common styles */
 html {
     font-size: 62.5%;
-    box-sizing: border-box;
+    box-sizing: border-box;   
 }
 
 body {
@@ -9,12 +9,18 @@ body {
     padding: 0;
     font-family: 'Montserrat', sans-serif;
 }
+
+html, body {
+    overflow-x: hidden;
+}
+
 /* end of common styles */
 
 /* navbar */
 .header {
     width: 100%;
     position: fixed;
+    background-color: white;
     top: 0;
     left: 0;
     z-index: 100;
@@ -28,6 +34,7 @@ body {
     display: grid;
     grid-template-columns: repeat(10, minmax(6rem, 1fr));
     grid-template-rows: 1fr; 
+    z-index: 100;
 }
 
 .nav-link {
@@ -132,7 +139,7 @@ body {
 }
 /* end of navbar */
 
-/* main */
+/* presentation */
 .main {
     margin-top: 7.5rem;
     display: flex;
@@ -207,7 +214,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-around;
-    font-size: 2.5rem;
+    font-size: 3rem;
     width: 20rem; 
     margin-left: 2rem;
     margin-top: 2rem; 
@@ -219,13 +226,14 @@ body {
 }
 .presentation-info-icons i:hover {
     color: #4cc9f0;
-    transform: rotateZ(360deg);}
+    transform: rotateZ(360deg);
+}
 
 .presentation-img {
     height: 100%;
     width: 30%;
     box-sizing: border-box;
-    padding-right: 10rem;
+    padding-right: 9rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -237,8 +245,38 @@ body {
     box-shadow: 30px 31px 0px 7px rgba(199,195,199,1);
     
 }
+/* end of presentation */
+
+/* about */
+.about {
+    height: 90rem;
+    width: 100%;
+    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    grid-template-rows: repeat(2, 1fr); 
+}
+
+.about-myself {
+    box-sizing: border-box;
+    padding: 10rem;
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+}
+
+.about-myself h1 {
+    font-family: 'Inter', sans-serif; 
+    /* text-align: justify; */
+    letter-spacing: .1rem;
+    font-size: 2rem;
+}
+
+.about-myself p {
+    font-family: 'Inter', sans-serif; 
+    text-align: justify;
+    letter-spacing: .1rem;
+    font-size: 2rem;
+}
 
 
-
-
-/* end of main */
+/* end of about */
