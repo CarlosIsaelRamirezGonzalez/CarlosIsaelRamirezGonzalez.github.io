@@ -138,7 +138,107 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
-
+    justify-content: space-evenly;
 }
+
+.presentation {
+    height: 60rem;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.presentation-info {
+    height: 100%;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items:flex-start;
+    justify-content: left;
+    box-sizing: border-box;
+    padding-left: 30rem;
+    padding-top: 5rem;
+    gap: 1.5rem; /* Añade espacio entre los elementos */
+
+    text-align: justify;
+}
+
+.presentation-info p {
+    font-family: 'Inter', sans-serif; 
+    letter-spacing: .2rem;
+    font-size: 4rem; 
+    font-weight: 1000;
+    line-height: 1.5;
+}
+
+.presentation-info button {
+    height: 5rem;
+    width: 16rem;
+    margin-left: 2rem;
+    cursor: pointer;
+    background-color: #4cc9f0;
+    color: white;
+    border: 2px solid transparent; 
+    border-radius: 1.2rem;
+    font-size: 1.5rem;
+    letter-spacing: .1rem;
+    font-weight: bold;
+    transition: all .3s;
+}
+
+.presentation-info button:hover {
+    background-color: white;
+    color: #4cc9f0;
+    border-color: #4cc9f0; /* Cambia el color del borde al hacer hover */
+}
+
+
+.highlight {
+    display: block; 
+    font-size: 5rem; 
+    letter-spacing: .2rem;
+    font-weight: bold; 
+    color: #4cc9f0; 
+    margin-top: 1rem; 
+}
+
+.presentation-info-icons {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    font-size: 2.5rem;
+    width: 20rem; 
+    margin-left: 2rem;
+    margin-top: 2rem; 
+}
+
+.presentation-info-icons i {
+    cursor: pointer;
+    transition: all .4s;
+}
+.presentation-info-icons i:hover {
+    color: #4cc9f0;
+    transform: rotateZ(360deg);}
+
+.presentation-img {
+    height: 100%;
+    width: 30%;
+    box-sizing: border-box;
+    padding-right: 10rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.presentation-img img {
+    height: 35rem;
+    width: 35rem;
+    box-shadow: 30px 31px 0px 7px rgba(199,195,199,1);
+    
+}
+
+
+
+
 /* end of main */
