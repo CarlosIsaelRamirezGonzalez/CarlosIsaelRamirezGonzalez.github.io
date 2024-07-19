@@ -220,6 +220,14 @@ html, body {
     margin-top: 2rem; 
 }
 
+.presentation-info-icons a {
+    text-decoration: none; 
+}
+
+.presentation-info-icons a:visited {
+    color: black;
+}
+
 .presentation-info-icons i {
     cursor: pointer;
     transition: all .4s;
@@ -277,6 +285,17 @@ html, body {
     letter-spacing: .1rem;
     font-size: 2rem;
 }
+
+.about-myself-photos {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr); 
+    grid-template-rows: repeat(10, 1fr); 
+}
+
+
+
+
+
 
 
 /* end of about */
