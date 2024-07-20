@@ -145,6 +145,8 @@ html, body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow: hidden; /* Añadido para evitar desbordamiento */
+
     justify-content: space-evenly;
 }
 
@@ -257,19 +259,21 @@ html, body {
 
 /* about */
 .about {
-    height: 90rem;
+    height: 110rem;
     width: 100%;
     text-align: center;
+    margin-top: 2rem;
+    box-sizing: border-box;
+    padding: 4rem;
     display: grid;
     grid-template-columns: repeat(2, 1fr); 
     grid-template-rows: repeat(2, 1fr); 
 }
 
+
 .about-myself {
     box-sizing: border-box;
     padding: 10rem;
-    grid-column: 1 / 2;
-    grid-row: 1 / 2;
 }
 
 .about-myself h1 {
@@ -286,13 +290,90 @@ html, body {
     font-size: 2rem;
 }
 
-.about-myself-photos {
-    display: grid;
-    grid-template-columns: repeat(10, 1fr); 
-    grid-template-rows: repeat(10, 1fr); 
+.myself {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
 }
 
+.education {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+}
 
+.about-myself-photos {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(1rem, 1fr));
+    grid-template-rows: repeat(4, 11.5rem);
+    gap: 1.6rem;
+    background-color:#4cc9f0;
+}
+
+.about-myself-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: .5;
+    transition: opacity .5s;
+}
+
+.about-myself-image:hover {
+    opacity: 1;
+}
+
+.about-myself-image-1 {
+    grid-column: 1 / 2;
+    grid-row: 1 / 3;
+}
+
+.about-myself-image-2 {
+    grid-column: 2 / 4;
+    grid-row: 1 / 3;
+}
+
+.about-myself-image-3 {
+    grid-column: 3 / 4;
+    grid-row: 3 / 5;
+}
+
+.about-myself-image-4 {
+    grid-column: 4 / 6;
+    grid-row: 1 / -1;
+}
+
+.about-myself-image-5 {
+    grid-column: 6 / 7;
+    grid-row: 1 / 3;
+}
+
+.about-myself-image-6 {
+    grid-column: 1 / 3;
+    grid-row: 3 / 5;
+}
+
+.about-myself-image-7 {
+    grid-column: 6 / 7;
+    grid-row: 3 / 5;
+}
+
+.about-myself-image-8 {
+    grid-column: 1/ 4;
+    grid-row: 1 / 3;
+}
+
+.about-myself-image-9 {
+    grid-column: 4 / 7;
+    grid-row: 1 / 3;
+}
+
+.about-myself-image-10 {
+    grid-column: 1 / 4;
+    grid-row: 3 / 5;
+}
+
+.about-myself-image-11 {
+    grid-column: 4 / 7;
+    grid-row: 3 / 5;
+}
 
 
 
