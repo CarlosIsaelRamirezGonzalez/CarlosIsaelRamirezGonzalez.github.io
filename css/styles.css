@@ -259,7 +259,7 @@ html, body {
 
 /* about */
 .about {
-    height: 110rem;
+    /* height: 50rem; */
     width: 100%;
     text-align: center;
     margin-top: 2rem;
@@ -278,10 +278,23 @@ html, body {
 
 .about-myself h1 {
     font-family: 'Inter', sans-serif; 
-    /* text-align: justify; */
     letter-spacing: .1rem;
     font-size: 2rem;
+    color: #4cc9f0; /* Color azul celeste */
+    position: relative;
+    margin-bottom: 1rem; /* Espacio debajo del título para la línea */
 }
+
+.about-myself h1::after {
+    content: "";
+    width: 15%;
+    
+    height: .2rem;
+    background-color: #4cc9f0; /* Color azul celeste */
+    display: block;
+    margin: auto; 
+}
+
 
 .about-myself p {
     font-family: 'Inter', sans-serif; 
@@ -302,10 +315,12 @@ html, body {
 
 .about-myself-photos {
     display: grid;
-    grid-template-columns: repeat(6, minmax(1rem, 1fr));
+    grid-template-columns: repeat(6, .7fr);
     grid-template-rows: repeat(4, 11.5rem);
-    gap: 1.6rem;
-    background-color:#4cc9f0;
+    gap: 1rem;
+    box-sizing: border-box;
+    padding: 2rem;
+    /* background-color:#4cc9f0; */
 }
 
 .about-myself-image {
