@@ -321,15 +321,13 @@ html, body {
 }
 
 .about-myself-photos {
-    /* max-height: 20rem; */
     flex-wrap: wrap;
     max-width: 85rem;
     display: grid;
-    grid-template-columns: repeat(6, .7fr);
-    grid-template-rows: repeat(4, 11.5rem);
+    grid-template-columns: repeat(6, minmax(5rem, 20rem));
+    grid-template-rows: repeat(4, minmax(5rem, 10rem));
     gap: 1rem;
     box-sizing: border-box;
-    /* padding: 2rem; */
 }
 
 .about-myself-image {
