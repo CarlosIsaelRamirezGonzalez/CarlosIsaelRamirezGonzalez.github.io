@@ -153,6 +153,7 @@ html, body {
 .presentation {
     height: 60rem;
     width: 100vw;
+    max-width: 250rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -166,9 +167,8 @@ html, body {
     align-items:flex-start;
     justify-content: left;
     box-sizing: border-box;
-    padding-left: 30rem;
+    padding-left:15rem;
     padding-top: 5rem;
-    gap: 1.5rem; /* Añade espacio entre los elementos */
 
     text-align: justify;
 }
@@ -241,9 +241,9 @@ html, body {
 
 .presentation-img {
     height: 100%;
-    width: 30%;
+    width: 25%;
     box-sizing: border-box;
-    padding-right: 9rem;
+    padding-right: 15rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -259,13 +259,15 @@ html, body {
 
 /* about */
 .about {
-    /* height: 50rem; */
+    /* height: 80rem; */
     width: 100%;
+    max-width: 220rem;
     text-align: center;
     margin-top: 2rem;
     box-sizing: border-box;
     padding: 4rem;
     display: grid;
+    flex-wrap: wrap;
     grid-template-columns: repeat(2, 1fr); 
     grid-template-rows: repeat(2, 1fr); 
 }
@@ -273,7 +275,11 @@ html, body {
 
 .about-myself {
     box-sizing: border-box;
-    padding: 10rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 6rem;
 }
 
 .about-myself h1 {
@@ -300,7 +306,8 @@ html, body {
     font-family: 'Inter', sans-serif; 
     text-align: justify;
     letter-spacing: .1rem;
-    font-size: 2rem;
+    font-size: 1.5rem;
+    margin-top: 4rem;
 }
 
 .myself {
@@ -314,13 +321,15 @@ html, body {
 }
 
 .about-myself-photos {
+    /* max-height: 20rem; */
+    flex-wrap: wrap;
+    max-width: 85rem;
     display: grid;
     grid-template-columns: repeat(6, .7fr);
     grid-template-rows: repeat(4, 11.5rem);
     gap: 1rem;
     box-sizing: border-box;
-    padding: 2rem;
-    /* background-color:#4cc9f0; */
+    /* padding: 2rem; */
 }
 
 .about-myself-image {
