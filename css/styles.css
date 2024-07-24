@@ -409,7 +409,7 @@ html, body {
     justify-content: space-between;
 }
 
-.projects h1 {
+.section-title {
     font-family: 'Inter', sans-serif; 
     letter-spacing: .1rem;
     font-size: 3rem;
@@ -418,7 +418,7 @@ html, body {
     margin-bottom: 1rem; 
 }
 
-.projects h1::before, .projects h1::after {
+.section-title::before, .section-title::after {
     content: "";
     display: block;
     position: absolute;
@@ -427,22 +427,22 @@ html, body {
     background-color: #4cc9f0;
 }
 
-.projects h1::before {
+.section-title::before {
     width: 100px; 
     height: .4rem; 
     bottom: -10px; 
 }
 
-.projects h1::after {
+.section-title::after {
     width: 50px;
     height: .2rem;
     bottom: -20px; 
 }
 
 .projects-container {
-   height: 100rem;
     width: 100%;
     margin-top: 10rem;
+    margin-bottom: 20rem;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
@@ -462,6 +462,13 @@ html, body {
 
 }
 
+.project h2 {
+    font-weight: 400;
+    font-family: "Roboto", sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: .1rem;
+}
+
 .project-front {
     width: 90%;
     height: 50%;
@@ -477,7 +484,7 @@ html, body {
 
 .project-technologies {
     width: 100%; 
-    height: 25%;
+    height: 30%;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
@@ -493,3 +500,55 @@ html, body {
     /* border-radius: 1rem; */
 }
 /* end of technologies icons */
+
+
+/* skills */
+.skills {
+    height: 100rem;
+    width: 100%;
+    margin-bottom: 10rem;
+    display: flex;
+    gap: 2rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.skills h2 {
+    font-weight: 600;
+    font-family: "Roboto", sans-serif;
+    font-size: 2rem;
+    letter-spacing: .1rem;
+    text-transform: uppercase;
+}
+
+.skills h3 {
+    font-family: 'Inter', sans-serif; 
+    letter-spacing: .1rem;
+    font-size: 2rem;
+    color: #4cc9f0; /* Color azul celeste */
+    position: relative;
+    margin-bottom: 1rem; /* Espacio debajo del título para la línea */
+}
+
+
+.skills-container {
+    width: 90rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.skills-img {
+    height: 9rem;
+    width: 9rem;
+    margin: 2rem 8rem;
+}
+
+.large-img {
+    width: 14rem;
+}
+
+
+/* end of skills */
