@@ -620,26 +620,28 @@ html, body {
         z-index: 100;
     }
     
-    /* .nav-logo {
-        position: absolute; 
-        top: 0; 
-        left: 0;
-        transform: translate(2rem, 2rem); 
-    } */
+    .nav-logo {
+        display: none;
+    }
     
     .navbar {
         position: absolute;
-        height: 90vh;
+        height: 95.5vh;
         width: 20rem;
-        top: 4rem;
+        top: 4.4rem;
         right: -20rem;
         background-color: white;
         display: flex;
+        justify-content: space-evenly;
         flex-direction: column;
-        justify-content: flex-end;
         z-index: 100;
         transition: all .5s
     }
+
+    .nav-link {
+        margin: 0;
+    }
+    
 
     .navbar.nav-active {
         right: 0;
