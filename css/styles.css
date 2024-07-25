@@ -504,7 +504,6 @@ html, body {
 
 /* skills */
 .skills {
-    height: 100rem;
     width: 100%;
     margin-bottom: 10rem;
     display: flex;
@@ -548,7 +547,40 @@ html, body {
 
 .large-img {
     width: 14rem;
+    margin: 2rem 5.5rem;
 }
 
-
 /* end of skills */
+
+/* contact */
+.contact {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10rem;
+}
+
+.contact-container {
+    height: 20rem;
+    width: 50rem;
+    margin-top: 5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 25px rgba(14, 36, 49, 0.15);
+}
+
+.contact-icon {
+    font-size: 2rem;
+}
+
+.contact-container h2 {
+    font-weight: 400;
+    font-family: "Roboto", sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: .1rem;
+}
+/* end of contact */
