@@ -442,7 +442,6 @@ html, body {
 .projects-container {
     width: 100%;
     margin-top: 10rem;
-    margin-bottom: 20rem;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
@@ -458,6 +457,7 @@ html, body {
     align-items: center;
     justify-content: space-evenly;
     border-radius: 1rem;
+    margin-bottom: 10rem;
     box-shadow: 0 4px 25px rgba(14, 36, 49, 0.15);
 
 }
