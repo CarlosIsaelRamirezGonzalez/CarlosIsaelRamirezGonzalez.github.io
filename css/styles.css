@@ -729,6 +729,10 @@ html, body {
         height: 31rem;
         width: 31rem;
     }
+    .project-front {
+        width: 85%;
+        height: 40%;
+    }
     .project-technologies {
         height: 35%;
     }
