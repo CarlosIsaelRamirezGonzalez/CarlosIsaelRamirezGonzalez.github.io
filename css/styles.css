@@ -27,6 +27,10 @@ html, body {
     box-shadow: 0 1px 4px rgba(146, 161, 176, 0.15);
 }
 
+.menu-icon {
+    display: none;
+}
+
 .navbar {
     height: 7.5rem;
     width: 80%;
@@ -584,3 +588,58 @@ html, body {
     letter-spacing: .1rem;
 }
 /* end of contact */
+
+/* media querys */
+@media (max-width: 900px) {
+    .menu-icon {
+        display: block;
+        margin-top: 3rem;
+        cursor: pointer;
+    }
+    
+    .line {
+        height: .2rem; /*2 pixels*/
+        width: 2.5rem;
+        background-color: #222;
+        margin-bottom: .6rem;
+    
+    }
+    
+    .line-1, .line-3 {
+        width: 1.8rem;
+        transition: all .4s;
+    }
+    
+    .menu-icon:hover .line{
+        width: 2.5rem;
+    }
+    
+    .header {
+        width: 8rem;
+        height: 100%;
+        background-color: #eee;
+        position: fixed;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 10;
+        box-shadow: 0 1px 4px rgba(146, 161, 176, 0.15);
+    }
+    
+    .navbar {
+        position: fixed;
+        left: -32rem;
+        width: 40rem;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 5;
+        transition: left .8s cubic-bezier(1, 0, 0, 1);
+    }
+    
+
+}
+/* end of media querys */
