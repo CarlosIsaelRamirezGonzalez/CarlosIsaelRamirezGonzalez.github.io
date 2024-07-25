@@ -262,7 +262,6 @@ html, body {
 
 /* about */
 .about {
-    /* height: 80rem; */
     width: 100%;
     max-width: 220rem;
     text-align: center;
@@ -689,6 +688,39 @@ html, body {
     /* end of presentation */
 
     /* about */
+    .about {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+    }
+
+    .about-myself {
+        padding: 2rem;
+        text-align: justify;
+    }
+
+    .about-myself p {
+        letter-spacing: 0;
+        font-size: 1.5rem;
+    }
+    .about-myself-photos {
+        display: none;
+    }
     /* end of about */
+    
+    /* projects */
+    .project {
+        height: 31rem;
+        width: 31rem;
+    }
+    .project-technologies {
+        height: 35%;
+    }
+    /* end of projects */
+
+    /* skills */
+    /* end of skills */
 }
 /* end of media querys */
