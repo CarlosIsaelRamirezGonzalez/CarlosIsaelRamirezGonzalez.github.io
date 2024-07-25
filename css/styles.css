@@ -595,6 +595,7 @@ html, body {
         position: absolute;
         margin-top: 1.5rem;
         right: 1.5rem;
+        transition: all .4s;
     }
     
     .line {
@@ -602,13 +603,26 @@ html, body {
         width: 2.5rem;
         background-color: #222;
         margin-bottom: .6rem;
-    
+        transition: all .4s;
     }
+
     
     .line-1, .line-3 {
         transition: all .4s;
     }
     
+    .line-1.active-lines {
+        transform: rotate(-405deg) translate(-5px, 6px);
+    }
+    
+    .line-2.active-lines {
+        opacity: 0;
+    }
+    
+    .line-3.active-lines {
+        transform: rotate(405deg) translate(-5px, -6px);
+    }
+
     .header {
         position: fixed; 
         right: 0;        
