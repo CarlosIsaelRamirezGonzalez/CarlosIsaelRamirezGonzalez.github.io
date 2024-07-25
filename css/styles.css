@@ -22,7 +22,6 @@ html, body {
     position: fixed;
     background-color: white;
     top: 0;
-    left: 0;
     z-index: 100;
     box-shadow: 0 1px 4px rgba(146, 161, 176, 0.15);
 }
@@ -593,12 +592,13 @@ html, body {
 @media (max-width: 900px) {
     .menu-icon {
         display: block;
-        margin-top: 3rem;
-        cursor: pointer;
+        position: absolute;
+        margin-top: 1.5rem;
+        right: 1.5rem;
     }
     
     .line {
-        height: .2rem; /*2 pixels*/
+        height: .2rem;
         width: 2.5rem;
         background-color: #222;
         margin-bottom: .6rem;
@@ -606,38 +606,43 @@ html, body {
     }
     
     .line-1, .line-3 {
-        width: 1.8rem;
         transition: all .4s;
     }
     
-    .menu-icon:hover .line{
-        width: 2.5rem;
+    .header {
+        position: fixed; 
+        right: 0;        
+        height: 4.5rem;   
+        width: 100%;   
+        display: flex;
+        justify-content: flex-start;
+        background-color: white;
+        z-index: 100;
     }
     
-    .header {
-        width: 8rem;
-        height: 100%;
-        background-color: #eee;
-        position: fixed;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-        z-index: 10;
-        box-shadow: 0 1px 4px rgba(146, 161, 176, 0.15);
-    }
+    /* .nav-logo {
+        position: absolute; 
+        top: 0; 
+        left: 0;
+        transform: translate(2rem, 2rem); 
+    } */
     
     .navbar {
-        position: fixed;
-        left: -32rem;
-        width: 40rem;
-        height: 100%;
+        position: absolute;
+        height: 90vh;
+        width: 20rem;
+        top: 4rem;
+        right: -20rem;
+        background-color: white;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-        z-index: 5;
-        transition: left .8s cubic-bezier(1, 0, 0, 1);
+        justify-content: flex-end;
+        z-index: 100;
+        transition: all .5s
+    }
+
+    .navbar.nav-active {
+        right: 0;
     }
     
 
