@@ -739,6 +739,39 @@ html, body {
     /* end of projects */
 
     /* skills */
+    .skills {
+        margin-bottom: 0;
+    }
+    .skills h2{
+        margin: 1rem 1rem;
+        text-align: center;
+        font-size: 1.5rem;
+        font-weight: 400;
+    }
+    .skills-container {
+        width: 100%;
+    }
+    .skills-img {
+        height: 5rem;
+        width: 5rem;
+        margin: 1rem 2rem;
+    }
+    .large-img {
+        width: 6.5rem;
+        margin: 2rem 5.5rem;
+    }
     /* end of skills */
+    /* contact */
+    .contact-container {
+        height: 20rem;
+        width: 40rem;
+    }
+    .presentation-info-icons.contact-card {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+    }
+    /* end of contact */
 }
 /* end of media querys */
