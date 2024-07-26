@@ -655,6 +655,9 @@ html, body {
     .nav-link {
         margin: 0;
     }
+    .nav-link:hover::after {
+        width: 35%;
+    }
     
     .navbar.nav-active {
         right: 0;
