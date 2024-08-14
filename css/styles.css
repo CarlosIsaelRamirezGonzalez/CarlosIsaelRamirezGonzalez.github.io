@@ -13,8 +13,26 @@ body {
 html, body {
     overflow-x: hidden;
 }
-
 /* end of common styles */
+
+/* animated item */
+.animated-item {
+    transform: translateY(1.5rem);
+    opacity: 0;
+}
+
+.animated-item.show {
+    animation: show-animation .3s .3s backwards;
+    animation-fill-mode: forwards;
+}
+@keyframes show-animation {
+    100% {
+        opacity: 1; 
+        transform: translateY(0);
+    }
+
+}
+/* end of animated item */
 
 /* navbar */
 .header {
@@ -500,6 +518,10 @@ html, body {
     width: 8.8rem;
     margin: .3rem;
     /* border-radius: 1rem; */
+}
+
+.small-icon {
+    width: 7rem;
 }
 /* end of technologies icons */
 
