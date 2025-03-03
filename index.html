@@ -1,228 +1,144 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/e8af35a10c.js" crossorigin="anonym ous"></script>
-    <link rel="shortcut icon" href="img/laptop.png">
-    <link rel="stylesheet" href="css/styles.css">
-    <title>Carlos Ramirez: Software Developer</title>
-</head>
-<body>
-   <header class="header">
-        <div class="menu-icon">
-            <div class="line line-1"></div>
-            <div class="line line-2"></div>
-            <div class="line line-3"></div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Estudios Predictivos</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Arial, sans-serif;
+      }
+
+      body {
+        line-height: 1.6;
+        background-color: #f0f4f8;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      header {
+        text-align: center;
+        padding: 40px 0;
+        background: linear-gradient(135deg, #2c3e50, #3498db);
+        color: white;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        padding: 40px 0;
+      }
+
+      .card {
+        background: white;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+      }
+
+      .card img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 5px;
+        margin-bottom: 15px;
+      }
+
+      h2 {
+        color: #2c3e50;
+        margin-bottom: 15px;
+        border-left: 4px solid #3498db;
+        padding-left: 10px;
+      }
+
+      .example-section {
+        background: #fff;
+        margin: 30px 0;
+        padding: 30px;
+        border-radius: 10px;
+      }
+
+      @media (max-width: 768px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+
+        header h1 {
+          font-size: 1.8em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <h1>Estudios Predictivos</h1>
+        <p>Tecnología para anticipar el futuro</p>
+      </div>
+    </header>
+
+    <main class="container">
+      <div class="grid">
+        <div class="card">
+          <h2>Características</h2>
+          <ul>
+            <li>Uso de datos históricos</li>
+            <li>Algoritmos de machine learning</li>
+            <li>Modelos estadísticos avanzados</li>
+          </ul>
         </div>
 
-        <nav class="navbar">
-            <a href="#presentation" class="nav-static-link nav-logo">Carlos</a>
-            <a href="#presentation" class="nav-link nav-home">Index</a>
-            <a href="#about" class="nav-link nav-about">Sobre mi</a>
-            <a href="#projects" class="nav-link nav-proyects">Proyectos</a>
-            <a href="#skills" class="nav-link nav-skills">Habilidades</a>
-            <a href="#contact" class="nav-link nav-contact">Contacto</a>
-            <div class="nav-language">
-                <a id="nav-esp" href="#" class="nav-static-link">ES</a>
-                <a id="nav-eng" href="/index-en.html" class="nav-static-link">EN</a>
-            </div>
-        </nav>
-   </header>
-   <main class="main">
-        <section id="presentation" class="presentation">    
-            <div class="presentation-info">
-                <p>
-                    Hola, <br>
-                    Soy Carlos <br>
-                    <span class="highlight">SOFTWARE <br> DEVELOPER.</span>
-                </p>
-                
-                <button onclick="redirectToPage('https://drive.google.com/file/d/1mReIIhk4aATOTTniNqQyeG0ih82XZo9J/view?usp=sharing')">Ver CV</button>
-                
-                <div class="presentation-info-icons">
-                    <a href="https://github.com/CarlosIsaelRamirezGonzalez" target="_blank">
-                        <i class="fa-brands fa-square-github"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/in/carlosirgonzalez/" target="_blank">
-                        <i class="fa-brands fa-linkedin"></i>
-                    </a>
-                    <a href="https://mail.google.com/mail/u/0/?fs=1&tf=cm&to=carlosramirez3982@gmail.com" target="_blank">
-                        <i class="fa-solid fa-envelope"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="presentation-img">
-                <!-- adsasd -->
-                <img src="img/selfie.png" alt="selfie.png">
-            </div>
-        </section>
-        <section id="about" class="about">
-            <div class="about-myself myself animated-item">
-                <h1>¿Quien soy?</h1>
-                <p>
-                    Mi nombre es Carlos, soy un apasionado por la tecnología, los deportes y la literatura, mis libros favoritos son "Sobre la felicidad y
-                    la brevedad de la vida" de Séneca y "El hombre en busca del sentido de la vida" de Viktor Frankl, en mis tiempos libres me gusta mucho 
-                    practicar boxeo y levantar pesas, considero que la fórmula para una vida feliz es la salud tanto física como mental, mis lemas de vida 
-                    son "La diciplina puede más que el talento" y "El conocimiento es de dominio público". Trato de aprender cosas nuevas en mi día a día, 
-                    desarrollar mis habilidades blandas como inteligencia emocional, trabajo en equipo, y asertividad.
-                </p>
-            </div>
-            <div class="about-myself-photos animated-item">            
-                <img src="/img/book-1.jpg" alt="" class="about-myself-image about-myself-image-1">
-                <img src="/img/myself-picture-1.jpeg" alt="" class="about-myself-image about-myself-image-2">
-                <img src="/img/book-2.jpeg" alt="" class="about-myself-image about-myself-image-3">
-                <img src="img/myself-paris.jpeg" alt="" class="about-myself-image about-myself-image-4">
-                <img src="/img/myelf-cv.jpeg" alt="" class="about-myself-image about-myself-image-5">
-                <img src="img/about-myself-chill.jpeg" alt="" class="about-myself-image about-myself-image-6">
-                <img src="/img/about-myself-fight.jpeg" alt="" class="about-myself-image about-myself-image-7">
-            </div>
-            <div class="about-myself education animated-item">
-                <h1>¿Que estudios tengo?</h1>
-                <p>
-                    Actualmente, poseo un título de Tecnólogo en Desarrollo de Software otorgado por el CETI Colomos. Sin embargo,
-                    mi carrera académica no se detiene ahí. A lo largo de los años, he complementado mi formación con una variedad
-                    de cursos en plataformas reconocidas como UDEMY y Platzi. Además, mi fuente de información favorita ha sido los
-                    libros de O'Reilly, que me han proporcionado una profunda comprensión de diversos temas técnicos. <br>
-                    No obstante no me he quedado solo con la teoria, he aplicado mis conocimientos en diversos proyectos que me 
-                    encantaria que les eches un vistazo :)         
-                </p>
-            </div>
-            
-            <div class="about-myself-photos animated-item">
-                <img src="/img/ceti-logo.jpg" alt="" class="about-myself-image about-myself-image-8">
-                <img src="/img/udemy-logo.jpg" alt="" class="about-myself-image about-myself-image-9">
-                <img src="/img/oreally-logo.png" alt="" class="about-myself-image about-myself-image-10">
-                <img src="img/platzi-logo.png" alt="" class="about-myself-image about-myself-image-11">
-            
-            </div>
-        </section>
-        <section id="projects" class="projects">
-            <h1 class="section-title">Mis proyectos</h1>
-            <div class="projects-container">
-                <div class="project animated-item">
-                    <img src="/img/alertai-image.png" alt="" class="project-front" onclick="redirectToPage('/about-alert-ai.html')"">
-                    <h2>Alert AI</h2>
-                    <div class="project-technologies">
-                        <img src="https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E" alt="" class="technology-icon">
-                        <img src="https://img.shields.io/badge/python-%233776AB.svg?style=for-the-badge&logo=python&logoColor=white" alt="" class="technology-icon">
-                        <img src="https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white" alt="" class="technology-icon">
-                        <img src="https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white" alt="" class="technology-icon">
-                        <img src="https://img.shields.io/badge/TensorFlow-%23FF6F00.svg?style=for-the-badge&logo=tensorflow&logoColor=white" alt="" class="technology-icon">
-                        <img src="https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white" alt="" class="technology-icon">
-                        <img src="https://img.shields.io/badge/mongodb-%2347A248.svg?style=for-the-badge&logo=mongodb&logoColor=white" alt="" class="technology-icon">
-                    </div>
-                </div>
+        <div class="card">
+          <h2>Resultados Obtenidos</h2>
+          <ul>
+            <li>Probabilidades de ocurrencia</li>
+            <li>Escenarios futuros</li>
+            <li>Patrones de comportamiento</li>
+          </ul>
+        </div>
 
-                <div class="project animated-item">
-                    <img src="/img/ladonaglaseada-image.png" alt="" class="project-front" onclick="redirectToPage('/about-la-dona.html')"">
-                    <h2>La Dona Glaseada</h2>
-                    <div class="project-technologies">
-                        <img src="https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E" alt="" class="technology-icon">
-                        <img src="https://img.shields.io/badge/python-%233776AB.svg?style=for-the-badge&logo=python&logoColor=white" alt="" class="technology-icon">
-                        <img src="https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white" alt="" class="technology-icon">
-                        <img src="https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white" alt="" class="technology-icon">
-                        <img src="https://img.shields.io/badge/django-%23092E20.svg?style=for-the-badge&logo=django&logoColor=white" alt="" class="technology-icon">
-                        <img src="https://img.shields.io/badge/sqlite-%2307408C.svg?style=for-the-badge&logo=sqlite&logoColor=white" alt="" class="technology-icon">
-                    </div>
-                </div>
+        <div class="card">
+          <h2>Propósito Principal</h2>
+          <ul>
+            <li>Optimizar recursos</li>
+            <li>Prevenir riesgos</li>
+            <li>Mejorar toma de decisiones</li>
+          </ul>
+        </div>
+      </div>
 
-                <div class="project animated-item">
-                    <img src="/img/las-carnalas.jpeg" alt="" class="project-front" onclick="redirectToPage('/about-la-dona.html')"">
-                    <h2>Las Carnalas App</h2>
-                    <div class="project-technologies">
-                        <img src="https://img.shields.io/badge/sqlite-%2307408C.svg?style=for-the-badge&logo=sqlite&logoColor=white" alt="" class="technology-icon">
-                        <img src="https://img.shields.io/badge/.NET%20MAUI-%23512BD4.svg?style=for-the-badge&logo=dotnet&logoColor=white" alt="" class="technology-icon">
-                        <img src="https://img.shields.io/badge/c%23-%23239120.svg?style=for-the-badge&logo=c-sharp&logoColor=white" alt="" class="technology-icon small-icon">
-                    </div>
-                </div>
-                
-                <div class="project animated-item">
-                    <img src="/img/la-cosecha.jpg" alt="" class="project-front" onclick="redirectToPage('/about-la-dona.html')"">
-                    <h2>Las Cosecha</h2>
-                    <div class="project-technologies">
-                        <img src="https://img.shields.io/badge/sqlite-%2307408C.svg?style=for-the-badge&logo=sqlite&logoColor=white" alt="" class="technology-icon">
-                        <img src="https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E" alt="" class="technology-icon">
-                        <img src="https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white" alt="" class="technology-icon">
-                        <img src="https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white" alt="" class="technology-icon">
-                        <img src="https://img.shields.io/badge/c%23-%23239120.svg?style=for-the-badge&logo=c-sharp&logoColor=white" alt="" class="technology-icon small-icon">
-                        <img src="https://img.shields.io/badge/blazor-%235C2D91.svg?style=for-the-badge&logo=blazor&logoColor=white" alt="" class="technology-icon">
-                        
-                    </div>
-                </div>
+      <div class="example-section">
+        <h2>Ejemplos Reales</h2>
+        <div class="grid" style="margin-top: 20px">
+          <div class="card">
+            <img src="https://unade.edu.mx/wp-content/uploads/2019/11/post-comercia-minorista-unade.jpg" alt="Ejemplo 1" />
+            <h3>Comercio Minorista</h3>
+            <p>Predicción de demanda de productos para optimizar inventarios</p>
+          </div>
 
-            </div>
-        </section>
-        <section id="skills" class="skills">
-            <h1 class="section-title">Habilidades</h1>
-            <h2>Lenguajes, frameworks, herramientas y bases de datos </h2>
-            <h3>Lenguajes</h3>
-            <div class="skills-container">
-                <img src="img/python.png" alt="python-logo" class="skills-img animated-item">
-                <img src="img/csharp.png" alt="csharp-logo" class="skills-img animated-item">
-                <img src="img/java.png" alt="java-logo" class="skills-img animated-item">
-                <img src="img/javascript.png" alt="js-logo" class="skills-img animated-item">
-                <img src="img/css.png" alt="css-logo" class="skills-img animated-item">
-                <img src="img/html.png" alt="html-logo" class="skills-img animated-item">
-            </div>
-            <h3>Frameworks</h3>
-            <div class="skills-container">
-                <img src="img/pytorch.png" alt="pytorch-logo" class="skills-img animated-item">
-                <img src="img/tensorflow.png" alt="tensorflow-logo" class="skills-img animated-item">
-                <img src="img/scikit-learn.png" alt="scikit-learn-logo" class="skills-img large-img animated-item">
-                <img src="img/flask.png" alt="flask-logo" class="skills-img animated-item">
-                <img src="img/django.png" alt="django-logo" class="skills-img animated-item">
-                <img src="img/Blazor.png" alt="Blazor-logo" class="skills-img animated-item">
-                <img src="img/maui.png" alt="maui-logo" class="skills-img animated-item">
-            </div>
-            <h3>Herramientas</h3>
-            <div class="skills-container">
-                <img src="img/docker.png" alt="docker-logo" class="skills-img animated-item">
-                <img src="img/git-scm.png" alt="git-scm-logo" class="skills-img animated-item">
-                <img src="img/github.png" alt="github-logo" class="skills-img animated-item">
-                <img src="img/beautifulsoup.png" alt="beautifulsoup-logo" class="skills-img large-img animated-item">
-                <img src="img/selenium.png" alt="selenium-logo" class="skills-img large-img animated-item">
-                <img src="img/numpy.png" alt="numpy-logo" class="skills-img animated-item">
-                <img src="img/pandas.png" alt="pandas-logo" class="skills-img animated-item">
-                <img src="img/seaborn.png" alt="seaborn-logo" class="skills-img animated-item">
-                <img src="img/matplotlib.png" alt="matplotlib-logo" class="skills-img animated-item">
-            </div>
-            <h3>Bases de datos</h3>
-            <div class="skills-container">
-                <img src="img/mariadb.png" alt="mariadb-logo" class="skills-img animated-item">
-                <img src="img/sqlite.png" alt="sqlite-logo" class="skills-img large-img animated-item">
-                <img src="img/mongodb.png" alt="mongodb-logo" class="skills-img large-img animated-item" >
-
-            </div>
-        </section>
-        <section id="contact" class="contact">
-            <h1 class="section-title">Contacto</h1>
-            <div class="contact-container animated-item">
-                <h2> <i class="fa-regular fa-envelope contact-icon" ></i> carlosramirez3982@gmail.com</h2>
-                <h2> <i class="fa-solid fa-phone contact-icon" ></i> +52 33 39 53 37 60</h2>
-                <h2> <i class="fa-solid fa-map-location-dot contact-icon" ></i> Guadalajara Jalisco Mexico</h2>
-                <div class="presentation-info-icons contact-card">
-                    <a href="https://github.com/CarlosIsaelRamirezGonzalez" target="_blank">
-                        <i class="fa-brands fa-square-github"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/in/carlosirgonzalez/" target="_blank">
-                        <i class="fa-brands fa-linkedin"></i>
-                    </a>
-                    <a href="https://mail.google.com/mail/u/0/?fs=1&tf=cm&to=carlosramirez3982@gmail.com" target="_blank">
-                        <i class="fa-solid fa-envelope"></i>
-                    </a>
-                </div>
-            </div>
-        </section>
-   </main>
-   <script src="js/language-selector.js"></script>
-   <script src="js/active-sidebar.js"></script>
-   <script src="js/redirectToPage.js"></script>
-   <script src="js/show-animation.js"></script>
-</body>
+          <div class="card">
+            <img
+              src="data:image/jpeg;base64,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"
+              alt="Ejemplo 2"
+            />
+            <h3>Salud Pública</h3>
+            <p>Modelos predictivos para prevención de epidemias</p>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
 </html>
