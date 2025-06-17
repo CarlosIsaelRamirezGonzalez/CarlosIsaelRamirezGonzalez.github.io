@@ -1,0 +1,91 @@
+/* common styles */
+html {
+    font-size: 62.5%;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+html,
+body {
+    overflow-x: hidden;
+}
+
+/* end of common styles */
+
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: #003366;
+    color: white;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* Mobile First: por defecto nav oculto */
+.nav-links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 70px;
+    right: 0;
+    background: #003366;
+    width: 200px;
+    padding: 20px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+
+.menu-toggle {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+}
+
+.menu-toggle span {
+    width: 25px;
+    height: 3px;
+    background: white;
+    display: block;
+    border-radius: 2px;
+}
+
+.nav-links.active {
+    display: flex;
+}
+
+/* Desktop: mostrar links horizontal y ocultar menú hamburguesa */
+@media (min-width: 768px) {
+    .nav-links {
+        display: flex;
+        flex-direction: row;
+        position: static;
+        background: none;
+        padding: 0;
+        width: auto;
+    }
+
+    .nav-links a {
+        margin: 0 15px;
+    }
+
+    .menu-toggle {
+        display: none;
+    }
+}
