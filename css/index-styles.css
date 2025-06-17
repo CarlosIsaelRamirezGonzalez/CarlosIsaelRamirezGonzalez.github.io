@@ -138,6 +138,11 @@ header {
   font-size: 2rem;
 }
 
+.logo span a {
+  color: var(--white);
+  text-decoration: none;
+}
+
 /* Mobile Navigation */
 .nav-links {
   display: none;
