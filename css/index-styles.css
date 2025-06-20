@@ -36,7 +36,7 @@ h6 {
 
 .container {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 0 20px;
 }
@@ -106,7 +106,6 @@ h6 {
   text-align: center;
 }
 
-/* Header Styles */
 header {
   background-color: var(--primary);
   color: var(--white);
@@ -143,7 +142,6 @@ header {
   text-decoration: none;
 }
 
-/* Mobile Navigation */
 .nav-links {
   display: none;
   flex-direction: column;
@@ -198,7 +196,6 @@ header {
   display: flex;
 }
 
-/* Hero Section */
 .hero {
   background: linear-gradient(rgba(0, 51, 102, 0.8), rgba(0, 26, 51, 0.9)),
     url("https://images.unsplash.com/photo-1506929562872-bb421503ef21?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1368&q=80")
@@ -236,7 +233,6 @@ header {
   margin-top: 30px;
 }
 
-/* About Section */
 .about {
   background-color: var(--white);
 }
@@ -289,14 +285,13 @@ header {
   display: block;
 }
 
-/* Services Section */
 .services {
   background-color: var(--light);
 }
 
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 30px;
 }
 
@@ -306,6 +301,11 @@ header {
   overflow: hidden;
   box-shadow: var(--shadow);
   transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-height: 100%;
 }
 
 .service-card:hover {
@@ -316,6 +316,7 @@ header {
 .service-img {
   height: 200px;
   overflow: hidden;
+  width: 100%;
 }
 
 .service-img img {
@@ -331,20 +332,34 @@ header {
 
 .service-content {
   padding: 25px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1;
 }
 
 .service-content h3 {
   color: var(--primary);
   font-size: 1.5rem;
   margin-bottom: 15px;
+  text-align: center;
+  width: 100%;
 }
 
 .service-content p {
   margin-bottom: 20px;
   color: var(--gray);
+  text-align: center;
+  flex-grow: 1;
 }
 
-/* Trust Section */
+.service-content .btn {
+  width: auto;
+  min-width: 180px;
+  margin-top: auto;
+}
+
 .trust {
   background: var(--primary);
   color: var(--white);
@@ -384,7 +399,6 @@ header {
   margin-bottom: 15px;
 }
 
-/* FAQ Section */
 .faq {
   background: var(--white);
 }
@@ -442,7 +456,6 @@ header {
   max-height: 500px;
 }
 
-/* Contact Section */
 .contact {
   background: linear-gradient(to right, var(--primary), var(--dark));
   color: var(--white);
@@ -501,7 +514,6 @@ header {
   resize: vertical;
 }
 
-/* Footer */
 footer {
   background: var(--dark);
   color: var(--white);
@@ -623,7 +635,6 @@ footer {
   opacity: 0.7;
 }
 
-/* Desktop Styles */
 @media (min-width: 768px) {
   .nav-links {
     display: flex;
@@ -692,5 +703,30 @@ footer {
 @media (min-width: 992px) {
   .hero h1 {
     font-size: 4.5rem;
+  }
+}
+
+@media (max-width: 1200px) {
+  .services-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 992px) {
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .services-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .service-card {
+    max-width: 400px;
+    margin: 0 auto;
   }
 }
