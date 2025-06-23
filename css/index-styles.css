@@ -130,7 +130,9 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
+  position: relative;
 }
+
 
 .logo {
   font-size: 1.8rem;
@@ -585,20 +587,23 @@ footer {
   align-items: center;
   justify-content: center;
   width: 28px;
-  /* Reducido de 40px */
   height: 28px;
-  /* Reducido de 40px */
   color: var(--white);
   transition: var(--transition);
   font-size: 14px;
-  /* Tamaño de ícono reducido */
 }
 
 .compact-social-links a:hover {
   color: var(--secondary);
-  /* Solo cambia el color al pasar el mouse */
   transform: scale(1.15);
-  /* Efecto de escala en lugar de movimiento */
+}
+
+/* Ocultar en móviles */
+@media (max-width: 768px) {
+  .compact-social-links {
+    display: none;
+  }
+
 }
 
 .footer-links h3,
@@ -897,9 +902,17 @@ footer {
 
 /* Animación flotante */
 @keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-8px); }
-  100% { transform: translateY(0px); }
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
 }
 
 /* Indicador de notificación */
@@ -917,9 +930,20 @@ footer {
 }
 
 @keyframes pulse {
-  0% { transform: scale(0.8); opacity: 1; }
-  70% { transform: scale(1.2); opacity: 0.7; }
-  100% { transform: scale(0.8); opacity: 1; }
+  0% {
+    transform: scale(0.8);
+    opacity: 1;
+  }
+
+  70% {
+    transform: scale(1.2);
+    opacity: 0.7;
+  }
+
+  100% {
+    transform: scale(0.8);
+    opacity: 1;
+  }
 }
 
 /* Responsive */
@@ -928,16 +952,16 @@ footer {
     bottom: 15px;
     right: 15px;
   }
-  
+
   .whatsapp-icon {
     width: 55px;
     height: 55px;
   }
-  
+
   .whatsapp-text {
     display: none;
   }
-  
+
   .whatsapp-icon::after {
     width: 14px;
     height: 14px;
