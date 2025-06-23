@@ -53,3 +53,39 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     }
   });
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("contact-form");
+  const submitButton = form.querySelector("button[type='submit']");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    submitButton.disabled = true;
+    const originalText = submitButton.innerText;
+    submitButton.innerText = "Enviando...";
+
+    const formData = new FormData(form);
+
+    fetch("https://formsubmit.co/brunisdan6@gmail.com", {
+      method: "POST",
+      body: formData
+    })
+    .then(response => {
+      if (response.ok) {
+        swal("¡Correo enviado!", "Te responderemos lo antes posible.", "success");
+        form.reset();
+      } else {
+        throw new Error("Algo falló");
+      }
+    })
+    .catch(error => {
+      swal("Error", "No se pudo enviar el formulario. Inténtalo más tarde.", "error");
+      console.error(error);
+    })
+    .finally(() => {
+      submitButton.disabled = false;
+      submitButton.innerText = originalText;
+    });
+  });
+});
