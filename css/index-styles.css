@@ -967,3 +967,37 @@ footer {
     height: 14px;
   }
 }
+
+.map-container {
+  margin: 50px 0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.google-map {
+  height: 400px;
+  width: 100%;
+  border: none;
+  display: block;
+}
+
+.map-address {
+  background: var(--primary);
+  color: white;
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.1rem;
+}
+
+.map-address i {
+  color: var(--secondary);
+}
+
+@media (max-width: 768px) {
+  .google-map {
+    height: 300px;
+  }
+}
