@@ -20,19 +20,36 @@
       <div class="header-container">
         <div class="logo">
           <i class="fas fa-truck-moving"></i>
-          <span><a href="#inicio">Transport Lito Inc</a></span>
+          <span
+            ><a href="#inicio" data-translate="company_name"
+              >Transport Lito Inc</a
+            ></span
+          >
         </div>
         <nav class="nav-links">
-          <a href="#inicio">Inicio</a>
-          <a href="#about-us">Sobre Nosotros</a>
-          <a href="#services">Servicios</a>
-          <a href="#legality-trust">Legalidad y Confianza</a>
-          <a href="#doubts">¿Dudas?</a>
+          <a href="#inicio" data-translate="nav_home">Inicio</a>
+          <a href="#about-us" data-translate="nav_about">Sobre Nosotros</a>
+          <a href="#services" data-translate="nav_services">Servicios</a>
+          <a href="#legality-trust" data-translate="nav_trust"
+            >Legalidad y Confianza</a
+          >
+          <a href="#doubts" data-translate="nav_doubts">¿Dudas?</a>
         </nav>
-        <div class="menu-toggle" id="menu-toggle">
-          <span></span>
-          <span></span>
-          <span></span>
+
+        <!-- Selector de idiomas - AÑADIDO -->
+        <div class="language-selector">
+          <button class="lang-btn-main" data-lang="es">ES</button>
+          <div class="lang-options">
+            <button class="lang-btn" data-lang="es">ES</button>
+            <button class="lang-btn" data-lang="en">EN</button>
+            <button class="lang-btn" data-lang="fr">FR</button>
+          </div>
+        </div>
+        <div class="compact-social-links">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
         </div>
       </div>
     </header>
@@ -40,14 +57,23 @@
     <!-- Hero Section -->
     <section class="hero" id="inicio">
       <div class="hero-content">
-        <h1>Soluciones Logísticas para tu Negocio</h1>
-        <p>
+        <h1 data-translate="hero_title">
+          Soluciones Logísticas para tu Negocio
+        </h1>
+        <p data-translate="hero_subtitle">
           Soluciones confiables de transporte, mudanza y logística en todo
           Canadá
         </p>
         <div class="hero-btns">
-          <a href="#services" class="btn">Nuestros Servicios</a>
-          <a href="#contact" class="btn btn-outline">Contactar Ahora</a>
+          <a href="#services" class="btn" data-translate="btn_services"
+            >Nuestros Servicios</a
+          >
+          <a
+            href="#contact"
+            class="btn btn-outline"
+            data-translate="btn_contact"
+            >Contactar Ahora</a
+          >
         </div>
       </div>
     </section>
@@ -56,47 +82,42 @@
     <section class="section about" id="about-us">
       <div class="container">
         <div class="section-title">
-          <h2>Sobre Nosotros</h2>
+          <h2 data-translate="about_title">Sobre Nosotros</h2>
         </div>
         <div class="about-content">
           <div class="about-text">
-            <h3>🤝 ¿Quiénes somos?</h3>
-            <p>
+            <h3 data-translate="about_heading">🤝 ¿Quiénes somos?</h3>
+            <p data-translate="about_text">
               Somos Transport Lito, una empresa registrada en Quebec y proveedor
               de servicios para la Ville de Montréal. Nos dedicamos a ofrecer
               soluciones integrales de transporte y logística a un mejor precio
               y con atención personalizada. Nuestro compromiso: puntualidad,
               seguridad y confianza.
             </p>
-            <!-- <p>
-              Nuestra flota moderna y personal altamente capacitado nos permite
-              garantizar entregas puntuales y en perfecto estado, adaptándonos a
-              las necesidades específicas de cada cliente.
-            </p> -->
 
             <div class="about-features">
               <div class="feature">
                 <i class="fas fa-check-circle"></i>
                 <div>
-                  <h4>Empresa registrada</h4>
+                  <h4 data-translate="feature1">Empresa registrada</h4>
                 </div>
               </div>
               <div class="feature">
                 <i class="fas fa-truck"></i>
                 <div>
-                  <h4>Servicio profesional</h4>
+                  <h4 data-translate="feature2">Servicio profesional</h4>
                 </div>
               </div>
               <div class="feature">
                 <i class="fas fa-map-marked-alt"></i>
                 <div>
-                  <h4>Cobertura en todo Cánada</h4>
+                  <h4 data-translate="feature3">Cobertura en todo Cánada</h4>
                 </div>
               </div>
               <div class="feature">
                 <i class="fas fa-boxes"></i>
                 <div>
-                  <h4>Atención 24/7</h4>
+                  <h4 data-translate="feature4">Atención 24/7</h4>
                 </div>
               </div>
             </div>
@@ -115,20 +136,19 @@
     <section class="section services" id="services">
       <div class="container">
         <div class="section-title">
-          <h2>🔧 Nuestros Servicios</h2>
+          <h2 data-translate="services_title">🔧 Nuestros Servicios</h2>
         </div>
         <div class="services-grid">
           <div class="service-card">
             <div class="service-img">
-              <img
-                src="./imagenes/servicios/mudanzas.png"
-                alt="Mudanzas"
-              />
+              <img src="./imagenes/servicios/mudanzas.png" alt="Mudanzas" />
             </div>
             <div class="service-content">
-              <h3>Mudanzas</h3>
-              <p>En todo Canadá.</p>
-              <a href="#contact" class="btn">Solicitar Cotización</a>
+              <h3 data-translate="service1">Mudanzas</h3>
+              <p data-translate="service1_desc">En todo Canadá.</p>
+              <a href="#contact" class="btn" data-translate="btn_quote"
+                >Solicitar Cotización</a
+              >
             </div>
           </div>
 
@@ -140,9 +160,15 @@
               />
             </div>
             <div class="service-content">
-              <h3>Instalación y desinstalación de mobiliario</h3>
-              <p>Para oficinas o espacios corporativos.</p>
-              <a href="#contact" class="btn">Solicitar Cotización</a>
+              <h3 data-translate="service2">
+                Instalación y desinstalación de mobiliario
+              </h3>
+              <p data-translate="service2_desc">
+                Para oficinas o espacios corporativos.
+              </p>
+              <a href="#contact" class="btn" data-translate="btn_quote"
+                >Solicitar Cotización</a
+              >
             </div>
           </div>
 
@@ -154,9 +180,13 @@
               />
             </div>
             <div class="service-content">
-              <h3>Alquiler de vehículos</h3>
-              <p>Vehículos de 7 pasajeros por día, semana o mes.</p>
-              <a href="#contact" class="btn">Solicitar Cotización</a>
+              <h3 data-translate="service3">Alquiler de vehículos</h3>
+              <p data-translate="service3_desc">
+                Vehículos de 7 pasajeros por día, semana o mes.
+              </p>
+              <a href="#contact" class="btn" data-translate="btn_quote"
+                >Solicitar Cotización</a
+              >
             </div>
           </div>
 
@@ -168,9 +198,13 @@
               />
             </div>
             <div class="service-content">
-              <h3>Recolección de residuos</h3>
-              <p>Escombros, materiales de construcción, desechos generales.</p>
-              <a href="#contact" class="btn">Solicitar Cotización</a>
+              <h3 data-translate="service4">Recolección de residuos</h3>
+              <p data-translate="service4_desc">
+                Escombros, materiales de construcción, desechos generales.
+              </p>
+              <a href="#contact" class="btn" data-translate="btn_quote"
+                >Solicitar Cotización</a
+              >
             </div>
           </div>
 
@@ -182,9 +216,13 @@
               />
             </div>
             <div class="service-content">
-              <h3>Transporte de empleados</h3>
-              <p>Hasta 18 pasajeros, empleados y aeropuerto-hotel.</p>
-              <a href="#contact" class="btn">Solicitar Cotización</a>
+              <h3 data-translate="service5">Transporte de empleados</h3>
+              <p data-translate="service5_desc">
+                Hasta 18 pasajeros, empleados y aeropuerto-hotel.
+              </p>
+              <a href="#contact" class="btn" data-translate="btn_quote"
+                >Solicitar Cotización</a
+              >
             </div>
           </div>
 
@@ -196,11 +234,13 @@
               />
             </div>
             <div class="service-content">
-              <h3>Transporte turístico</h3>
-              <p>
+              <h3 data-translate="service6">Transporte turístico</h3>
+              <p data-translate="service6_desc">
                 Viajes grupales o privados a destinos dentro de Canadá.
               </p>
-              <a href="#contact" class="btn">Solicitar Cotización</a>
+              <a href="#contact" class="btn" data-translate="btn_quote"
+                >Solicitar Cotización</a
+              >
             </div>
           </div>
 
@@ -212,23 +252,26 @@
               />
             </div>
             <div class="service-content">
-              <h3>Pintura residencial</h3>
-              <p>Interior / Exterior</p>
-              <a href="#contact" class="btn">Solicitar Cotización</a>
+              <h3 data-translate="service7">Pintura residencial</h3>
+              <p data-translate="service7_desc">Interior / Exterior</p>
+              <a href="#contact" class="btn" data-translate="btn_quote"
+                >Solicitar Cotización</a
+              >
             </div>
           </div>
 
           <div class="service-card">
             <div class="service-img">
-              <img
-                src="./imagenes/servicios/paqueteria.png"
-                alt="Paqueteria"
-              />
+              <img src="./imagenes/servicios/paqueteria.png" alt="Paqueteria" />
             </div>
             <div class="service-content">
-              <h3>Paquetería o productos pesados</h3>
-              <p>Entrega puntual y segura en toda Canadá.</p>
-              <a href="#contact" class="btn">Solicitar Cotización</a>
+              <h3 data-translate="service8">Paquetería o productos pesados</h3>
+              <p data-translate="service8_desc">
+                Entrega puntual y segura en toda Canadá.
+              </p>
+              <a href="#contact" class="btn" data-translate="btn_quote"
+                >Solicitar Cotización</a
+              >
             </div>
           </div>
         </div>
@@ -239,9 +282,9 @@
     <section class="section trust" id="legality-trust">
       <div class="container">
         <div class="section-title">
-          <h2>🔒 Legalidad y Confianza</h2>
-          <h3>Empresa de confianza</h3>
-          <p>
+          <h2 data-translate="trust_title">🔒 Legalidad y Confianza</h2>
+          <h3 data-translate="trust_heading">Empresa de confianza</h3>
+          <p data-translate="trust_text">
             En Transport Lito trabajamos con responsabilidad legal. Somos
             proveedores registrados de la Ville de Montréal y cumplimos con
             todos los requisitos establecidos por la provincia de Quebec.
@@ -250,27 +293,18 @@
         <div class="trust-content">
           <div class="trust-item">
             <i class="fas fa-file-contract"></i>
-            <h3>Empresa legalmente registrada</h3>
+            <h3 data-translate="trust1">Empresa legalmente registrada</h3>
           </div>
 
           <div class="trust-item">
             <i class="fas fa-shield-alt"></i>
-            <h3>Proovedor de confianza</h3>
+            <h3 data-translate="trust2">Proovedor de confianza</h3>
           </div>
 
           <div class="trust-item">
             <i class="fas fa-user-shield"></i>
-            <h3>Servicio garantizado</h3>
+            <h3 data-translate="trust3">Servicio garantizado</h3>
           </div>
-
-          <!-- <div class="trust-item">
-            <i class="fas fa-map-marker-alt"></i>
-            <h3>Seguimiento en Tiempo Real</h3>
-            <p>
-              Monitoreo GPS de todos nuestros vehículos para garantizar la
-              seguridad y puntualidad.
-            </p>
-          </div> -->
         </div>
       </div>
     </section>
@@ -279,15 +313,15 @@
     <section class="section faq" id="doubts">
       <div class="container">
         <div class="section-title">
-          <h2>Preguntas Frecuentes</h2>
+          <h2 data-translate="faq_title">Preguntas Frecuentes</h2>
         </div>
         <div class="faq-container">
           <div class="faq-item">
-            <div class="faq-question">
+            <div class="faq-question" data-translate="faq1">
               ¿Cómo puedo cotizar un servicio de transporte?
             </div>
             <div class="faq-answer">
-              <p>
+              <p data-translate="faq1_answer">
                 Puedes contactarnos a través de nuestro formulario de contacto,
                 llamarnos por teléfono o enviarnos un correo electrónico con los
                 detalles de tu carga (tipo, peso, dimensiones, origen y
@@ -298,9 +332,11 @@
           </div>
 
           <div class="faq-item">
-            <div class="faq-question">¿Qué zonas geográficas cubren?</div>
+            <div class="faq-question" data-translate="faq2">
+              ¿Qué zonas geográficas cubren?
+            </div>
             <div class="faq-answer">
-              <p>
+              <p data-translate="faq2_answer">
                 Ofrecemos cobertura en todo el territorio nacional, con
                 servicios especiales para zonas metropolitanas, ciudades
                 principales y áreas rurales. Contamos con rutas establecidas en
@@ -310,9 +346,11 @@
           </div>
 
           <div class="faq-item">
-            <div class="faq-question">¿Qué tipo de mercancías transportan?</div>
+            <div class="faq-question" data-translate="faq3">
+              ¿Qué tipo de mercancías transportan?
+            </div>
             <div class="faq-answer">
-              <p>
+              <p data-translate="faq3_answer">
                 Transportamos todo tipo de mercancías generales, incluyendo
                 productos perecederos, materiales de construcción, productos
                 industriales, maquinaria y equipos especiales. Para mercancías
@@ -322,11 +360,11 @@
           </div>
 
           <div class="faq-item">
-            <div class="faq-question">
+            <div class="faq-question" data-translate="faq4">
               ¿Ofrecen servicios de almacenamiento?
             </div>
             <div class="faq-answer">
-              <p>
+              <p data-translate="faq4_answer">
                 Sí, contamos con centros de distribución estratégicamente
                 ubicados con áreas de almacenamiento seguras y climatizadas
                 según las necesidades de tu mercancía. Ofrecemos soluciones
@@ -336,11 +374,11 @@
           </div>
 
           <div class="faq-item">
-            <div class="faq-question">
+            <div class="faq-question" data-translate="faq5">
               ¿Cómo realizan el seguimiento de los envíos?
             </div>
             <div class="faq-answer">
-              <p>
+              <p data-translate="faq5_answer">
                 Todos nuestros vehículos están equipados con sistemas GPS de
                 última generación. Puedes realizar seguimiento en tiempo real a
                 través de nuestra plataforma online o recibir actualizaciones
@@ -356,94 +394,119 @@
     <section class="section contact" id="contact">
       <div class="container">
         <div class="section-title">
-          <h2>Contacto</h2>
+          <h2 data-translate="contact_title" class="aux">Contacto</h2>
         </div>
         <div class="contact-container">
           <div class="contact-info">
-            <h3>Información de Contacto</h3>
-            <p>Transport Lito</p>
+            <h3 data-translate="contact_info">Información de Contacto</h3>
+            <p data-translate="company_name">Transport Lito</p>
             <div class="contact-item">
               <i class="fas fa-map-marker-alt"></i>
               <div>
-                <h4>Dirección</h4>
-                <p>Av. Logística 1234, Zona Industrial, Ciudad</p>
+                <h4 data-translate="address">Dirección</h4>
+                <p data-translate="address_value">
+                  Av. Logística 1234, Zona Industrial, Ciudad
+                </p>
               </div>
             </div>
 
             <div class="contact-item">
               <i class="fas fa-phone-alt"></i>
               <div>
-                <h4>Teléfono</h4>
-                <p>+1 514 560 3404</p>
+                <h4 data-translate="phone">Teléfono</h4>
+                <p data-translate="phone_value">+1 514 560 3404</p>
               </div>
             </div>
 
             <div class="contact-item">
               <i class="fas fa-envelope"></i>
               <div>
-                <h4>Email</h4>
-                <p>rafcaceresjr16@gmail.com</p>
+                <h4 data-translate="email">Email</h4>
+                <p data-translate="email_value">rafcaceresjr16@gmail.com</p>
               </div>
             </div>
-
-            <!-- <div class="contact-item">
-              <i class="fas fa-clock"></i>
-              <div>
-                <h4>Horario de Atención</h4>
-                <p>
-                  Lunes a Viernes: 8:00 AM - 6:00 PM<br />Sábados: 9:00 AM -
-                  1:00 PM
-                </p>
-              </div>
-            </div> -->
           </div>
 
           <div class="contact-form">
-            <h3>Envíanos un Mensaje</h3>
+            <h3 data-translate="contact_form_title">Envíanos un Mensaje</h3>
 
-            <form id="contact-form" action="https://formsubmit.co/brunisdan6@gmail.com" method="POST">
+            <form
+              id="contact-form"
+              action="https://formsubmit.co/brunisdan6@gmail.com"
+              method="POST"
+            >
               <div class="form-group">
-                <label for="name">Nombre Completo</label>
+                <label for="name" data-translate="name_label"
+                  >Nombre Completo</label
+                >
                 <input type="text" id="name" name="Nombre" required />
               </div>
 
               <div class="form-group">
-                <label for="email">Correo Electrónico</label>
+                <label for="email" data-translate="email_label"
+                  >Correo Electrónico</label
+                >
                 <input type="email" id="email" name="Email" required />
               </div>
 
               <div class="form-group">
-                <label for="phone">Teléfono</label>
+                <label for="phone" data-translate="phone_label">Teléfono</label>
                 <input type="number" id="phone" name="Teléfono" />
               </div>
 
               <div class="form-group">
-                <label for="service">Servicio de Interés</label>
+                <label for="service" data-translate="service_label"
+                  >Servicio de Interés</label
+                >
                 <select id="service" name="Servicio" required>
-                  <option value="">Seleccione un servicio</option>
-                  <option value="local">Transporte Local</option>
-                  <option value="national">Transporte Nacional</option>
-                  <option value="heavy">Carga Pesada</option>
-                  <option value="other">Otro</option>
+                  <option value="" data-translate="service_default">
+                    Seleccione un servicio
+                  </option>
+                  <option value="local" data-translate="service1_opt">
+                    Transporte Local
+                  </option>
+                  <option value="national" data-translate="service2_opt">
+                    Transporte Nacional
+                  </option>
+                  <option value="heavy" data-translate="service3_opt">
+                    Carga Pesada
+                  </option>
+                  <option value="other" data-translate="service4_opt">
+                    Otro
+                  </option>
                 </select>
               </div>
 
               <div class="form-group">
-                <label for="message">Mensaje</label>
+                <label for="message" data-translate="message_label"
+                  >Mensaje</label
+                >
                 <textarea id="message" name="Mensaje" required></textarea>
               </div>
 
-              <button type="submit" class="btn">Enviar Mensaje</button>
-              <input type="hidden" name="_next" value="http://127.0.0.1:5500/index.html">
-              <input type="hidden" name="_captcha" value="false">
-              <input type="hidden" name="_template" value="table">
-
+              <button type="submit" class="btn" data-translate="send_btn">
+                Enviar Mensaje
+              </button>
+              <input
+                type="hidden"
+                name="_next"
+                value="http://127.0.0.1:5500/index.html"
+              />
+              <input type="hidden" name="_captcha" value="false" />
+              <input type="hidden" name="_template" value="table" />
             </form>
           </div>
         </div>
       </div>
     </section>
-
+    <div class="whatsapp-float">
+      <a href="https://wa.me/1234567890" target="_blank" class="whatsapp-link">
+        <div class="whatsapp-icon">
+          <i class="fab fa-whatsapp"></i>
+        </div>
+        <span class="whatsapp-text">¿Necesitas ayuda?</span>
+      </a>
+    </div>
     <!-- Footer -->
     <footer>
       <div class="container">
@@ -451,9 +514,9 @@
           <div class="footer-about">
             <div class="footer-logo">
               <i class="fas fa-truck-moving"></i>
-              <span>Transport Lito Inc</span>
+              <span data-translate="company_name">Transport Lito Inc</span>
             </div>
-            <p>
+            <p data-translate="footer_text">
               Soluciones logísticas confiables y eficientes para empresas de
               todos los tamaños. Transportamos tus sueños con seguridad y
               puntualidad.
@@ -467,50 +530,97 @@
           </div>
 
           <div class="footer-links">
-            <h3>Enlaces Rápidos</h3>
+            <h3 data-translate="quick_links">Enlaces Rápidos</h3>
             <ul>
-              <li><a href="#inicio">Inicio</a></li>
-              <li><a href="#about-us">Sobre Nosotros</a></li>
-              <li><a href="#services">Servicios</a></li>
-              <li><a href="#legality-trust">Legalidad y Confianza</a></li>
-              <li><a href="#doubts">Preguntas Frecuentes</a></li>
+              <li><a href="#inicio" data-translate="nav_home">Inicio</a></li>
+              <li>
+                <a href="#about-us" data-translate="nav_about"
+                  >Sobre Nosotros</a
+                >
+              </li>
+              <li>
+                <a href="#services" data-translate="nav_services">Servicios</a>
+              </li>
+              <li>
+                <a href="#legality-trust" data-translate="nav_trust"
+                  >Legalidad y Confianza</a
+                >
+              </li>
+              <li>
+                <a href="#doubts" data-translate="nav_doubts"
+                  >Preguntas Frecuentes</a
+                >
+              </li>
             </ul>
           </div>
 
           <div class="footer-links">
-            <h3>Nuestros Servicios</h3>
+            <h3 data-translate="our_services">Nuestros Servicios</h3>
             <ul>
-              <li><a href="#services">Pintura</a></li>
-              <li><a href="#services">Mudanzas</a></li>
-              <li><a href="#services">Paquetería</a></li>
-              <li><a href="#services">Transporte turístico</a></li>
-              <li><a href="#services">Alquiles de Vehículos</a></li>
-              <li><a href="#services">Transporte de empleados</a></li>
-              <li><a href="#services">Recolección de residuos</a></li>
-              <li><a href="#services">Instalación y Desintalación</a></li>
+              <li><a href="#services" data-translate="service7">Pintura</a></li>
+              <li>
+                <a href="#services" data-translate="service1">Mudanzas</a>
+              </li>
+              <li>
+                <a href="#services" data-translate="service8">Paquetería</a>
+              </li>
+              <li>
+                <a href="#services" data-translate="service6"
+                  >Transporte turístico</a
+                >
+              </li>
+              <li>
+                <a href="#services" data-translate="service3"
+                  >Alquiles de Vehículos</a
+                >
+              </li>
+              <li>
+                <a href="#services" data-translate="service5"
+                  >Transporte de empleados</a
+                >
+              </li>
+              <li>
+                <a href="#services" data-translate="service4"
+                  >Recolección de residuos</a
+                >
+              </li>
+              <li>
+                <a href="#services" data-translate="service2"
+                  >Instalación y Desintalación</a
+                >
+              </li>
             </ul>
           </div>
 
           <div class="footer-newsletter">
-            <h3>Boletín Informativo</h3>
-            <p>
+            <h3 data-translate="newsletter">Boletín Informativo</h3>
+            <p data-translate="newsletter_text">
               Suscríbete para recibir nuestras últimas noticias y ofertas
               especiales.
             </p>
             <div class="newsletter-form">
-              <input type="email" placeholder="Tu correo electrónico" />
-              <button class="btn">Suscribir</button>
+              <input
+                type="email"
+                placeholder="Tu correo electrónico"
+                data-translate="email_placeholder"
+              />
+              <button class="btn" data-translate="subscribe_btn">
+                Suscribir
+              </button>
             </div>
           </div>
         </div>
 
         <div class="copyright">
-          <p>&copy; 2023 Transport Lito Inc. Todos los derechos reservados.</p>
+          <p data-translate="copyright">
+            &copy; 2023 Transport Lito Inc. Todos los derechos reservados.
+          </p>
         </div>
       </div>
     </footer>
 
     <script src="./js/app.js"></script>
+    <script src="./js/toggle-languages.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   </body>
 </html>
