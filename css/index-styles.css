@@ -1,8 +1,8 @@
 :root {
   --primary: #014993;
-  --secondary: #F5AA1B;
+  --secondary: #f5aa1b;
   --light: #f5f8fa;
-  --dark: #00213A;
+  --dark: #00213a;
   --gray: #6c757d;
   --white: #ffffff;
   --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -95,7 +95,6 @@ h6 {
   color: var(--white);
   display: inline-block;
   position: relative;
-
 }
 
 .section-title h2::after {
@@ -133,13 +132,18 @@ header {
   position: relative;
 }
 
-
 .logo {
   font-size: 1.8rem;
   font-weight: 700;
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+.logo img {
+  width: 70px;
+  height: auto;
+  border-radius: 50%;
 }
 
 .logo i {
@@ -207,39 +211,180 @@ header {
 }
 
 .hero {
-  background: linear-gradient(rgba(0, 51, 102, 0.8), rgba(0, 26, 51, 0.9)),
-    url("https://images.unsplash.com/photo-1506929562872-bb421503ef21?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1368&q=80") center/cover no-repeat;
+  background: linear-gradient(
+      to right,
+      rgba(2, 17, 55, 1),
+      rgba(1, 73, 147, 0.15)
+    ),
+    url("/imagenes/header/city-header.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
   height: 100vh;
+  width: 100vw;
   display: flex;
   align-items: center;
   color: var(--white);
-  text-align: center;
-  padding-top: 70px;
+  padding: 70px 40px;
+  box-sizing: border-box;
 }
 
 .hero-content {
-  max-width: 800px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1300px;
   margin: 0 auto;
-  padding: 0 20px;
+  gap: 40px;
+  flex-wrap: wrap;
 }
 
-.hero h1 {
-  font-size: 3.5rem;
+.hero .logo img {
+  width: 350px;
+  height: auto;
+}
+
+.hero-text {
+  flex: 1;
+  min-width: 300px;
+  text-align: left;
+}
+
+.hero-text h3 {
+  font-size: 4rem;
   margin-bottom: 20px;
-  line-height: 1.2;
+  line-height: 1;
 }
 
-.hero p {
-  font-size: 1.4rem;
+.hero-text .sub {
+  font-size: 2.5rem;
   margin-bottom: 30px;
   font-weight: 300;
 }
 
-.hero-btns {
+.hero-form {
+  background-color: rgba(0, 33, 64, 0.9);
+  padding: 30px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 400px;
+  flex-shrink: 0;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  margin-top: 5%;
+}
+
+.hero-form h3 {
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.hero-form form {
   display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin-top: 30px;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 10px 14px;
+  border-radius: 6px;
+  border: none;
+  font-size: 0.95rem;
+  background-color: #f9f9f9;
+  color: #000;
+  outline: none;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.hero-form .btn {
+  margin-top: 10px;
+  background-color: #ffc107;
+  color: #002140;
+  font-weight: bold;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  padding: 12px;
+  border-radius: 6px;
+  transition: background-color 0.3s;
+}
+
+.hero-form .btn:hover {
+  background-color: #e0a800;
+}
+
+/* BOTONES GENERALES */
+.btn {
+  padding: 10px 20px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: bold;
+  color: var(--dark);
+  background-color: #ffc107;
+  transition: background-color 0.3s;
+}
+
+.btn-outline {
+  background: transparent;
+  border: 2px solid #ffc107;
+  color: #ffc107;
+}
+
+.btn-outline:hover {
+  background-color: #ffc107;
+  color: #002140;
+}
+
+/* ✅ RESPONSIVO */
+@media (max-width: 900px) {
+  .hero {
+    height: auto;
+    padding: 40px 20px;
+  }
+
+  .hero-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero .logo img {
+    width: 180px;
+    margin-bottom: 20px;
+  }
+
+  .hero-text h1 {
+    font-size: 2rem;
+  }
+
+  .hero-text p {
+    font-size: 1rem;
+  }
+
+  .hero-form {
+    width: 100%;
+    max-width: 100%;
+    margin-top: 30px;
+  }
 }
 
 .about {
@@ -603,7 +748,6 @@ footer {
   .compact-social-links {
     display: none;
   }
-
 }
 
 .footer-links h3,
@@ -860,7 +1004,7 @@ footer {
 .whatsapp-icon {
   width: 60px;
   height: 60px;
-  background: #25D366;
+  background: #25d366;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -877,7 +1021,7 @@ footer {
 
 .whatsapp-text {
   background: white;
-  color: #075E54;
+  color: #075e54;
   padding: 8px 16px;
   border-radius: 25px;
   font-weight: 600;
@@ -923,7 +1067,7 @@ footer {
   right: -5px;
   width: 18px;
   height: 18px;
-  background: #FF3B30;
+  background: #ff3b30;
   border-radius: 50%;
   border: 2px solid white;
   animation: pulse 1.5s infinite;

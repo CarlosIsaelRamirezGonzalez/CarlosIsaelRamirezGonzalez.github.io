@@ -19,11 +19,11 @@
     <header>
       <div class="header-container">
         <div class="logo">
-          <i class="fas fa-truck-moving"></i>
           <span
-            ><a href="#inicio" data-translate="company_name"
-              >Transport Lito Inc</a
-            ></span
+            ><img
+              src="./imagenes/logo/logo-transportlito.png"
+              alt="Transport Lito Logo"
+            /><a href="#inicio">TRANSPORT LITO </a></span
           >
         </div>
         <nav class="nav-links">
@@ -57,23 +57,93 @@
     <!-- Hero Section -->
     <section class="hero" id="inicio">
       <div class="hero-content">
-        <h1 data-translate="hero_title">
-          Soluciones Logísticas para tu Negocio
-        </h1>
-        <p data-translate="hero_subtitle">
-          Soluciones confiables de transporte, mudanza y logística en todo
-          Canadá
-        </p>
-        <div class="hero-btns">
-          <a href="#services" class="btn" data-translate="btn_services"
-            >Nuestros Servicios</a
-          >
-          <a
-            href="#contact"
-            class="btn btn-outline"
-            data-translate="btn_contact"
+        <div class="logo">
+          <img
+            src="./imagenes/logo/logo-transportlito.png"
+            alt="Transport Lito Logo"
+          />
+        </div>
+        <div class="hero-text">
+          <h3 data-translate="hero_title">De la mudanza al destino final /</h3>
+          <p data-translate="hero_subtitle" class="sub">
+            Logística, transporte y soluciones ágiles para todo Cánada
+          </p>
+          <a href="#contact" class="btn" data-translate="btn_contact"
             >Contactar Ahora</a
           >
+        </div>
+        <div class="hero-form">
+          <div class="contact-form">
+            <h3 data-translate="hero_form_title">
+              ¿Listo para cotizar tu servicio?
+            </h3>
+
+            <form
+              id="contact-form"
+              action="https://formsubmit.co/brunisdan6@gmail.com"
+              method="POST"
+            >
+              <div class="form-group">
+                <label for="name" data-translate="name_label"
+                  >Nombre Completo</label
+                >
+                <input type="text" id="name" name="Nombre" required />
+              </div>
+
+              <div class="form-group">
+                <label for="email" data-translate="email_label"
+                  >Correo Electrónico</label
+                >
+                <input type="email" id="email" name="Email" required />
+              </div>
+
+              <div class="form-group">
+                <label for="phone" data-translate="phone_label">Teléfono</label>
+                <input type="number" id="phone" name="Teléfono" />
+              </div>
+
+              <div class="form-group">
+                <label for="service" data-translate="service_label"
+                  >Servicio de Interés</label
+                >
+                <select id="service" name="Servicio" required>
+                  <option value="" data-translate="service_default">
+                    Seleccione un servicio
+                  </option>
+                  <option value="local" data-translate="service1_opt">
+                    Transporte Local
+                  </option>
+                  <option value="national" data-translate="service2_opt">
+                    Transporte Nacional
+                  </option>
+                  <option value="heavy" data-translate="service3_opt">
+                    Carga Pesada
+                  </option>
+                  <option value="other" data-translate="service4_opt">
+                    Otro
+                  </option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="message" data-translate="message_label"
+                  >Mensaje</label
+                >
+                <textarea id="message" name="Mensaje" required></textarea>
+              </div>
+
+              <button type="submit" class="btn" data-translate="send_btn">
+                Enviar Mensaje
+              </button>
+              <input
+                type="hidden"
+                name="_next"
+                value="http://127.0.0.1:5500/index.html"
+              />
+              <input type="hidden" name="_captcha" value="false" />
+              <input type="hidden" name="_template" value="table" />
+            </form>
+          </div>
         </div>
       </div>
     </section>
@@ -524,7 +594,11 @@
       </div>
     </div>
     <div class="whatsapp-float">
-      <a href="https://wa.me/+15145603404" target="_blank" class="whatsapp-link">
+      <a
+        href="https://wa.me/+15145603404"
+        target="_blank"
+        class="whatsapp-link"
+      >
         <div class="whatsapp-icon">
           <i class="fab fa-whatsapp"></i>
         </div>

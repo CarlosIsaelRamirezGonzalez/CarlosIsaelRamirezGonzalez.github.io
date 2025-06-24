@@ -8,11 +8,12 @@ const translations = {
     nav_doubts: "¿Dudas?",
 
     // Hero Section
-    hero_title: "Soluciones Logísticas para tu Negocio",
-    hero_subtitle:
-      "Soluciones confiables de transporte, mudanza y logística en todo Canadá",
+    hero_title: "De la mudanza al destino final /",
+    hero_subtitle: "Logística, transporte y soluciones ágiles para todo Cánada",
     btn_services: "Nuestros Servicios",
     btn_contact: "Contactar Ahora",
+    // Hero Form
+    hero_form_title: "¿Listo para cotizar tu servicio?",
 
     // About Section
     about_title: "Sobre Nosotros",
