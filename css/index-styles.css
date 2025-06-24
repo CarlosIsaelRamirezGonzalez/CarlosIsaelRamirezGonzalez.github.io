@@ -260,7 +260,7 @@ header {
 }
 
 .hero-text .sub {
-  font-size: 2.5rem;
+  font-size: 2rem;
   margin-bottom: 30px;
   font-weight: 300;
 }
@@ -355,7 +355,7 @@ header {
 }
 
 /* ✅ RESPONSIVO */
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .hero {
     height: auto;
     padding: 40px 20px;
@@ -370,6 +370,7 @@ header {
   .hero .logo img {
     width: 180px;
     margin-bottom: 20px;
+    margin-top: 90%;
   }
 
   .hero-text h1 {
