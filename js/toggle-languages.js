@@ -19,7 +19,7 @@ const translations = {
     about_title: "Sobre Nosotros",
     about_heading: "🤝 ¿Quiénes somos?",
     about_text:
-      "Somos Transport Lito, una empresa registrada en Quebec y proveedor de servicios para la Ville de Montréal. Nos dedicamos a ofrecer soluciones integrales de transporte y logística a un mejor precio y con atención personalizada. Nuestro compromiso: puntualidad, seguridad y confianza.",
+      "Transportlito es una empresa registrada en Quebec y proveedor de servicios para la Ville de Montréal. Nos dedicamos a ofrecer soluciones integrales de transporte y logística a un mejor precio y con atención personalizada. Nuestro compromiso: puntualidad, seguridad y confianza.",
     feature1: "Empresa registrada",
     feature2: "Servicio profesional",
     feature3: "Cobertura en todo Cánada",
