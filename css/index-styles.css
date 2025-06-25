@@ -1,3 +1,12 @@
+@font-face {
+  font-family: "Montserrat-Regular";
+  src: url("../fonts/Montserrat-Regular.otf") format("truetype");
+}
+@font-face {
+  font-family: "Montserrat-SemiBold-Italic";
+  src: url("../fonts/Montserrat-SemiBoldItalic.otf") format("truetype");
+}
+
 :root {
   --primary: #014993;
   --secondary: #f5aa1b;
@@ -132,7 +141,7 @@ header {
   position: relative;
 }
 
-.logo {
+.header-container .logo {
   font-size: 1.8rem;
   font-weight: 700;
   display: flex;
@@ -141,9 +150,15 @@ header {
 }
 
 .logo img {
-  width: 70px;
-  height: auto;
-  border-radius: 50%;
+  width: 350px;
+  height: 100%;
+  margin-top: 5px;
+}
+
+@media (max-width: 900px) {
+  .logo img {
+    width: 200px;
+  }
 }
 
 .logo i {
@@ -244,6 +259,7 @@ header {
 
 .hero .logo img {
   width: 350px;
+  display: block;
   height: auto;
 }
 
@@ -254,15 +270,18 @@ header {
 }
 
 .hero-text h3 {
-  font-size: 4rem;
-  margin-bottom: 20px;
-  line-height: 1;
+  font-size: 3rem;
+  font-family: "Montserrat-SemiBold-Italic", sans-serif;
+  margin-bottom: 0;
+  line-height: 42pt;
 }
 
 .hero-text .sub {
-  font-size: 2rem;
+  margin: 0;
+  font-size: 3rem;
+  font-family: "Montserrat-Regular", sans-serif;
   margin-bottom: 30px;
-  font-weight: 300;
+  line-height: 42pt;
 }
 
 .hero-form {
@@ -273,7 +292,7 @@ header {
   max-width: 400px;
   flex-shrink: 0;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-  margin-top: 5%;
+  margin-top: 7.5%;
 }
 
 .hero-form h3 {
@@ -354,8 +373,7 @@ header {
   color: #002140;
 }
 
-/* ✅ RESPONSIVO */
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
   .hero {
     height: auto;
     padding: 40px 20px;
@@ -368,9 +386,9 @@ header {
   }
 
   .hero .logo img {
-    width: 180px;
+    width: 380px;
     margin-bottom: 20px;
-    margin-top: 90%;
+    margin-top: 50%;
   }
 
   .hero-text h1 {
@@ -927,8 +945,8 @@ footer {
 
 /* Botón principal visible */
 .lang-btn-main {
-  background: #f8f9fa;
-  border: 1px solid #ddd;
+  background: #f4aa1b;
+  border: 1px solid #f4aa1b;
   padding: 5px 10px;
   cursor: pointer;
   font-weight: bold;
@@ -944,8 +962,8 @@ footer {
   top: 100%;
   left: 0;
   width: 100%;
-  background: white;
-  border: 1px solid #ddd;
+  background: #f4aa1b;
+  border: 1px solid #f4aa1b;
   border-radius: 0 0 3px 3px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   opacity: 0;
