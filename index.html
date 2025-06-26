@@ -19,12 +19,11 @@
     <header>
       <div class="header-container">
         <div class="logo">
-          <i class="fas fa-truck-moving"></i>
-          <span
-            ><a href="#inicio" data-translate="company_name"
-              >Transport Lito Inc</a
-            ></span
-          >
+          <a href="#inicio"
+            ><img
+              src="./imagenes/logo/Logo_TransportLito_-04.png"
+              alt="Transport Lito Logo"
+          /></a>
         </div>
         <nav class="nav-links">
           <a href="#inicio" data-translate="nav_home">Inicio</a>
@@ -57,23 +56,86 @@
     <!-- Hero Section -->
     <section class="hero" id="inicio">
       <div class="hero-content">
-        <h1 data-translate="hero_title">
-          Soluciones Logísticas para tu Negocio
-        </h1>
-        <p data-translate="hero_subtitle">
-          Soluciones confiables de transporte, mudanza y logística en todo
-          Canadá
-        </p>
-        <div class="hero-btns">
-          <a href="#services" class="btn" data-translate="btn_services"
-            >Nuestros Servicios</a
-          >
-          <a
-            href="#contact"
-            class="btn btn-outline"
-            data-translate="btn_contact"
+        <div class="logo">
+          <img
+            src="./imagenes/logo/logo-transportlito-bco.png"
+            alt="Transport Lito Logo"
+          />
+        </div>
+        <div class="hero-text">
+          <h3 data-translate="hero_title">De la mudanza al destino final /</h3>
+          <p data-translate="hero_subtitle" class="sub">
+            Logística, transporte y soluciones ágiles para todo Cánada
+          </p>
+          <a href="#contact" class="btn" data-translate="btn_contact"
             >Contactar Ahora</a
           >
+        </div>
+        <div class="hero-form">
+          <div class="contact-form">
+            <h3 data-translate="hero_form_title">
+              ¿Listo para cotizar tu servicio?
+            </h3>
+
+            <form
+              id="contact-form"
+              action="https://formsubmit.co/brunisdan6@gmail.com"
+              method="POST"
+            >
+              <div class="form-group">
+                <label for="name" data-translate="name_label"
+                  >Nombre Completo</label
+                >
+                <input type="text" id="name" name="Nombre" required />
+              </div>
+
+              <div class="form-group">
+                <label for="email" data-translate="email_label"
+                  >Correo Electrónico</label
+                >
+                <input type="email" id="email" name="Email" required />
+              </div>
+
+              <div class="form-group">
+                <label for="phone" data-translate="phone_label">Teléfono</label>
+                <input type="number" id="phone" name="Teléfono" />
+              </div>
+
+              <div class="form-group">
+                <label for="service" data-translate="service_label"
+                  >Servicio de Interés</label
+                >
+                <select id="service" name="Servicio" required>
+                  <option value="service1_opt" data-translate="service1_opt">Mudanzas en todo Canadá</option>
+                  <option value="service2_opt" data-translate="service2_opt">Instalación y desinstalación de mobiliario</option>
+                  <option value="service3_opt" data-translate="service3_opt">Alquiler de vehículos</option>
+                  <option value="service4_opt" data-translate="service4_opt">Recolección de residuos</option>
+                  <option value="service5_opt" data-translate="service5_opt">Transporte turístico</option>
+                  <option value="service6_opt" data-translate="service6_opt">Transporte de empleados</option>
+                  <option value="service7_opt" data-translate="service7_opt">Paquetería</option>
+                  <option value="service8_opt" data-translate="service8_opt">Pintura residencial</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="message" data-translate="message_label"
+                  >Mensaje</label
+                >
+                <textarea id="message" name="Mensaje" required></textarea>
+              </div>
+
+              <button type="submit" class="btn" data-translate="send_btn">
+                Enviar Mensaje
+              </button>
+              <input
+                type="hidden"
+                name="_next"
+                value="http://127.0.0.1:5500/index.html"
+              />
+              <input type="hidden" name="_captcha" value="false" />
+              <input type="hidden" name="_template" value="table" />
+            </form>
+          </div>
         </div>
       </div>
     </section>
@@ -458,22 +520,16 @@
                 <label for="service" data-translate="service_label"
                   >Servicio de Interés</label
                 >
+                <div class="form-group">
                 <select id="service" name="Servicio" required>
-                  <option value="" data-translate="service_default">
-                    Seleccione un servicio
-                  </option>
-                  <option value="local" data-translate="service1_opt">
-                    Transporte Local
-                  </option>
-                  <option value="national" data-translate="service2_opt">
-                    Transporte Nacional
-                  </option>
-                  <option value="heavy" data-translate="service3_opt">
-                    Carga Pesada
-                  </option>
-                  <option value="other" data-translate="service4_opt">
-                    Otro
-                  </option>
+                  <option value="service1_opt" data-translate="service1_opt">Mudanzas en todo Canadá</option>
+                  <option value="service2_opt" data-translate="service2_opt">Instalación y desinstalación de mobiliario</option>
+                  <option value="service3_opt" data-translate="service3_opt">Alquiler de vehículos</option>
+                  <option value="service4_opt" data-translate="service4_opt">Recolección de residuos</option>
+                  <option value="service5_opt" data-translate="service5_opt">Transporte turístico</option>
+                  <option value="service6_opt" data-translate="service6_opt">Transporte de empleados</option>
+                  <option value="service7_opt" data-translate="service7_opt">Paquetería</option>
+                  <option value="service8_opt" data-translate="service8_opt">Pintura residencial</option>
                 </select>
               </div>
 
@@ -504,17 +560,7 @@
         <h3 data-translate="map_title">Nuestra Ubicación</h3>
       </div>
 
-      <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2796.692911910898!2d-73.56977272413238!3d45.5017139710723!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDXCsDMwJzA2LjIiTiA3M8KwMzQnMDguNyJX!5e0!3m2!1ses!2smx!4v1620000000000!5m2!1ses!2smx"
-        width="100%"
-        height="400"
-        style="border: 0"
-        allowfullscreen=""
-        loading="lazy"
-        class="google-map"
-      >
-      </iframe>
-
+         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2793.6764887442723!2d-73.5911883!3d45.55683309999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cc9197bfead4903%3A0x2b15894ef54ce0a3!2sTransport%20Lito!5e0!3m2!1ses!2smx!4v1750811297602!5m2!1ses!2smx" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       <div class="map-address">
         <i class="fas fa-map-marker-alt"></i>
         <span data-translate="address_value"
@@ -523,7 +569,11 @@
       </div>
     </div>
     <div class="whatsapp-float">
-      <a href="https://wa.me/+15145603404" target="_blank" class="whatsapp-link">
+      <a
+        href="https://wa.me/+15145603404"
+        target="_blank"
+        class="whatsapp-link"
+      >
         <div class="whatsapp-icon">
           <i class="fab fa-whatsapp"></i>
         </div>
