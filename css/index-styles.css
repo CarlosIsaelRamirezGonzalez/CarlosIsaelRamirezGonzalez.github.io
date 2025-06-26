@@ -2,6 +2,7 @@
   font-family: "Montserrat-Regular";
   src: url("../fonts/Montserrat-Regular.otf") format("truetype");
 }
+
 @font-face {
   font-family: "Montserrat-SemiBold-Italic";
   src: url("../fonts/Montserrat-SemiBoldItalic.otf") format("truetype");
@@ -15,7 +16,7 @@
   --gray: #6c757d;
   --white: #ffffff;
   --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  --transition: all 0.3s ease;
+  --transition: all 0.5s ease;
 }
 
 * {
@@ -66,7 +67,7 @@ h6 {
 }
 
 .btn:hover {
-  background-color: #e55d00;
+  background-color: #e0a800;
   transform: translateY(-2px);
   box-shadow: var(--shadow);
 }
@@ -226,11 +227,9 @@ header {
 }
 
 .hero {
-  background: linear-gradient(
-      to right,
+  background: linear-gradient(to right,
       rgba(2, 17, 55, 1),
-      rgba(1, 73, 147, 0.15)
-    ),
+      rgba(1, 73, 147, 0.15)),
     url("/imagenes/header/city-header.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -351,14 +350,16 @@ header {
   background-color: #e0a800;
 }
 
+
 /* BOTONES GENERALES */
 .btn {
   padding: 10px 20px;
   border-radius: 4px;
+  border: 2px solid #e0a800;
   text-decoration: none;
   font-weight: bold;
   color: var(--dark);
-  background-color: #ffc107;
+  background-color: white;
   transition: background-color 0.3s;
 }
 

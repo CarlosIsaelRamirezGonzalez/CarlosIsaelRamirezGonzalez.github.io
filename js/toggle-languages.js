@@ -123,7 +123,7 @@ const translations = {
     about_title: "About Us",
     about_heading: "🤝 Who are we?",
     about_text:
-      "We are Transport Lito, a company registered in Quebec and service provider for the Ville de Montréal. We are dedicated to offering comprehensive transportation and logistics solutions at a better price with personalized attention. Our commitment: punctuality, safety and trust.",
+      "Transportlito is a company registered in Quebec and service provider for the Ville de Montréal. We are dedicated to offering comprehensive transportation and logistics solutions at a better price with personalized attention. Our commitment: punctuality, safety and trust.",
     feature1: "Registered company",
     feature2: "Professional service",
     feature3: "Coverage throughout Canada",
@@ -217,7 +217,7 @@ const translations = {
     about_title: "À propos de nous",
     about_heading: "🤝 Qui sommes-nous?",
     about_text:
-      "Nous sommes Transport Lito, une société enregistrée au Québec et fournisseur de services pour la Ville de Montréal. Nous nous consacrons à offrir des solutions complètes de transport et de logistique à un meilleur prix avec une attention personnalisée. Notre engagement: ponctualité, sécurité et confiance.",
+      "Transportlito est une entreprise enregistrée au Québec et un fournisseur de services pour la Ville de Montréal. Nous nous engageons à fournir des solutions complètes de transport et de logistique au meilleur prix et avec une attention personnalisée. Notre engagement : ponctualité, sécurité et confiance.",
     feature1: "Entreprise enregistrée",
     feature2: "Service professionnel",
     feature3: "Couverture dans tout le Canada",
