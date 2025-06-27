@@ -285,12 +285,12 @@ header {
 
 
 .hero-form {
-  margin-top: 30px; /* Reducido de 80px */
+  margin-top: 190px; /* Reducido de 80px */
   background-color: rgba(0, 33, 64, 0.9);
   padding: 25px; /* Reducido de 30px */
   border-radius: 12px;
   width: 100%;
-  max-width: 600px !important;
+  max-width: 400px !important;
   flex-shrink: 0;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
   box-sizing: border-box; /* Asegura que el padding no aumente el tamaño total */
