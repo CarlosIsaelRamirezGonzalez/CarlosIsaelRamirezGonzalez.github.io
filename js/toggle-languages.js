@@ -6,7 +6,7 @@ const translations = {
     nav_services: "Servicios",
     nav_trust: "Legalidad y Confianza",
     nav_doubts: "¿Dudas?",
-
+    map_title: "Nuestra Ubicación",
     // Hero Section
     hero_title: "De la mudanza al destino final /",
     hero_subtitle: "Logística, transporte y soluciones ágiles para todo Cánada",
@@ -116,6 +116,9 @@ const translations = {
     nav_trust: "Legality and Trust",
     nav_doubts: "FAQs",
     hero_title: "Logistics Solutions for Your Business",
+    hero_form_title: "Ready to quote your service?",
+    map_title: "Our location",
+
     hero_subtitle:
       "Reliable transportation, moving and logistics solutions across Canada",
     btn_services: "Our Services",
@@ -216,6 +219,9 @@ const translations = {
     btn_contact: "Contactez-nous",
     about_title: "À propos de nous",
     about_heading: "🤝 Qui sommes-nous?",
+    hero_form_title: "Prêt à établir un devis pour votre service ?",
+    map_title: "Notre emplacement",
+
     about_text:
       "Transportlito est une entreprise enregistrée au Québec et un fournisseur de services pour la Ville de Montréal. Nous nous engageons à fournir des solutions complètes de transport et de logistique au meilleur prix et avec une attention personnalisée. Notre engagement : ponctualité, sécurité et confiance.",
     feature1: "Entreprise enregistrée",
