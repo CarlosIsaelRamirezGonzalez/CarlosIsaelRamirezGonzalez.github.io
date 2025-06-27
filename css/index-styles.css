@@ -285,15 +285,15 @@ header {
 
 
 .hero-form {
-  margin-top: 80px;
+  margin-top: 30px; /* Reducido de 80px */
   background-color: rgba(0, 33, 64, 0.9);
-  padding: 30px;
+  padding: 25px; /* Reducido de 30px */
   border-radius: 12px;
   width: 100%;
-  max-width: 400px;
-  max-height: 600px;
+  max-width: 600px !important;
   flex-shrink: 0;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  box-sizing: border-box; /* Asegura que el padding no aumente el tamaño total */
 }
 
 .hero-form h3 {
@@ -306,6 +306,51 @@ header {
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+@media (max-width: 1220px) {
+  .hero-form {
+    margin-top: 20px;
+    padding: 20px;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-form {
+    padding: 15px;
+  }
+  
+  .hero-form h3 {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    font-size: 0.8rem;
+  }
+  
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 4px 6px;
+    font-size: 0.85rem;
+  }
+  
+  .hero-form .btn {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-form {
+    padding: 12px;
+  }
+  
+  .form-group textarea {
+    min-height: 40px; /* Reducir altura mínima del textarea */
+  }
 }
 
 .form-group {
@@ -1339,3 +1384,7 @@ footer {
       0 0 0 6px var(--secondary);
   }
 }
+
+
+
+/* Acomodar esto */
