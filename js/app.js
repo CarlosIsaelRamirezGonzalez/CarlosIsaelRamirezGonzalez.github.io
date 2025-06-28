@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
     form.addEventListener("submit", function (e) {
       e.preventDefault();
 
-      const t = translations[currentLang]; // 🔄 obtener traducción actual
+      const t = translations[currentLang]; 
       submitButton.disabled = true;
       const originalText = submitButton.innerText;
       submitButton.innerText = t.sending_message;
@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
         body: formData
       })
         .then(response => {
-          const t = translations[currentLang]; // ✅ asegurarse de usar idioma actualizado
+          const t = translations[currentLang]; 
           if (response.ok) {
             swal(t.alert_success_title, t.alert_success_subtitle, "success");
             form.reset();
@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         })
         .catch(error => {
-          const t = translations[currentLang]; // ✅ también aquí
+          const t = translations[currentLang]; 
           swal(t.alert_error_title, t.alert_error_subtitle, "error");
           console.error(error);
         })
