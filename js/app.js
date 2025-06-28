@@ -56,43 +56,43 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   });
 });
 
-// Contact Form
 document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("contact-form");
-  
-  if (form) {
+  const forms = document.querySelectorAll(".contact-formulario");
+
+  forms.forEach(form => {
     const submitButton = form.querySelector("button[type='submit']");
-    
-    form.addEventListener("submit", function(e) {
+
+    form.addEventListener("submit", function (e) {
       e.preventDefault();
       submitButton.disabled = true;
       const originalText = submitButton.innerText;
       submitButton.innerText = "Enviando...";
 
       const formData = new FormData(form);
-
-      fetch("https://formsubmit.co/carlosramirez3982@gmail.com", {
+      const actionURL = form.getAttribute("action"); 
+      
+      fetch(actionURL, {
         method: "POST",
         body: formData
       })
-      .then(response => {
-        if (response.ok) {
-          swal("¡Correo enviado!", "Te responderemos lo antes posible.", "success");
-          form.reset();
-        } else {
-          throw new Error("Algo falló");
-        }
-      })
-      .catch(error => {
-        swal("Error", "No se pudo enviar el formulario. Inténtalo más tarde.", "error");
-        console.error(error);
-      })
-      .finally(() => {
-        submitButton.disabled = false;
-        submitButton.innerText = originalText;
-      });
+        .then(response => {
+          if (response.ok) {
+            swal("¡Correo enviado!", "Te responderemos lo antes posible.", "success");
+            form.reset();
+          } else {
+            throw new Error("Algo falló");
+          }
+        })
+        .catch(error => {
+          swal("Error", "No se pudo enviar el formulario. Inténtalo más tarde.", "error");
+          console.error(error);
+        })
+        .finally(() => {
+          submitButton.disabled = false;
+          submitButton.innerText = originalText;
+        });
     });
-  }
+  });
 
   // Inicializaciones
   initFAQAccordion();

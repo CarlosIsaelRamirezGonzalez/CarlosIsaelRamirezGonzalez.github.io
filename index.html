@@ -71,27 +71,21 @@
             >Contactar Ahora</a
           >
         </div>
+        
         <div class="hero-form">
           <div class="contact-form">
             <h3 data-translate="hero_form_title">
               ¿Listo para cotizar tu servicio?
             </h3>
 
-            <form
-              id="contact-form"
-              action="https://formsubmit.co/brunisdan6@gmail.com"
-              method="POST"
-            >
+            <form class="contact-formulario" id="form-contacto" action="https://formsubmit.co/carlosramirez3982@gmail.com" method="POST">
               <div class="form-group">
-                <label for="name" data-translate="name_label"
-                  >Nombre Completo</label
-                >
+                <label for="name" data-translate="name_label">Nombre Completo</label>
                 <input type="text" id="name" name="Nombre" required />
               </div>
 
               <div class="form-group">
-                <label for="email" data-translate="email_label"
-                  >Correo Electrónico</label
+                <label for="email" data-translate="email_label">Correo Electrónico</label
                 >
                 <input type="email" id="email" name="Email" required />
               </div>
@@ -124,14 +118,8 @@
                 <textarea id="message" name="Mensaje" required></textarea>
               </div>
 
-              <button type="submit" class="btn" data-translate="send_btn">
-                Enviar Mensaje
-              </button>
-              <input
-                type="hidden"
-                name="_next"
-                value="http://127.0.0.1:5500/index.html"
-              />
+              <button type="submit" class="btn" data-translate="send_btn">Enviar Mensaje</button>
+              <input type="hidden" name="_next" value="http://127.0.0.1:5500/index.html"/>
               <input type="hidden" name="_captcha" value="false" />
               <input type="hidden" name="_template" value="table" />
             </form>
@@ -576,12 +564,7 @@
           <div class="contact-form">
             <h3 data-translate="contact_form_title">Envíanos un Mensaje</h3>
 
-            <form
-              id="contact-form"
-              action="https://formsubmit.co/brunisdan6@gmail.com"
-              method="POST"
-            >
-              <div class="form-group">
+            <form class="contact-formulario" id="form-hero" action="https://formsubmit.co/carlosramirez3982@gmail.com" method="POST">              <div class="form-group">
                 <label for="name" data-translate="name_label"
                   >Nombre Completo</label
                 >
@@ -624,14 +607,8 @@
                 <textarea id="message" name="Mensaje" required></textarea>
               </div>
 
-              <button type="submit" class="btn" data-translate="send_btn">
-                Enviar Mensaje
-              </button>
-              <input
-                type="hidden"
-                name="_next"
-                value="http://127.0.0.1:5500/index.html"
-              />
+              <button type="submit" class="btn" data-translate="send_btn">Enviar Mensaje</button>
+              <input type="hidden" name="_next" value="http://127.0.0.1:5500/index.html"/>
               <input type="hidden" name="_captcha" value="false" />
               <input type="hidden" name="_template" value="table" />
             </form>
@@ -639,6 +616,7 @@
         </div>
       </div>
     </section>
+
     <div class="map-container">
       <div class="section-title">
         <h3 data-translate="map_title">Nuestra Ubicación</h3>
