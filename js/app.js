@@ -56,6 +56,8 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   });
 });
 
+
+// Form Submit
 document.addEventListener("DOMContentLoaded", () => {
   const forms = document.querySelectorAll(".contact-formulario");
 
@@ -64,27 +66,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
     form.addEventListener("submit", function (e) {
       e.preventDefault();
+
+      const t = translations[currentLang]; // 🔄 obtener traducción actual
       submitButton.disabled = true;
       const originalText = submitButton.innerText;
-      submitButton.innerText = "Enviando...";
+      submitButton.innerText = t.sending_message;
 
       const formData = new FormData(form);
-      const actionURL = form.getAttribute("action"); 
-      
+      const actionURL = form.getAttribute("action");
+
       fetch(actionURL, {
         method: "POST",
         body: formData
       })
         .then(response => {
+          const t = translations[currentLang]; // ✅ asegurarse de usar idioma actualizado
           if (response.ok) {
-            swal("¡Correo enviado!", "Te responderemos lo antes posible.", "success");
+            swal(t.alert_success_title, t.alert_success_subtitle, "success");
             form.reset();
           } else {
-            throw new Error("Algo falló");
+            throw new Error("Error");
           }
         })
         .catch(error => {
-          swal("Error", "No se pudo enviar el formulario. Inténtalo más tarde.", "error");
+          const t = translations[currentLang]; // ✅ también aquí
+          swal(t.alert_error_title, t.alert_error_subtitle, "error");
           console.error(error);
         })
         .finally(() => {
@@ -94,6 +100,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Inicializaciones
-  initFAQAccordion();
+  initFAQAccordion?.();
 });
+

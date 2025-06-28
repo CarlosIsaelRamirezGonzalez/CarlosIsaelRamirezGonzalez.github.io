@@ -1,5 +1,12 @@
 const translations = {
   es: {
+    // Alert
+    alert_success_title: "¡Correo enviado!",
+    alert_success_subtitle: "Te responderemos lo antes posible.",
+    alert_error_title: "¡ERROR!",
+    alert_error_subtitle: "No se pudo enviar el formulario. Inténtalo más tarde.",
+    sending_message: "Enviando...",
+
     // Navegación
     nav_home: "Inicio",
     nav_about: "Sobre Nosotros",
@@ -110,6 +117,13 @@ const translations = {
     copyright: "&copy; 2023 Transport Lito Inc. Todos los derechos reservados.",
   },
   en: {
+    // Alert
+    alert_success_title: "Message Sent!",
+    alert_success_subtitle: "We’ll get back to you as soon as possible.",
+    alert_error_title: "ERROR!",
+    alert_error_subtitle: "The form could not be sent. Please try again later.",
+    sending_message: "Sending...",
+
     nav_home: "Home",
     nav_about: "About Us",
     nav_services: "Services",
@@ -207,6 +221,13 @@ const translations = {
     copyright: "&copy; 2023 Transport Lito Inc. All rights reserved.",
   },
   fr: {
+    // Alert
+    alert_success_title: "Message envoyé !",
+    alert_success_subtitle: "Nous vous répondrons dans les plus brefs délais.",
+    alert_error_title: "ERREUR !",
+    alert_error_subtitle: "Le formulaire n’a pas pu être envoyé. Veuillez réessayer plus tard.",
+    sending_message: "Envoi...",
+
     nav_home: "Accueil",
     nav_about: "À propos de nous",
     nav_services: "Services",
@@ -306,8 +327,9 @@ const translations = {
 };
 
 // Función para cambiar el idioma
-// Función para cambiar el idioma
+let currentLang = "es";
 function changeLanguage(lang) {
+  currentLang = lang;
   // Actualizar botones activos
   document.querySelectorAll(".lang-btn").forEach((btn) => {
     btn.classList.toggle("active", btn.dataset.lang === lang);
