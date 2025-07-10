@@ -69,12 +69,12 @@ const translations = {
     faq2: "¿Qué zonas geográficas cubren?",
     faq2_answer:
       "Ofrecemos cobertura en todo el territorio nacional, con servicios especiales para zonas metropolitanas, ciudades principales y áreas rurales. Contamos con rutas establecidas en todas las regiones del país.",
-    faq3: "¿Qué tipo de mercancías transportan?",
+    faq3: "¿Qué zonas Geográficas cubrimos?",
     faq3_answer:
-      "Transportamos todo tipo de mercancías generales, incluyendo productos perecederos, materiales de construcción, productos industriales, maquinaria y equipos especiales. Para mercancías peligrosas, contamos con vehículos y permisos especiales.",
-    faq4: "¿Ofrecen servicios de almacenamiento?",
+      "Ofrecemos cobertura en todo Quebec, Montreal, Toronto, Ottawa y Todo Canadá",
+    faq4: "¿Qué tipo de carga transportamos?",
     faq4_answer:
-      "Sí, contamos con centros de distribución estratégicamente ubicados con áreas de almacenamiento seguras y climatizadas según las necesidades de tu mercancía. Ofrecemos soluciones logísticas integrales.",
+      "Transportamos objetos pesados, ligeros, todo tipo de muebles, electrodomésticos, residencial, industrial, comercial, larga y corta distancia por todo Canadá",
     faq5: "¿Cómo realizan el seguimiento de los envíos?",
     faq5_answer:
       "Todos nuestros vehículos están equipados con sistemas GPS de última generación. Puedes realizar seguimiento en tiempo real a través de nuestra plataforma online o recibir actualizaciones periódicas por correo electrónico o mensaje de texto.",
@@ -178,12 +178,12 @@ const translations = {
     faq2: "What geographic areas do you cover?",
     faq2_answer:
       "We offer coverage throughout the national territory, with special services for metropolitan areas, main cities and rural areas. We have established routes in all regions of the country.",
-    faq3: "What type of goods do you transport?",
+    faq3: "What geographical areas do we cover?",
     faq3_answer:
-      "We transport all types of general goods, including perishable products, construction materials, industrial products, machinery and special equipment. For dangerous goods, we have special vehicles and permits.",
-    faq4: "Do you offer storage services?",
+      "We offer coverage throughout Quebec, Montreal, Toronto, Ottawa and all of Canada.",
+    faq4: "What type of cargo do we transport?",
     faq4_answer:
-      "Yes, we have strategically located distribution centers with secure and climate-controlled storage areas according to your cargo needs. We offer comprehensive logistics solutions.",
+      "We transport heavy and light objects, all types of furniture, appliances, residential, industrial, commercial, long and short distances throughout Canada.",
     faq5: "How do you track shipments?",
     faq5_answer:
       "All our vehicles are equipped with state-of-the-art GPS systems. You can track in real time through our online platform or receive periodic updates by email or text message.",
@@ -281,12 +281,12 @@ const translations = {
     faq2: "Quelles zones géographiques couvrez-vous?",
     faq2_answer:
       "Nous offrons une couverture sur tout le territoire national, avec des services spéciaux pour les zones métropolitaines, les principales villes et les zones rurales. Nous avons des routes établies dans toutes les régions du pays.",
-    faq3: "Quel type de marchandises transportez-vous?",
+    faq3: "Quelles zones géographiques couvrons-nous?",
     faq3_answer:
-      "Nous transportons tous types de marchandises générales, y compris les produits périssables, les matériaux de construction, les produits industriels, les machines et équipements spéciaux. Pour les marchandises dangereuses, nous disposons de véhicules spéciaux et d'autorisations.",
-    faq4: "Offrez-vous des services de stockage?",
+      "Nous offrons une couverture partout au Québec, à Montréal, à Toronto, à Ottawa et partout au Canada.",
+    faq4: "Quel type de marchandises transportons-nous ?",
     faq4_answer:
-      "Oui, nous avons des centres de distribution stratégiquement situés avec des zones de stockage sécurisées et climatisées selon les besoins de votre cargaison. Nous proposons des solutions logistiques complètes.",
+      "Nous transportons des objets lourds et légers, tous types de meubles, électroménagers, résidentiels, industriels, commerciaux, sur de longues et courtes distances partout au Canada.",
     faq5: "Comment suivez-vous les expéditions?",
     faq5_answer:
       "Tous nos véhicules sont équipés de systèmes GPS de pointe. Vous pouvez suivre en temps réel via notre plateforme en ligne ou recevoir des mises à jour périodiques par e-mail ou SMS.",
