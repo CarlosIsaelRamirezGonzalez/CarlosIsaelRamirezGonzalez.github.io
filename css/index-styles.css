@@ -642,7 +642,7 @@ header {
 
 .img-payment {
   display: block;
-  width: 55%;
+  width: 100%;
   justify-content: center;
   margin: 0 auto;
   padding: 20px 0;
