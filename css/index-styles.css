@@ -640,6 +640,14 @@ header {
   margin-bottom: 15px;
 }
 
+.img-payment {
+  display: block;
+  width: 55%;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+
 .faq {
   background: var(--white);
 }

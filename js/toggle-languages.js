@@ -4,7 +4,8 @@ const translations = {
     alert_success_title: "¡Correo enviado!",
     alert_success_subtitle: "Te responderemos lo antes posible.",
     alert_error_title: "¡ERROR!",
-    alert_error_subtitle: "No se pudo enviar el formulario. Inténtalo más tarde.",
+    alert_error_subtitle:
+      "No se pudo enviar el formulario. Inténtalo más tarde.",
     sending_message: "Enviando...",
 
     // Navegación
@@ -115,6 +116,9 @@ const translations = {
       "Suscríbete para recibir nuestras últimas noticias y ofertas especiales.",
     subscribe_btn: "Suscribir",
     copyright: "&copy; 2023 Transport Lito Inc. Todos los derechos reservados.",
+
+    // Payment Methods Section
+    payment_title: "💳 Métodos de Pago",
   },
   en: {
     // Alert
@@ -219,13 +223,16 @@ const translations = {
     newsletter_text: "Subscribe to receive our latest news and special offers.",
     subscribe_btn: "Subscribe",
     copyright: "&copy; 2023 Transport Lito Inc. All rights reserved.",
+    // Payment Methods Section
+    payment_title: "💳 Payment Methods",
   },
   fr: {
     // Alert
     alert_success_title: "Message envoyé !",
     alert_success_subtitle: "Nous vous répondrons dans les plus brefs délais.",
     alert_error_title: "ERREUR !",
-    alert_error_subtitle: "Le formulaire n’a pas pu être envoyé. Veuillez réessayer plus tard.",
+    alert_error_subtitle:
+      "Le formulaire n’a pas pu être envoyé. Veuillez réessayer plus tard.",
     sending_message: "Envoi...",
 
     nav_home: "Accueil",
@@ -323,6 +330,9 @@ const translations = {
       "Abonnez-vous pour recevoir nos dernières nouvelles et offres spéciales.",
     subscribe_btn: "S'abonner",
     copyright: "&copy; 2023 Transport Lito Inc. Tous droits réservés.",
+
+    // Payment Methods Section
+    payment_title: "💳 Méthodes de Paiement",
   },
 };
 
@@ -334,6 +344,10 @@ function changeLanguage(lang) {
   document.querySelectorAll(".lang-btn").forEach((btn) => {
     btn.classList.toggle("active", btn.dataset.lang === lang);
   });
+
+  document.querySelector(
+    ".img-payment"
+  ).src = `/imagenes/payment/pago-${lang}.png`;
 
   // Traducir solo el texto, no todo el HTML
   const elements = document.querySelectorAll("[data-translate]");
