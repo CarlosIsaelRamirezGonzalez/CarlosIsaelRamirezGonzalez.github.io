@@ -10,21 +10,21 @@ const translations = {
 
     // Navegación
     nav_home: "Inicio",
-    nav_about: "Sobre Nosotros",
+    nav_about: "Sobre nosotros",
     nav_services: "Servicios",
-    nav_trust: "Legalidad y Confianza",
+    nav_trust: "Legalidad y confianza",
     nav_doubts: "¿Dudas?",
     map_title: "Nuestra Ubicación",
     // Hero Section
     hero_title: "De la mudanza al destino final /",
     hero_subtitle: "Logística, transporte y soluciones ágiles para todo Cánada",
-    btn_services: "Nuestros Servicios",
+    btn_services: "Nuestros servicios",
     btn_contact: "Contactar Ahora",
     // Hero Form
     hero_form_title: "¿Listo para cotizar tu servicio?",
 
     // About Section
-    about_title: "Sobre Nosotros",
+    about_title: "Sobre nosotros",
     about_heading: "🤝 ¿Quiénes somos?",
     about_text:
       "Transport Lito es una empresa registrada en Québec y proveedor oficial de servicios para la Ville de Montréal. Nos especializamos en mudanzas residenciales y comerciales, ofreciendo soluciones de transporte y logística adaptadas a las necesidades de cada cliente. Nos distingue un servicio eficiente, seguro y puntual, con atención personalizada y precios competitivos. Nuestro compromiso es brindar confianza y tranquilidad en cada traslado, sin importar el tamaño del proyecto.",
@@ -34,7 +34,7 @@ const translations = {
     feature4: "Atención 24/7",
 
     // Services Section
-    services_title: "🔧 Nuestros Servicios",
+    services_title: "🔧 Nuestros servicios",
     service1: "Mudanzas",
     service1_desc: "Comerciales, residenciales e industriales.",
     service2: "Instalación y desinstalación de mobiliario",
@@ -54,12 +54,12 @@ const translations = {
     btn_quote: "Solicitar Cotización",
 
     // Trust Section
-    trust_title: "🔒 Legalidad y Confianza",
+    trust_title: "🔒 Legalidad y confianza",
     trust_heading: "Empresa de confianza",
     trust_text:
       "En Transport Lito trabajamos con responsabilidad legal. Somos proveedores registrados de la Ville de Montréal y cumplimos con todos los requisitos establecidos por la provincia de Quebec.",
     trust1: "Empresa legalmente registrada",
-    trust2: "Proovedor de confianza",
+    trust2: "Provedor de confianza",
     trust3: "Servicio garantizado",
 
     // FAQ Section
