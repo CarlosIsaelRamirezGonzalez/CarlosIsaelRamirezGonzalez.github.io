@@ -54,7 +54,7 @@ h6 {
 .btn {
   display: inline-block;
   padding: 12px 30px;
-  background-color: var(--secondary);
+  background-color: var(--light);
   border: none;
   border-radius: 4px;
   font-weight: 600;
@@ -65,6 +65,10 @@ h6 {
   text-align: center;
 }
 
+.btn.header {
+    background-color: var(--secondary);
+
+}
 .btn:hover {
   background-color: #e0a800;
   transform: translateY(-2px);
