@@ -59,7 +59,7 @@ const translations = {
     trust_text:
       "En Transport Lito trabajamos con responsabilidad legal. Somos proveedores registrados de la Ville de Montréal y cumplimos con todos los requisitos establecidos por la provincia de Quebec.",
     trust1: "Empresa legalmente registrada",
-    trust2: "Provedor de confianza",
+    trust2: "Proveedor de confianza",
     trust3: "Servicio garantizado",
 
     // FAQ Section
