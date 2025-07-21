@@ -66,9 +66,10 @@ h6 {
 }
 
 .btn.header {
-    background-color: var(--secondary);
+  background-color: var(--secondary);
 
 }
+
 .btn:hover {
   background-color: #e0a800;
   transform: translateY(-2px);
@@ -101,6 +102,12 @@ h6 {
   color: var(--dark);
   display: inline-block;
   position: relative;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.black-title {
+  color: black !important; 
 }
 
 .section .aux {
@@ -230,11 +237,9 @@ header {
 }
 
 .hero {
-  background: linear-gradient(
-      to right,
+  background: linear-gradient(to right,
       rgba(2, 17, 55, 1),
-      rgba(1, 73, 147, 0.15)
-    ),
+      rgba(1, 73, 147, 0.15)),
     url("/imagenes/header/city-header.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -289,18 +294,22 @@ header {
 }
 
 .hero-form {
-  margin-top: 190px; /* Reducido de 80px */
+  margin-top: 190px;
+  /* Reducido de 80px */
   background-color: rgba(0, 33, 64, 0.9);
-  padding: 25px; /* Reducido de 30px */
+  padding: 25px;
+  /* Reducido de 30px */
   border-radius: 12px;
   width: 100%;
   max-width: 400px !important;
   flex-shrink: 0;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-  box-sizing: border-box; /* Asegura que el padding no aumente el tamaño total */
+  box-sizing: border-box;
+  /* Asegura que el padding no aumente el tamaño total */
 }
 
 .hero-form h3 {
+  color: var(--secondary);
   font-size: 1.3rem;
   margin-bottom: 20px;
   text-align: center;
@@ -1328,11 +1337,9 @@ footer {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(
-    135deg,
-    rgba(1, 73, 147, 0.2) 0%,
-    rgba(245, 170, 27, 0.1) 100%
-  );
+  background: linear-gradient(135deg,
+      rgba(1, 73, 147, 0.2) 0%,
+      rgba(245, 170, 27, 0.1) 100%);
   opacity: 0;
   transition: var(--transition);
   display: flex;
