@@ -3,202 +3,176 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TeamWeb - Soluciones Tecnológicas</title>
+    <title>Elegance Massage Amsterdam - Masajes Masculinos de Lujo</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
+        /* Variables y reset */
         :root {
-            --primary: #2563eb;
-            --secondary: #7c3aed;
-            --accent: #06b6d4;
-            --dark: #1e293b;
-            --light: #f8fafc;
-            --gray: #64748b;
-            --success: #10b981;
+            --primary: #8B0000; /* Rojo vino oscuro */
+            --secondary: #D4AF37; /* Dorado */
+            --dark: #1a1a1a;
+            --light: #f8f8f8;
+            --gray: #333;
+            --transition: all 0.3s ease;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            color: var(--dark);
-            background-color: var(--light);
-            overflow-x: hidden;
+            background-color: var(--dark);
+            color: var(--light);
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        h1, h2, h3, h4 {
-            font-family: 'Roboto', sans-serif;
-            font-weight: 700;
+        /* Header y Navegación */
+        header {
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.5));
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: var(--transition);
+        }
+
+        header.scrolled {
+            background: rgba(26, 26, 26, 0.95);
+            padding: 0.5rem 0;
         }
 
         .container {
             width: 90%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 15px;
         }
 
-        /* Header & Navigation */
-        header {
-            background-color: rgba(30, 41, 59, 0.95);
-            position: fixed;
-            width: 100%;
-            z-index: 1000;
-            padding: 15px 0;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .header-content {
+        .nav-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .logo {
-            display: flex;
-            align-items: center;
-        }
-
-        .logo h1 {
-            color: var(--light);
             font-size: 1.8rem;
-            margin-left: 10px;
+            font-weight: bold;
+            color: var(--secondary);
+            text-decoration: none;
         }
 
         .logo span {
-            color: var(--accent);
+            color: var(--primary);
         }
 
-        .nav-links {
+        .nav-menu {
             display: flex;
             list-style: none;
         }
 
-        .nav-links li {
-            margin-left: 30px;
+        .nav-menu li {
+            margin-left: 2rem;
         }
 
-        .nav-links a {
+        .nav-menu a {
             color: var(--light);
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.3s;
+            transition: var(--transition);
             position: relative;
         }
 
-        .nav-links a:hover {
-            color: var(--accent);
+        .nav-menu a:hover {
+            color: var(--secondary);
         }
 
-        .nav-links a::after {
+        .nav-menu a::after {
             content: '';
             position: absolute;
-            bottom: -5px;
-            left: 0;
             width: 0;
             height: 2px;
-            background-color: var(--accent);
-            transition: width 0.3s;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--secondary);
+            transition: var(--transition);
         }
 
-        .nav-links a:hover::after {
+        .nav-menu a:hover::after {
             width: 100%;
         }
 
-        .menu-btn {
+        .hamburger {
             display: none;
-            background: none;
-            border: none;
-            color: var(--light);
-            font-size: 1.5rem;
             cursor: pointer;
+            font-size: 1.5rem;
         }
 
         /* Hero Section */
         .hero {
             height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
             display: flex;
             align-items: center;
-            background: linear-gradient(135deg, rgba(37, 99, 235, 0.8) 0%, rgba(124, 58, 237, 0.8) 100%);
-            position: relative;
-            overflow: hidden;
-            padding-top: 70px;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.1" d="M0,128L48,117.3C96,107,192,85,288,112C384,139,480,213,576,218.7C672,224,768,160,864,138.7C960,117,1056,139,1152,149.3C1248,160,1344,160,1392,160L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
-            background-size: cover;
+            text-align: center;
         }
 
         .hero-content {
-            position: relative;
-            z-index: 1;
-            color: var(--light);
-            text-align: center;
             max-width: 800px;
             margin: 0 auto;
-            padding: 20px;
         }
 
-        .hero-content h2 {
+        .hero h1 {
             font-size: 3.5rem;
-            margin-bottom: 20px;
-            animation: fadeInDown 1s ease;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
 
-        .hero-content p {
+        .hero p {
             font-size: 1.2rem;
-            margin-bottom: 30px;
-            animation: fadeInUp 1s ease;
+            margin-bottom: 2rem;
         }
 
         .btn {
             display: inline-block;
+            background: var(--primary);
+            color: white;
             padding: 12px 30px;
-            background: var(--accent);
-            color: var(--light);
-            text-decoration: none;
+            border: none;
             border-radius: 30px;
-            font-weight: 500;
-            transition: all 0.3s;
-            border: 2px solid var(--accent);
-            animation: fadeIn 1.5s ease;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
         }
 
         .btn:hover {
-            background: transparent;
-            color: var(--accent);
+            background: var(--secondary);
+            color: var(--dark);
             transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(6, 182, 212, 0.3);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
 
-        /* Services Section */
-        .services {
-            padding: 100px 0;
-            background-color: var(--light);
+        /* Secciones generales */
+        section {
+            padding: 5rem 0;
         }
 
         .section-title {
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 3rem;
         }
 
         .section-title h2 {
             font-size: 2.5rem;
-            color: var(--dark);
-            margin-bottom: 20px;
+            color: var(--secondary);
+            margin-bottom: 1rem;
             position: relative;
             display: inline-block;
         }
@@ -206,725 +180,698 @@
         .section-title h2::after {
             content: '';
             position: absolute;
+            width: 50%;
+            height: 3px;
+            background: var(--primary);
             bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            border-radius: 2px;
+            left: 25%;
         }
 
-        .section-title p {
-            color: var(--gray);
-            max-width: 700px;
-            margin: 0 auto;
+        /* Sección Sobre Nosotros */
+        .about {
+            background: var(--gray);
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: var(--transition);
+        }
+
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Sección Terapeutas */
+        .therapists {
+            background: var(--dark);
+        }
+
+        .therapists-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .therapist-card {
+            background: var(--gray);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .therapist-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+
+        .therapist-img {
+            height: 300px;
+            overflow: hidden;
+        }
+
+        .therapist-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .therapist-card:hover .therapist-img img {
+            transform: scale(1.1);
+        }
+
+        .therapist-info {
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .therapist-info h3 {
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .therapist-info p {
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+
+        /* Sección Servicios */
+        .services {
+            background: var(--gray);
         }
 
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
         }
 
         .service-card {
-            background: white;
-            padding: 40px 30px;
+            background: var(--dark);
+            padding: 2rem;
             border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s;
             text-align: center;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 0;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            z-index: -1;
-            transition: height 0.5s;
+            transition: var(--transition);
+            border: 1px solid rgba(212, 175, 55, 0.2);
         }
 
         .service-card:hover {
-            transform: translateY(-10px);
-            color: var(--light);
+            border-color: var(--secondary);
+            transform: translateY(-5px);
         }
 
-        .service-card:hover::before {
-            height: 100%;
-        }
-
-        .service-card i {
-            font-size: 3rem;
-            color: var(--primary);
-            margin-bottom: 20px;
-            transition: color 0.3s;
-        }
-
-        .service-card:hover i {
-            color: var(--light);
+        .service-icon {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
         }
 
         .service-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
+            margin-bottom: 1rem;
+            color: var(--secondary);
         }
 
-        .service-card p {
-            color: var(--gray);
-            transition: color 0.3s;
-        }
-
-        .service-card:hover p {
-            color: var(--light);
-        }
-
-        /* Portfolio Section */
-        .portfolio {
-            padding: 100px 0;
-            background-color: #f1f5f9;
-        }
-
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .portfolio-item {
-            position: relative;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            height: 250px;
-        }
-
-        .portfolio-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-
-        .portfolio-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to top, rgba(37, 99, 235, 0.8), rgba(124, 58, 237, 0.8));
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.5s;
-            padding: 20px;
-            text-align: center;
-            color: white;
-        }
-
-        .portfolio-item:hover .portfolio-overlay {
-            opacity: 1;
-        }
-
-        .portfolio-item:hover .portfolio-img {
-            transform: scale(1.1);
-        }
-
-        .portfolio-overlay h3 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-            transform: translateY(20px);
-            transition: transform 0.5s;
-        }
-
-        .portfolio-overlay p {
-            transform: translateY(20px);
-            transition: transform 0.5s;
-            transition-delay: 0.1s;
-        }
-
-        .portfolio-item:hover .portfolio-overlay h3,
-        .portfolio-item:hover .portfolio-overlay p {
-            transform: translateY(0);
-        }
-
-        /* FAQ Section */
-        .faq {
-            padding: 100px 0;
-            background-color: var(--light);
-        }
-
-        .faq-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .faq-item {
-            margin-bottom: 20px;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        }
-
-        .faq-question {
-            padding: 20px;
-            background: white;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            font-weight: 500;
-            transition: background 0.3s;
-        }
-
-        .faq-question:hover {
-            background: #f8fafc;
-        }
-
-        .faq-question i {
-            transition: transform 0.3s;
-        }
-
-        .faq-answer {
-            padding: 0 20px;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s, padding 0.3s;
-            background: white;
-        }
-
-        .faq-item.active .faq-question i {
-            transform: rotate(180deg);
-        }
-
-        .faq-item.active .faq-answer {
-            max-height: 200px;
-            padding: 20px;
-        }
-
-        /* Contact Section */
-        .contact {
-            padding: 100px 0;
-            background: linear-gradient(135deg, rgba(37, 99, 235, 0.05) 0%, rgba(124, 58, 237, 0.05) 100%);
-        }
-
-        .contact-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 50px;
-        }
-
-        .contact-info {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .contact-info-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-
-        .contact-info-item i {
+        .price {
             font-size: 1.5rem;
             color: var(--primary);
-            margin-right: 15px;
+            font-weight: bold;
+            margin: 1rem 0;
         }
 
-        .contact-form {
-            background: white;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 500;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-family: 'Poppins', sans-serif;
-            transition: border-color 0.3s;
-        }
-
-        .form-control:focus {
-            border-color: var(--primary);
-            outline: none;
-        }
-
-        textarea.form-control {
-            min-height: 150px;
-            resize: vertical;
-        }
-
-        .submit-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.3s;
-        }
-
-        .submit-btn:hover {
-            background: var(--secondary);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(124, 58, 237, 0.2);
-        }
-
-        /* Footer */
-        footer {
+        /* Sección Ubicación y Horarios */
+        .location-hours {
             background: var(--dark);
-            color: var(--light);
-            padding: 60px 0 30px;
         }
 
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
+        .location-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3rem;
         }
 
-        .footer-logo h2 {
-            color: var(--light);
-            margin-bottom: 20px;
+        .map-container {
+            flex: 1;
+            min-width: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
 
-        .footer-logo span {
-            color: var(--accent);
+        .map-container iframe {
+            width: 100%;
+            height: 300px;
+            border: none;
         }
 
-        .footer-links h3,
-        .footer-newsletter h3 {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-            position: relative;
-            padding-bottom: 10px;
+        .hours-container {
+            flex: 1;
+            min-width: 300px;
+            background: var(--gray);
+            padding: 2rem;
+            border-radius: 10px;
         }
 
-        .footer-links h3::after,
-        .footer-newsletter h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 40px;
-            height: 3px;
-            background: var(--accent);
-        }
-
-        .footer-links ul {
+        .hours-list {
             list-style: none;
         }
 
-        .footer-links li {
-            margin-bottom: 10px;
-        }
-
-        .footer-links a {
-            color: var(--light);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer-links a:hover {
-            color: var(--accent);
-        }
-
-        .footer-newsletter p {
-            margin-bottom: 20px;
-        }
-
-        .newsletter-form {
+        .hours-list li {
             display: flex;
+            justify-content: space-between;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
-        .newsletter-form input {
-            flex: 1;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px 0 0 5px;
+        .hours-list li:last-child {
+            border-bottom: none;
         }
 
-        .newsletter-form button {
-            background: var(--accent);
-            color: white;
-            border: none;
-            padding: 0 15px;
-            border-radius: 0 5px 5px 0;
-            cursor: pointer;
+        /* Sección Testimonios */
+        .testimonials {
+            background: var(--gray);
         }
 
-        .footer-bottom {
+        .testimonials-slider {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonial-slide {
+            display: none;
+            padding: 2rem;
             text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--dark);
+            border-radius: 10px;
+            margin: 0 1rem;
         }
 
-        /* Animations */
+        .testimonial-slide.active {
+            display: block;
+            animation: fadeIn 1s;
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            position: relative;
         }
 
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .testimonial-text::before,
+        .testimonial-text::after {
+            content: '"';
+            font-size: 3rem;
+            color: var(--primary);
+            position: absolute;
+            opacity: 0.3;
         }
 
-        .animate-on-scroll {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s, transform 0.5s;
+        .testimonial-text::before {
+            top: -20px;
+            left: -10px;
         }
 
-        .is-visible {
-            opacity: 1;
-            transform: translateY(0);
+        .testimonial-text::after {
+            bottom: -40px;
+            right: -10px;
+        }
+
+        .testimonial-author {
+            color: var(--secondary);
+            font-weight: bold;
+        }
+
+        .testimonial-nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .testimonial-dot {
+            width: 12px;
+            height: 12px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .testimonial-dot.active {
+            background: var(--secondary);
+        }
+
+        /* Formulario de Contacto */
+        .contact {
+            background: var(--dark);
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--gray);
+            padding: 2rem;
+            border-radius: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--secondary);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 5px;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--secondary);
+        }
+
+        /* Footer */
+        footer {
+            background: #111;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .footer-column h3 {
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--gray);
+            color: white;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--secondary);
+            color: var(--dark);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #888;
+            font-size: 0.9rem;
         }
 
         /* Responsive Design */
-        @media (max-width: 992px) {
-            .hero-content h2 {
-                font-size: 2.8rem;
-            }
-        }
-
         @media (max-width: 768px) {
-            .menu-btn {
+            .hamburger {
                 display: block;
             }
 
-            .nav-links {
+            .nav-menu {
                 position: fixed;
                 top: 70px;
-                left: -100%;
-                width: 100%;
-                height: calc(100vh - 70px);
-                background: var(--dark);
+                right: -100%;
                 flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                transition: left 0.3s;
+                background: var(--dark);
+                width: 100%;
+                text-align: center;
+                transition: var(--transition);
+                box-shadow: 0 10px 15px rgba(0,0,0,0.3);
             }
 
-            .nav-links.active {
-                left: 0;
+            .nav-menu.active {
+                right: 0;
             }
 
-            .nav-links li {
-                margin: 15px 0;
+            .nav-menu li {
+                margin: 1rem 0;
             }
 
-            .hero-content h2 {
-                font-size: 2.2rem;
+            .hero h1 {
+                font-size: 2.5rem;
             }
 
-            .hero-content p {
-                font-size: 1rem;
+            .about-content {
+                flex-direction: column;
             }
 
             .section-title h2 {
                 font-size: 2rem;
             }
+
+            .location-content {
+                flex-direction: column;
+            }
         }
 
-        @media (max-width: 576px) {
-            .hero-content h2 {
-                font-size: 1.8rem;
-            }
+        /* Efectos de aparición al hacer scroll */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
 
-            .service-card, .portfolio-item {
-                max-width: 350px;
-                margin: 0 auto;
-            }
-
-            .contact-form {
-                padding: 25px;
-            }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
 <body>
-    <!-- Header & Navigation -->
+    <!-- Header -->
     <header>
-        <div class="container header-content">
-            <div class="logo">
-                <i class="fas fa-laptop-code fa-2x" style="color: #06b6d4;"></i>
-                <h1>Team<span>Web</span></h1>
-            </div>
-            <button class="menu-btn" id="menu-btn">
+        <div class="container nav-container">
+            <a href="#" class="logo">Elegance<span>Massage</span></a>
+            <div class="hamburger">
                 <i class="fas fa-bars"></i>
-            </button>
-            <ul class="nav-links" id="nav-links">
-                <li><a href="#home">Inicio</a></li>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#about">Sobre Nosotros</a></li>
+                <li><a href="#therapists">Nuestras Terapeutas</a></li>
                 <li><a href="#services">Servicios</a></li>
-                <li><a href="#portfolio">Portafolio</a></li>
-                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#location">Ubicación & Horarios</a></li>
+                <li><a href="#testimonials">Testimonios</a></li>
                 <li><a href="#contact">Contacto</a></li>
             </ul>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section class="hero" id="home">
+    <section id="inicio" class="hero">
         <div class="container hero-content">
-            <h2>Soluciones Tecnológicas para Impulsar tu Negocio</h2>
-            <p>Desarrollamos aplicaciones, sitios web y gestionamos redes sociales para llevar tu presencia digital al siguiente nivel.</p>
-            <a href="#contact" class="btn">Contáctanos</a>
+            <h1>Experiencias de Masaje Masculino en Ámsterdam</h1>
+            <p>Descubre el arte de la relajación en un ambiente de lujo y exclusividad. Donde la elegancia se encuentra con el placer.</p>
+            <a href="#contact" class="btn">Reservar Cita</a>
         </div>
     </section>
 
-    <!-- Services Section -->
-    <section class="services" id="services">
+    <!-- Sobre Nosotros -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>Sobre Nosotros</h2>
+                <p>Descubre nuestra filosofía de bienestar y relajación</p>
+            </div>
+            <div class="about-content fade-in">
+                <div class="about-text">
+                    <p>En Elegance Massage, hemos creado un santuario de relajación en el corazón de Ámsterdam. Nuestro equipo de terapeutas profesionales está dedicado a ofrecer experiencias de masaje masculino de la más alta calidad.</p>
+                    <p>Combinamos técnicas ancestrales con un ambiente moderno y sensual, diseñado para despertar tus sentidos y liberar tu estrés. Cada detalle ha sido cuidadosamente seleccionado para garantizar una experiencia inolvidable.</p>
+                    <p>Operamos dentro del marco legal holandés, priorizando siempre la discreción, el profesionalismo y la satisfacción de nuestros clientes.</p>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80" alt="Ambiente de lujo en nuestro spa">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Terapeutas -->
+    <section id="therapists" class="therapists">
+        <div class="container">
+            <div class="section-title">
+                <h2>Nuestras Terapeutas</h2>
+                <p>Conoce a nuestro equipo de profesionales</p>
+            </div>
+            <div class="therapists-grid">
+                <!-- Terapeuta 1 -->
+                <div class="therapist-card fade-in">
+                    <div class="therapist-img">
+                        <img src="https://images.unsplash.com/photo-1594825470684-bfadc06680e9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Sophia">
+                    </div>
+                    <div class="therapist-info">
+                        <h3>Sophia</h3>
+                        <p>Especialista en masajes relajantes y terapéuticos</p>
+                        <p>5 años de experiencia</p>
+                    </div>
+                </div>
+                <!-- Terapeuta 2 -->
+                <div class="therapist-card fade-in">
+                    <div class="therapist-img">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Isabella">
+                    </div>
+                    <div class="therapist-info">
+                        <h3>Isabella</h3>
+                        <p>Experta en masajes sensuales y de conexión energética</p>
+                        <p>7 años de experiencia</p>
+                    </div>
+                </div>
+                <!-- Terapeuta 3 -->
+                <div class="therapist-card fade-in">
+                    <div class="therapist-img">
+                        <img src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Valentina">
+                    </div>
+                    <div class="therapist-info">
+                        <h3>Valentina</h3>
+                        <p>Maestra en aromaterapia y masajes de bienestar integral</p>
+                        <p>4 años de experiencia</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Servicios -->
+    <section id="services" class="services">
         <div class="container">
             <div class="section-title">
                 <h2>Nuestros Servicios</h2>
-                <p>Ofrecemos soluciones digitales completas para ayudar a tu negocio a crecer en el mundo digital.</p>
+                <p>Descubre nuestras experiencias de relajación</p>
             </div>
             <div class="services-grid">
-                <div class="service-card animate-on-scroll">
-                    <i class="fas fa-code"></i>
-                    <h3>Desarrollo Web</h3>
-                    <p>Creación de sitios web modernos, responsive y optimizados para motores de búsqueda.</p>
-                </div>
-                <div class="service-card animate-on-scroll">
-                    <i class="fas fa-mobile-alt"></i>
-                    <h3>Apps Móviles</h3>
-                    <p>Desarrollo de aplicaciones nativas e híbridas para iOS y Android con las últimas tecnologías.</p>
-                </div>
-                <div class="service-card animate-on-scroll">
-                    <i class="fas fa-share-alt"></i>
-                    <h3>Redes Sociales</h3>
-                    <p>Gestión profesional de redes sociales para aumentar tu engagement y conversiones.</p>
-                </div>
-                <div class="service-card animate-on-scroll">
-                    <i class="fas fa-shopping-cart"></i>
-                    <h3>E-Commerce</h3>
-                    <p>Tiendas online completas con pasarelas de pago y sistemas de administración intuitivos.</p>
-                </div>
-                <div class="service-card animate-on-scroll">
-                    <i class="fas fa-chart-line"></i>
-                    <h3>Marketing Digital</h3>
-                    <p>Campañas efectivas de marketing digital para aumentar tu visibilidad y ventas.</p>
-                </div>
-                <div class="service-card animate-on-scroll">
-                    <i class="fas fa-cloud"></i>
-                    <h3>Hosting & Cloud</h3>
-                    <p>Servicios de hosting confiables y soluciones en la nube para tu negocio.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Portfolio Section -->
-    <section class="portfolio" id="portfolio">
-        <div class="container">
-            <div class="section-title">
-                <h2>Nuestros Trabajos</h2>
-                <p>Algunos de los proyectos que hemos desarrollado para nuestros clientes satisfechos.</p>
-            </div>
-            <div class="portfolio-grid">
-                <div class="portfolio-item animate-on-scroll">
-                    <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Proyecto 1" class="portfolio-img">
-                    <div class="portfolio-overlay">
-                        <h3>E-Commerce Moda</h3>
-                        <p>Tienda online para marca de ropa con carrito de compras y panel administrativo.</p>
+                <!-- Servicio 1 -->
+                <div class="service-card fade-in">
+                    <div class="service-icon">
+                        <i class="fas fa-spa"></i>
                     </div>
+                    <h3>Masaje Relax</h3>
+                    <p>Una experiencia de relajación profunda que libera la tensión muscular y calma la mente.</p>
+                    <p class="price">€120 / 60 min</p>
+                    <a href="#contact" class="btn">Reservar</a>
                 </div>
-                <div class="portfolio-item animate-on-scroll">
-                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Proyecto 2" class="portfolio-img">
-                    <div class="portfolio-overlay">
-                        <h3>App Financiera</h3>
-                        <p>Aplicación móvil para gestión de finanzas personales con gráficos y estadísticas.</p>
+                <!-- Servicio 2 -->
+                <div class="service-card fade-in">
+                    <div class="service-icon">
+                        <i class="fas fa-hand-holding-heart"></i>
                     </div>
+                    <h3>Masaje Sensual</h3>
+                    <p>Un viaje sensorial que despierta todos tus sentidos en un ambiente íntimo y cuidado.</p>
+                    <p class="price">€150 / 60 min</p>
+                    <a href="#contact" class="btn">Reservar</a>
                 </div>
-                <div class="portfolio-item animate-on-scroll">
-                    <img src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Proyecto 3" class="portfolio-img">
-                    <div class="portfolio-overlay">
-                        <h3>Web Corporativa</h3>
-                        <p>Sitio web corporativo moderno con blog integrado y sistema de contactos.</p>
+                <!-- Servicio 3 -->
+                <div class="service-card fade-in">
+                    <div class="service-icon">
+                        <i class="fas fa-star"></i>
                     </div>
-                </div>
-                <div class="portfolio-item animate-on-scroll">
-                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Proyecto 4" class="portfolio-img">
-                    <div class="portfolio-overlay">
-                        <h3>Redes Sociales</h3>
-                        <p>Gestión completa de redes sociales para restaurante con aumento del 200% en engagement.</p>
-                    </div>
-                </div>
-                <div class="portfolio-item animate-on-scroll">
-                    <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Proyecto 5" class="portfolio-img">
-                    <div class="portfolio-overlay">
-                        <h3>App de Delivery</h3>
-                        <p>Aplicación de delivery con seguimiento en tiempo real y sistema de calificaciones.</p>
-                    </div>
-                </div>
-                <div class="portfolio-item animate-on-scroll">
-                    <img src="https://images.unsplash.com/photo-1432888622747-4eb9a8f5a07a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Proyecto 6" class="portfolio-img">
-                    <div class="portfolio-overlay">
-                        <h3>Plataforma Educativa</h3>
-                        <p>Sistema de aprendizaje online con cursos, videoconferencias y evaluaciones.</p>
-                    </div>
+                    <h3>Experiencia Premium</h3>
+                    <p>Nuestro servicio más exclusivo, que combina múltiples técnicas para el máximo placer.</p>
+                    <p class="price">€200 / 90 min</p>
+                    <a href="#contact" class="btn">Reservar</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- FAQ Section -->
-    <section class="faq" id="faq">
+    <!-- Ubicación y Horarios -->
+    <section id="location" class="location-hours">
         <div class="container">
             <div class="section-title">
-                <h2>Preguntas Frecuentes</h2>
-                <p>Resolvemos las dudas más comunes que nos plantean nuestros clientes.</p>
+                <h2>Ubicación y Horarios</h2>
+                <p>Visítanos en el corazón de Ámsterdam</p>
             </div>
-            <div class="faq-container">
-                <div class="faq-item animate-on-scroll">
-                    <div class="faq-question">
-                        <span>¿Cuánto tiempo toma desarrollar un sitio web?</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>El tiempo de desarrollo varía según la complejidad del proyecto. Un sitio web básico puede tomar de 2 a 4 semanas, mientras que proyectos más complejos como e-commerce pueden tomar de 6 a 12 semanas.</p>
-                    </div>
+            <div class="location-content fade-in">
+                <div class="map-container">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2436.4769617833753!2d4.894010315801358!3d52.36244757978487!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c609c0fc5c3687%3A0x6c63d3dc375d0d47!2sDam%20Square%2C%20Amsterdam%2C%20Netherlands!5e0!3m2!1sen!2ses!4v1622641436788!5m2!1sen!2ses" allowfullscreen="" loading="lazy"></iframe>
                 </div>
-                <div class="faq-item animate-on-scroll">
-                    <div class="faq-question">
-                        <span>¿Incluyen mantenimiento después del desarrollo?</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Sí, ofrecemos planes de mantenimiento que incluyen actualizaciones, backups, soporte técnico y monitoreo. Puedes elegir entre planes mensuales, trimestrales o anuales según tus necesidades.</p>
-                    </div>
-                </div>
-                <div class="faq-item animate-on-scroll">
-                    <div class="faq-question">
-                        <span>¿Qué métodos de pago aceptan?</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Aceptamos transferencias bancarias, tarjetas de crédito/débito y PayPal. Para proyectos grandes,通常 trabajamos con un pago inicial y el resto dividido en hitos del proyecto.</p>
-                    </div>
-                </div>
-                <div class="faq-item animate-on-scroll">
-                    <div class="faq-question">
-                        <span>¿Trabajan con empresas internacionales?</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Absolutamente. Trabajamos con clientes de todo el mundo. Utilizamos herramientas de colaboración remota que nos permiten comunicarnos efectivamente sin importar la ubicación.</p>
-                    </div>
-                </div>
-                <div class="faq-item animate-on-scroll">
-                    <div class="faq-question">
-                        <span>¿Proveen hosting y dominio?</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Sí, podemos encargarnos de la compra de dominio y configuración de hosting por ti, o puedes proveerlos tú mismo. Recomendamos hosting de calidad para garantizar el mejor rendimiento.</p>
-                    </div>
+                <div class="hours-container">
+                    <h3>Horario de Atención</h3>
+                    <ul class="hours-list">
+                        <li><span>Lunes - Viernes</span> <span>10:00 - 22:00</span></li>
+                        <li><span>Sábados</span> <span>11:00 - 23:00</span></li>
+                        <li><span>Domingos</span> <span>12:00 - 20:00</span></li>
+                    </ul>
+                    <h3>Dirección</h3>
+                    <p>Dam Square 123, 1012 JL Amsterdam, Netherlands</p>
+                    <h3>Contacto</h3>
+                    <p>Tel: +31 20 123 4567</p>
+                    <p>Email: info@elegancemassage.nl</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section class="contact" id="contact">
+    <!-- Testimonios -->
+    <section id="testimonials" class="testimonials">
         <div class="container">
             <div class="section-title">
-                <h2>Contáctanos</h2>
-                <p>Estamos listos para convertir tus ideas en realidad. ¡Envíanos un mensaje!</p>
+                <h2>Testimonios</h2>
+                <p>Lo que nuestros clientes dicen</p>
             </div>
-            <div class="contact-container">
-                <div class="contact-info">
-                    <div class="contact-info-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <div>
-                            <h3>Ubicación</h3>
-                            <p>Av. Tecnología #123, Ciudad Digital</p>
-                        </div>
+            <div class="testimonials-slider">
+                <!-- Testimonio 1 -->
+                <div class="testimonial-slide active">
+                    <div class="testimonial-text">
+                        <p>Una experiencia increíble. El ambiente es sofisticado y relajante, y las terapeutas son profesionales y talentosas. Definitivamente volveré.</p>
                     </div>
-                    <div class="contact-info-item">
-                        <i class="fas fa-phone"></i>
-                        <div>
-                            <h3>Teléfono</h3>
-                            <p>+1 234 567 8900</p>
-                        </div>
-                    </div>
-                    <div class="contact-info-item">
-                        <i class="fas fa-envelope"></i>
-                        <div>
-                            <h3>Email</h3>
-                            <p>info@teamweb.com</p>
-                        </div>
-                    </div>
-                    <div class="contact-info-item">
-                        <i class="fas fa-clock"></i>
-                        <div>
-                            <h3>Horario</h3>
-                            <p>Lunes a Viernes: 9:00 - 18:00</p>
-                        </div>
-                    </div>
+                    <div class="testimonial-author">- Marco, Italia</div>
                 </div>
-                <div class="contact-form animate-on-scroll">
-                    <form id="contactForm">
-                        <div class="form-group">
-                            <label for="name">Nombre</label>
-                            <input type="text" id="name" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="subject">Asunto</label>
-                            <input type="text" id="subject" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Mensaje</label>
-                            <textarea id="message" class="form-control" required></textarea>
-                        </div>
-                        <button type="submit" class="submit-btn">Enviar Mensaje</button>
-                    </form>
+                <!-- Testimonio 2 -->
+                <div class="testimonial-slide">
+                    <div class="testimonial-text">
+                        <p>He visitado muchos lugares de masajes en Ámsterdam, pero Elegance Massage es excepcional. La atención al detalle y la calidad del servicio son incomparables.</p>
+                    </div>
+                    <div class="testimonial-author">- Thomas, Alemania</div>
                 </div>
+                <!-- Testimonio 3 -->
+                <div class="testimonial-slide">
+                    <div class="testimonial-text">
+                        <p>La combinación perfecta entre profesionalismo y sensualidad. Me sentí cómodo desde el primer momento y la experiencia superó todas mis expectativas.</p>
+                    </div>
+                    <div class="testimonial-author">- David, España</div>
+                </div>
+                <!-- Navegación de testimonios -->
+                <div class="testimonial-nav">
+                    <span class="testimonial-dot active" data-slide="0"></span>
+                    <span class="testimonial-dot" data-slide="1"></span>
+                    <span class="testimonial-dot" data-slide="2"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacto -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Reserva tu Cita</h2>
+                <p>Completa el formulario y nos pondremos en contacto contigo</p>
+            </div>
+            <div class="contact-form fade-in">
+                <form id="reservationForm">
+                    <div class="form-group">
+                        <label for="name">Nombre completo</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Teléfono</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="service">Servicio de interés</label>
+                        <select id="service" name="service" required>
+                            <option value="">Selecciona un servicio</option>
+                            <option value="relax">Masaje Relax - €120</option>
+                            <option value="sensual">Masaje Sensual - €150</option>
+                            <option value="premium">Experiencia Premium - €200</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="therapist">Terapeuta preferida (opcional)</label>
+                        <select id="therapist" name="therapist">
+                            <option value="">Cualquier terapeuta</option>
+                            <option value="sophia">Sophia</option>
+                            <option value="isabella">Isabella</option>
+                            <option value="valentina">Valentina</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Fecha preferida</label>
+                        <input type="date" id="date" name="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Mensaje adicional (opcional)</label>
+                        <textarea id="message" name="message" rows="4"></textarea>
+                    </div>
+                    <button type="submit" class="btn">Enviar Reserva</button>
+                </form>
             </div>
         </div>
     </section>
@@ -933,104 +880,120 @@
     <footer>
         <div class="container">
             <div class="footer-content">
-                <div class="footer-logo">
-                    <h2>Team<span>Web</span></h2>
-                    <p>Soluciones tecnológicas de clase mundial para impulsar tu negocio en la era digital.</p>
+                <div class="footer-column">
+                    <h3>Elegance Massage</h3>
+                    <p>El destino premium para masajes masculinos en Ámsterdam. Donde la elegancia se encuentra con el placer.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    </div>
                 </div>
-                <div class="footer-links">
+                <div class="footer-column">
                     <h3>Enlaces Rápidos</h3>
-                    <ul>
-                        <li><a href="#home">Inicio</a></li>
+                    <ul class="footer-links">
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="#about">Sobre Nosotros</a></li>
+                        <li><a href="#therapists">Terapeutas</a></li>
                         <li><a href="#services">Servicios</a></li>
-                        <li><a href="#portfolio">Portafolio</a></li>
-                        <li><a href="#faq">FAQ</a></li>
-                        <li><a href="#contact">Contacto</a></li>
+                        <li><a href="#location">Ubicación</a></li>
                     </ul>
                 </div>
-                <div class="footer-links">
-                    <h3>Servicios</h3>
-                    <ul>
-                        <li><a href="#">Desarrollo Web</a></li>
-                        <li><a href="#">Apps Móviles</a></li>
-                        <li><a href="#">Redes Sociales</a></li>
-                        <li><a href="#">E-Commerce</a></li>
-                        <li><a href="#">Marketing Digital</a></li>
+                <div class="footer-column">
+                    <h3>Contacto</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> Dam Square 123, Amsterdam</li>
+                        <li><i class="fas fa-phone"></i> +31 20 123 4567</li>
+                        <li><i class="fas fa-envelope"></i> info@elegancemassage.nl</li>
                     </ul>
-                </div>
-                <div class="footer-newsletter">
-                    <h3>Newsletter</h3>
-                    <p>Suscríbete para recibir actualizaciones y tips útiles.</p>
-                    <form class="newsletter-form">
-                        <input type="email" placeholder="Tu email">
-                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
-                    </form>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2023 TeamWeb. Todos los derechos reservados.</p>
+            <div class="copyright">
+                <p>&copy; 2023 Elegance Massage Amsterdam. Todos los derechos reservados. | Operamos dentro del marco legal holandés.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Menu Toggle
-        const menuBtn = document.getElementById('menu-btn');
-        const navLinks = document.getElementById('nav-links');
-        
-        menuBtn.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
+        // Menú Hamburguesa
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            hamburger.innerHTML = navMenu.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
         });
-        
-        // Close menu when clicking on a link
-        document.querySelectorAll('.nav-links a').forEach(link => {
+
+        // Cerrar menú al hacer clic en un enlace
+        document.querySelectorAll('.nav-menu a').forEach(link => {
             link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
+                navMenu.classList.remove('active');
+                hamburger.innerHTML = '<i class="fas fa-bars"></i>';
             });
         });
+
+        // Header con scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            header.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Testimonios Slider
+        const testimonialDots = document.querySelectorAll('.testimonial-dot');
+        const testimonialSlides = document.querySelectorAll('.testimonial-slide');
         
-        // FAQ Accordion
-        const faqItems = document.querySelectorAll('.faq-item');
-        
-        faqItems.forEach(item => {
-            const question = item.querySelector('.faq-question');
-            
-            question.addEventListener('click', () => {
-                item.classList.toggle('active');
+        testimonialDots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                const slideIndex = dot.getAttribute('data-slide');
+                
+                // Remover clase active de todos los dots y slides
+                testimonialDots.forEach(d => d.classList.remove('active'));
+                testimonialSlides.forEach(s => s.classList.remove('active'));
+                
+                // Agregar clase active al dot y slide seleccionado
+                dot.classList.add('active');
+                testimonialSlides[slideIndex].classList.add('active');
             });
         });
-        
-        // Form Submission
-        const contactForm = document.getElementById('contactForm');
-        
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
+
+        // Auto-avance de testimonios
+        let currentTestimonial = 0;
+        function autoAdvanceTestimonials() {
+            currentTestimonial = (currentTestimonial + 1) % testimonialSlides.length;
             
-            // Here you would normally send the form data to a server
-            // For this example, we'll just show an alert
-            alert('¡Gracias por tu mensaje! Te contactaremos pronto.');
-            contactForm.reset();
-        });
-        
-        // Scroll Animations
-        const animatedElements = document.querySelectorAll('.animate-on-scroll');
+            testimonialDots.forEach(d => d.classList.remove('active'));
+            testimonialSlides.forEach(s => s.classList.remove('active'));
+            
+            testimonialDots[currentTestimonial].classList.add('active');
+            testimonialSlides[currentTestimonial].classList.add('active');
+        }
+
+        setInterval(autoAdvanceTestimonials, 5000);
+
+        // Animación al hacer scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
         
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
+                    entry.target.classList.add('visible');
                 }
             });
-        }, {
-            threshold: 0.1
-        });
+        }, { threshold: 0.1 });
         
-        animatedElements.forEach(element => {
-            observer.observe(element);
+        fadeElements.forEach(el => observer.observe(el));
+
+        // Formulario de reserva
+        document.getElementById('reservationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Gracias por tu reserva. Nos pondremos en contacto contigo pronto para confirmar tu cita.');
+            this.reset();
         });
-        
-        // Smooth Scrolling for Anchor Links
+
+        // Smooth scrolling para enlaces de anclaje
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
+            anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 
                 const targetId = this.getAttribute('href');
@@ -1039,7 +1002,7 @@
                 const targetElement = document.querySelector(targetId);
                 if (targetElement) {
                     window.scrollTo({
-                        top: targetElement.offsetTop - 70,
+                        top: targetElement.offsetTop - 80,
                         behavior: 'smooth'
                     });
                 }
