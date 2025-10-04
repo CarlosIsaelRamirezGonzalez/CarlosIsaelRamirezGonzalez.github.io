@@ -92,10 +92,7 @@
           </div>
           <div class="about-image">
             <div class="image-frame">
-              <img
-                src="./camaroncitos.jpg"
-                alt="Interior del restaurante"
-              />
+              <img src="./camaroncitos.jpg" alt="Interior del restaurante" />
             </div>
           </div>
         </div>
@@ -109,22 +106,18 @@
         <div class="specialties-grid">
           <div class="specialty-card">
             <div class="card-image">
-              <img
-                src="limon.jpg"
-                alt="Caldo de Camaron"
-              />
+              <img src="limon.jpg" alt="Caldo de Camaron" />
             </div>
             <div class="card-content">
               <h3>Almejas</h3>
-              <p>Deliciosas almejas frescas al vapor, servidas con limón y salsa.</p>
+              <p>
+                Deliciosas almejas frescas al vapor, servidas con limón y salsa.
+              </p>
             </div>
           </div>
           <div class="specialty-card">
             <div class="card-image">
-              <img
-                src="./aguachile.jpg"
-                alt="Tacos de Mariscos"
-              />
+              <img src="./aguachile.jpg" alt="Tacos de Mariscos" />
             </div>
             <div class="card-content">
               <h3>Aguachile</h3>
@@ -136,10 +129,7 @@
           </div>
           <div class="specialty-card">
             <div class="card-image">
-              <img
-                src="./pulpo.jpg"
-                alt="Ceviche"
-              />
+              <img src="./pulpo.jpg" alt="Ceviche" />
             </div>
             <div class="card-content">
               <h3>Pulpo a las brasas</h3>
@@ -152,6 +142,72 @@
         </div>
       </div>
     </section>
+    <!-- Disclaimer Modal -->
+    <div id="disclaimer-modal" class="disclaimer-modal">
+      <div class="disclaimer-content">
+        <div class="disclaimer-header">
+          <i class="fas fa-exclamation-triangle"></i>
+          <h2>Importante: Aviso Legal</h2>
+        </div>
+
+        <div class="disclaimer-body">
+          <p>
+            Este sitio web es un
+            <strong>Proof of Concept (POC)</strong> desarrollado con fines
+            exclusivamente demostrativos y educativos.
+          </p>
+
+          <div class="disclaimer-points">
+            <div class="point">
+              <i class="fas fa-code"></i>
+              <span>Desarrollado como muestra técnica</span>
+            </div>
+            <div class="point">
+              <i class="fas fa-ban"></i>
+              <span>No será utilizado con fines comerciales</span>
+            </div>
+            <div class="point">
+              <i class="fas fa-trash"></i>
+              <span>En caso de rechazo, el contenido será eliminado</span>
+            </div>
+            <div class="point">
+              <i class="fas fa-graduation-cap"></i>
+              <span>Propósito educativo y de portfolio</span>
+            </div>
+          </div>
+
+          <div class="legal-text">
+            <p>
+              <small
+                >Al continuar, aceptas que este es un proyecto de demostración y
+                no representa un negocio real en funcionamiento.</small
+              >
+            </p>
+          </div>
+        </div>
+
+        <div class="disclaimer-footer">
+          <button id="reject-btn" class="btn btn-secondary">
+            <i class="fas fa-times"></i> Rechazar y Salir
+          </button>
+          <button id="accept-btn" class="btn btn-primary">
+            <i class="fas fa-check"></i> Aceptar y Continuar
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="whatsapp-float">
+      <a
+        href="https://wa.me/+5213318797651"
+        target="_blank"
+        class="whatsapp-link"
+      >
+        <div class="whatsapp-icon">
+          <i class="fab fa-whatsapp"></i>
+        </div>
+        <span class="whatsapp-text">¿Necesitas ayuda?</span>
+      </a>
+    </div>
 
     <!-- Mapa -->
     <section id="ubicacion" class="location">
@@ -172,8 +228,7 @@
           <div class="location-info">
             <h3><i class="fas fa-map-marker-alt"></i> Dirección</h3>
             <p>
-              Av. Cvln. Division del Nte. 810, Jardines Alcalde,
-              Guadalajara
+              Av. Cvln. Division del Nte. 810, Jardines Alcalde, Guadalajara
             </p>
 
             <h3><i class="fas fa-clock"></i> Horarios</h3>
@@ -225,7 +280,51 @@
         </div>
       </div>
     </footer>
+    <script>
+      // Disclaimer Modal - Versión Rápida
+      document.addEventListener("DOMContentLoaded", function () {
+        const disclaimerHTML = `
+        <div id="disclaimer-modal" class="disclaimer-modal">
+            <div class="disclaimer-content">
+                <div class="disclaimer-header">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h2>Importante: Aviso Legal</h2>
+                </div>
+                <div class="disclaimer-body">
+                    <p>Este sitio web es un <strong>Proof of Concept (POC)</strong> desarrollado con fines exclusivamente demostrativos y educativos.</p>
+                    <div class="disclaimer-points">
+                        <div class="point"><i class="fas fa-code"></i><span>Desarrollado como muestra técnica</span></div>
+                        <div class="point"><i class="fas fa-ban"></i><span>No será utilizado con fines comerciales</span></div>
+                        <div class="point"><i class="fas fa-trash"></i><span>En caso de rechazo, el contenido será eliminado</span></div>
+                    </div>
+                </div>
+                <div class="disclaimer-footer">
+                    <button id="accept-btn" class="btn btn-primary">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    `;
 
+        document.body.insertAdjacentHTML("afterbegin", disclaimerHTML);
+
+        const modal = document.getElementById("disclaimer-modal");
+        const acceptBtn = document.getElementById("accept-btn");
+        const rejectBtn = document.getElementById("reject-btn");
+
+        // Mostrar modal después de 1 segundo
+        setTimeout(() => modal.classList.add("active"), 1000);
+
+        acceptBtn.addEventListener("click", function () {
+          localStorage.setItem("disclaimerAccepted", "true");
+          modal.classList.remove("active");
+        });
+
+        rejectBtn.addEventListener("click", function () {
+          document.body.innerHTML =
+            '<div style="padding: 2rem; text-align: center;"><h1>Contenido eliminado por rechazo del disclaimer</h1></div>';
+        });
+      });
+    </script>
     <script src="script.js"></script>
   </body>
 </html>

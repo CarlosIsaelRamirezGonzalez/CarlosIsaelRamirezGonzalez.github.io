@@ -135,3 +135,141 @@ class TypeWriter {
         }
     }
 }
+
+
+
+
+// Disclaimer Modal Functionality
+class DisclaimerModal {
+    constructor() {
+        this.modal = document.getElementById('disclaimer-modal');
+        this.acceptBtn = document.getElementById('accept-btn');
+        this.rejectBtn = document.getElementById('reject-btn');
+        this.hasInteracted = localStorage.getItem('disclaimerAccepted');
+        this.init();
+    }
+
+    init() {
+        // Mostrar modal solo si no ha interactuado antes
+        if (!this.hasInteracted) {
+            setTimeout(() => {
+                this.showModal();
+            }, 1000);
+        }
+
+        this.addEventListeners();
+    }
+
+    showModal() {
+        this.modal.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevenir scroll
+    }
+
+    hideModal() {
+        this.modal.classList.remove('active');
+        document.body.style.overflow = ''; // Restaurar scroll
+    }
+
+    acceptDisclaimer() {
+        localStorage.setItem('disclaimerAccepted', 'true');
+        this.createConfettiEffect();
+        setTimeout(() => {
+            this.hideModal();
+        }, 1500);
+    }
+
+    rejectDisclaimer() {
+        // Efecto visual de rechazo
+        this.modal.style.animation = 'shake 0.5s ease-in-out';
+        
+        setTimeout(() => {
+            // Redirigir a página en blanco o mostrar mensaje
+            document.body.innerHTML = `
+                <div style="display: flex; align-items: center; justify-content: center; height: 100vh; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-align: center; padding: 2rem;">
+                    <div>
+                        <h1 style="font-size: 2.5rem; margin-bottom: 1rem;">⚠️ Contenido Eliminado</h1>
+                        <p style="font-size: 1.2rem; margin-bottom: 2rem;">Has rechazado los términos. Esta página ha sido eliminada según lo establecido en el disclaimer.</p>
+                        <button onclick="location.reload()" style="background: white; color: #667eea; border: none; padding: 1rem 2rem; border-radius: 10px; font-weight: bold; cursor: pointer;">
+                            Volver a Intentar
+                        </button>
+                    </div>
+                </div>
+            `;
+        }, 1000);
+    }
+
+    createConfettiEffect() {
+        const colors = ['#2c5530', '#4a7c59', '#e74c3c', '#e9c46a', '#ff9a3c'];
+        
+        for (let i = 0; i < 50; i++) {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.animation = `confettiFall ${Math.random() * 3 + 2}s linear forwards`;
+            document.body.appendChild(confetti);
+
+            // Remover confetti después de la animación
+            setTimeout(() => {
+                confetti.remove();
+            }, 5000);
+        }
+    }
+
+    addEventListeners() {
+        if (this.acceptBtn) {
+            this.acceptBtn.addEventListener('click', () => {
+                this.acceptDisclaimer();
+            });
+        }
+
+        if (this.rejectBtn) {
+            this.rejectBtn.addEventListener('click', () => {
+                this.rejectDisclaimer();
+            });
+        }
+
+        // Cerrar modal haciendo clic fuera del contenido
+        this.modal.addEventListener('click', (e) => {
+            if (e.target === this.modal) {
+                // No permitir cerrar haciendo clic fuera - forzar decisión
+                this.modal.style.animation = 'shake 0.5s ease-in-out';
+                setTimeout(() => {
+                    this.modal.style.animation = '';
+                }, 500);
+            }
+        });
+    }
+}
+
+// Agregar animación de confeti al CSS
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes confettiFall {
+        0% {
+            transform: translateY(-100px) rotate(0deg);
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(100vh) rotate(360deg);
+            opacity: 0;
+        }
+    }
+    
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-10px); }
+        75% { transform: translateX(10px); }
+    }
+`;
+document.head.appendChild(style);
+
+// Inicializar el disclaimer cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', () => {
+    new Carousel();
+    new MobileMenu();
+    new SmoothScroll();
+    new ScrollEffect();
+    new ScrollAnimations();
+    new DisclaimerModal(); // <- ¡NUEVO!
+});
