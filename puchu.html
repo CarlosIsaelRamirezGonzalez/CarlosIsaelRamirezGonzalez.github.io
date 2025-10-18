@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz Kahoot Style</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        color: white;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 800px;
+        text-align: center;
+      }
+
+      h1 {
+        font-size: 3rem;
+        margin-bottom: 20px;
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        color: #fff;
+      }
+
+      .question-container {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        padding: 30px;
+        margin-bottom: 30px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+      }
+
+      .question-number {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+        color: #9b59b6;
+      }
+
+      .question {
+        font-size: 2rem;
+        margin-bottom: 30px;
+        font-weight: bold;
+      }
+
+      .options-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+
+      .option {
+        padding: 20px;
+        border-radius: 15px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: none;
+        color: white;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100px;
+      }
+
+      .option:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+      }
+
+      .option-1 {
+        background: linear-gradient(135deg, #ff5757, #ff2e2e);
+      }
+
+      .option-2 {
+        background: linear-gradient(135deg, #4a9bff, #2e8bff);
+      }
+
+      .option-3 {
+        background: linear-gradient(135deg, #ffde59, #ffd000);
+      }
+
+      .option-4 {
+        background: linear-gradient(135deg, #5dd56c, #2ecc71);
+      }
+
+      .option.selected {
+        transform: scale(1.05);
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+      }
+
+      .option.correct {
+        animation: pulse 0.5s infinite alternate;
+        box-shadow: 0 0 30px rgba(46, 204, 113, 0.7);
+      }
+
+      .option.incorrect {
+        background: linear-gradient(135deg, #888, #555);
+        box-shadow: 0 0 30px rgba(255, 0, 0, 0.3);
+      }
+
+      .result-container {
+        display: none;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        padding: 40px;
+        margin-top: 30px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+        animation: fadeIn 1s ease;
+      }
+
+      .result-title {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+        color: #2ecc71;
+        text-shadow: 0 0 10px rgba(46, 204, 113, 0.5);
+      }
+
+      .result-text {
+        font-size: 1.5rem;
+        line-height: 1.6;
+        margin-bottom: 30px;
+      }
+
+      .next-btn {
+        background: linear-gradient(135deg, #9b59b6, #8e44ad);
+        color: white;
+        border: none;
+        padding: 15px 40px;
+        font-size: 1.2rem;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .next-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      }
+
+      .final-container {
+        display: none;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        padding: 40px;
+        margin-top: 30px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+        animation: fadeIn 1s ease;
+      }
+
+      .final-title {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+        color: #f1c40f;
+        text-shadow: 0 0 10px rgba(241, 196, 15, 0.5);
+      }
+
+      .final-text {
+        font-size: 1.5rem;
+        line-height: 1.6;
+        margin-bottom: 30px;
+      }
+
+      .restart-btn {
+        background: linear-gradient(135deg, #e74c3c, #c0392b);
+        color: white;
+        border: none;
+        padding: 15px 40px;
+        font-size: 1.2rem;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .restart-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      }
+
+      .score-container {
+        margin-top: 20px;
+        font-size: 1.5rem;
+        color: #f1c40f;
+      }
+
+      .music-control {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        backdrop-filter: blur(5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .music-control i {
+        font-size: 1.5rem;
+      }
+
+      @keyframes pulse {
+        from {
+          transform: scale(1);
+        }
+        to {
+          transform: scale(1.05);
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .options-container {
+          grid-template-columns: 1fr;
+        }
+
+        .question {
+          font-size: 1.5rem;
+        }
+
+        .option {
+          font-size: 1.2rem;
+          min-height: 80px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Quizz Puchu</h1>
+
+      <div class="question-container" id="questionContainer">
+        <div class="question-number" id="questionNumber">Pregunta 1 de 5</div>
+        <div class="question" id="question">
+          ¿Cuál es la capital de Francia?
+        </div>
+
+        <div class="options-container">
+          <div class="option option-1" data-option="1">Berlín</div>
+          <div class="option option-2" data-option="2">Madrid</div>
+          <div class="option option-3" data-option="3">París</div>
+          <div class="option option-4" data-option="4">Roma</div>
+        </div>
+      </div>
+
+      <div class="result-container" id="resultContainer">
+        <div class="result-title">¡Respuesta Correcta!</div>
+        <div class="result-text" id="resultText">
+          ¡Excelente! París es la capital de Francia, conocida como la "Ciudad
+          de la Luz". Es famosa por su arte, gastronomía y cultura. Algunos de
+          sus monumentos más emblemáticos incluyen la Torre Eiffel, el Museo del
+          Louvre y la Catedral de Notre-Dame.
+        </div>
+        <button class="next-btn" id="nextBtn">Siguiente Pregunta</button>
+      </div>
+
+      <div class="final-container" id="finalContainer">
+        <div class="final-title">¡Quiz Completado!</div>
+        <div class="final-text">
+          Has completado todas las preguntas. ¡Excelente trabajo!
+        </div>
+        <div class="score-container" id="scoreContainer">Puntuación: 0/5</div>
+        <br>
+        <br>
+        <a class="restart-btn" id="restartBtn" href="/card.html">Reclamar premio (Toma captura de esto para evidencia)</a>
+      </div>
+    </div>
+
+    <div class="music-control" id="musicControl">
+      <i>🔊</i>
+    </div>
+
+    <audio id="backgroundMusic" loop>
+      <source
+        src="https://assets.mixkit.co/music/preview/mixkit-game-show-suspense-waiting-667.mp3"
+        type="audio/mpeg"
+      />
+    </audio>
+
+    <audio id="correctSound">
+      <source
+        src="https://assets.mixkit.co/sfx/preview/mixkit-winning-chimes-2015.mp3"
+        type="audio/mpeg"
+      />
+    </audio>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Base de datos de preguntas
+        const questions = [
+          {
+            question: "¿Cual fue nuestro primer chiste local?",
+            options: [
+              "Chihuas",
+              "Cuicuiricuicui",
+              "Chihuahuas Deliciosos",
+              "Ayuwoki",
+            ],
+            correctAnswer: 2, // Índice de la respuesta correcta (0-based)
+            explanation: "Super bien, nuestro primer chiste de chiuas :D ",
+          },
+          {
+            question: "¿Cuantos años tenia cuando te conoci?",
+            options: ["14", "15", "16", "17"],
+            correctAnswer: 1,
+            explanation:
+              "Correcto, tenia 15 años cuando me conociste, super bieeeen :D ",
+          },
+          {
+            question: "¿Cuanto mido?",
+            options: ["2.20", "1.69", "1.70", "1.68"],
+            correctAnswer: 1,
+            explanation: "Lamentablemente tienes razon :(  Mido 1.6",
+          },
+          {
+            question: "¿Que raza era Guapo Primero?",
+            options: ["Snouzer", "Pug", "Beagle", "Pitbulll"],
+            correctAnswer: 1,
+            explanation: "Guapo primero era un PUUUGGGGG",
+          },
+          {
+            question: "¿Cuál es el elemento químico con símbolo 'O'?",
+            options: ["Oro", "Osmio", "Oxígeno", "Oganesón"],
+            correctAnswer: 2,
+            explanation:
+              "¡Exacto! El oxígeno (O) es un elemento químico esencial para la vida. Constituye aproximadamente el 21% de la atmósfera terrestre y es necesario para la respiración de la mayoría de los seres vivos.",
+          },
+        ];
+
+        // Elementos del DOM
+        const questionContainer = document.getElementById("questionContainer");
+        const questionNumber = document.getElementById("questionNumber");
+        const questionElement = document.getElementById("question");
+        const options = document.querySelectorAll(".option");
+        const resultContainer = document.getElementById("resultContainer");
+        const resultText = document.getElementById("resultText");
+        const nextBtn = document.getElementById("nextBtn");
+        const finalContainer = document.getElementById("finalContainer");
+        const scoreContainer = document.getElementById("scoreContainer");
+        const restartBtn = document.getElementById("restartBtn");
+        const backgroundMusic = document.getElementById("backgroundMusic");
+        const correctSound = document.getElementById("correctSound");
+        const musicControl = document.getElementById("musicControl");
+
+        // Variables de estado
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let musicPlaying = false;
+
+        // Cargar la pregunta actual
+        function loadQuestion() {
+          const currentQuestion = questions[currentQuestionIndex];
+
+          // Actualizar número de pregunta
+          questionNumber.textContent = `Pregunta ${
+            currentQuestionIndex + 1
+          } de ${questions.length}`;
+
+          // Actualizar texto de la pregunta
+          questionElement.textContent = currentQuestion.question;
+
+          // Actualizar opciones
+          options.forEach((option, index) => {
+            option.textContent = currentQuestion.options[index];
+            option.classList.remove("selected", "correct", "incorrect");
+          });
+
+          // Ocultar contenedores de resultado y final
+          resultContainer.style.display = "none";
+          finalContainer.style.display = "none";
+
+          // Mostrar contenedor de pregunta
+          questionContainer.style.display = "block";
+        }
+
+        // Configurar evento para cada opción
+        options.forEach((option) => {
+          option.addEventListener("click", function () {
+            // Si ya se seleccionó una opción, no hacer nada
+            if (document.querySelector(".option.selected")) return;
+
+            // Deseleccionar todas las opciones
+            options.forEach((opt) => {
+              opt.classList.remove("selected");
+            });
+
+            // Seleccionar la opción clickeada
+            this.classList.add("selected");
+
+            // Obtener índice de la opción seleccionada
+            const selectedOptionIndex = Array.from(options).indexOf(this);
+
+            // Verificar si es la respuesta correcta
+            const isCorrect =
+              selectedOptionIndex ===
+              questions[currentQuestionIndex].correctAnswer;
+
+            // Aplicar estilos según si es correcta o no
+            if (isCorrect) {
+              this.classList.add("correct");
+              score++;
+              options.forEach((opt) => {
+                if (opt !== this) {
+                  opt.classList.add("incorrect");
+                }
+              });
+
+              // Mostrar resultado después de un breve delay
+              setTimeout(() => {
+                resultText.textContent =
+                  questions[currentQuestionIndex].explanation;
+                resultContainer.style.display = "block";
+                // Reproducir sonido de acierto
+                correctSound.play();
+              }, 1000);
+            } else {
+              this.classList.add("incorrect");
+
+              // Encontrar y resaltar la respuesta correcta
+              const correctOption =
+                options[questions[currentQuestionIndex].correctAnswer];
+              correctOption.classList.add("correct");
+
+              // Mostrar resultado después de un breve delay
+              setTimeout(() => {
+                resultText.textContent =
+                  questions[currentQuestionIndex].explanation;
+                resultContainer.style.display = "block";
+              }, 1000);
+            }
+          });
+        });
+
+        // Botón para siguiente pregunta
+        nextBtn.addEventListener("click", function () {
+          currentQuestionIndex++;
+
+          // Verificar si hay más preguntas
+          if (currentQuestionIndex < questions.length) {
+            loadQuestion();
+          } else {
+            // Mostrar pantalla final
+            showFinalScreen();
+          }
+        });
+
+        // Mostrar pantalla final
+        function showFinalScreen() {
+          questionContainer.style.display = "none";
+          resultContainer.style.display = "none";
+          finalContainer.style.display = "block";
+          scoreContainer.textContent = `Puntuación: ${score}/${questions.length}`;
+        }
+
+        // Botón para reiniciar el quiz
+        restartBtn.addEventListener("click", function () {
+          currentQuestionIndex = 0;
+          score = 0;
+          loadQuestion();
+        });
+
+        // Control de música
+        musicControl.addEventListener("click", function () {
+          if (musicPlaying) {
+            backgroundMusic.pause();
+            musicControl.innerHTML = "<i>🔇</i>";
+          } else {
+            backgroundMusic.play();
+            musicControl.innerHTML = "<i>🔊</i>";
+          }
+          musicPlaying = !musicPlaying;
+        });
+
+        // Cargar la primera pregunta al iniciar
+        loadQuestion();
+      });
+    </script>
+  </body>
+</html>
