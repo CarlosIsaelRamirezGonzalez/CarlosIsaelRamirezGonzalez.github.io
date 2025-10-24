@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impacto del Crédito en la Liquidez Empresarial</title>
+    <style>
+        /* Estilos generales */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Estilos para las diapositivas */
+        .slides-container {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 40px 20px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            text-align: center;
+            overflow-y: auto;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide-content {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        .slide h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .slide h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #3498db;
+        }
+
+        .slide p {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .slide ul, .slide ol {
+            text-align: left;
+            margin: 20px 0;
+            padding-left: 20px;
+        }
+
+        .slide li {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .highlight {
+            background-color: #ffeaa7;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+
+        /* Navegación entre diapositivas */
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            z-index: 100;
+        }
+
+        .nav-btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            margin: 0 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        .nav-btn:hover {
+            background-color: #2980b9;
+        }
+
+        .nav-btn:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+        }
+
+        /* Indicadores de diapositivas */
+        .indicators {
+            position: fixed;
+            bottom: 80px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            z-index: 100;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #bdc3c7;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .indicator.active {
+            background-color: #3498db;
+        }
+
+        /* Estilos para el quiz */
+        .quiz-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .question {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .question h3 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+            text-align: left;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .option {
+            margin-bottom: 10px;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: left;
+        }
+
+        .option:hover {
+            background-color: #f8f9fa;
+        }
+
+        .option.selected {
+            background-color: #3498db;
+            color: white;
+            border-color: #3498db;
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            background-color: #27ae60;
+        }
+
+        .result {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        /* Responsividad */
+        @media (max-width: 768px) {
+            .slide {
+                padding: 20px 15px;
+            }
+            
+            .slide h1 {
+                font-size: 2rem;
+            }
+            
+            .slide h2 {
+                font-size: 1.7rem;
+            }
+            
+            .slide p, .slide li {
+                font-size: 1rem;
+            }
+            
+            .nav-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .quiz-container {
+                padding: 20px;
+                max-height: 70vh;
+            }
+            
+            .option {
+                padding: 10px 12px;
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .slide {
+                padding: 15px 10px;
+                padding-top: 60px;
+            }
+            
+            .slide h1 {
+                font-size: 1.7rem;
+            }
+            
+            .slide h2 {
+                font-size: 1.5rem;
+            }
+            
+            .slide p, .slide li {
+                font-size: 0.9rem;
+            }
+            
+            .nav-btn {
+                padding: 8px 15px;
+                font-size: 0.8rem;
+            }
+            
+            .indicators {
+                bottom: 70px;
+            }
+            
+            .quiz-container {
+                padding: 15px;
+                margin: 10px auto;
+                max-height: 65vh;
+            }
+            
+            .question h3 {
+                font-size: 1.1rem;
+            }
+            
+            .option {
+                padding: 8px 10px;
+                font-size: 0.9rem;
+            }
+            
+            .submit-btn {
+                padding: 12px;
+                font-size: 1rem;
+            }
+        }
+
+        /* Estilo para la barra de desplazamiento */
+        .slide::-webkit-scrollbar,
+        .quiz-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .slide::-webkit-scrollbar-track,
+        .quiz-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .slide::-webkit-scrollbar-thumb,
+        .quiz-container::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 10px;
+        }
+
+        .slide::-webkit-scrollbar-thumb:hover,
+        .quiz-container::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+    </style>
+</head>
+<body>
+    <div class="slides-container">
+        <!-- Diapositiva 1: Introducción -->
+        <div class="slide active">
+            <div class="slide-content">
+                <h1>Impacto del Crédito en la Liquidez Empresarial</h1>
+                <p>Una guía completa para entender cómo el acceso al crédito afecta la capacidad de una empresa para cumplir con sus obligaciones financieras a corto plazo.</p>
+                <p>El crédito empresarial es una herramienta fundamental para la gestión financiera de cualquier organización. Cuando se utiliza de manera estratégica, puede mejorar significativamente la posición de liquidez y permitir el crecimiento sostenible.</p>
+                <p>En esta presentación exploraremos los conceptos clave, beneficios, riesgos y estrategias para gestionar eficazmente el crédito en relación con la liquidez empresarial.</p>
+                <p>Desliza hacia la derecha para continuar</p>
+            </div>
+        </div>
+
+        <!-- Diapositiva 2: Definiciones clave -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Conceptos Fundamentales</h2>
+                <p>Para comprender el impacto del crédito en la liquidez, es importante definir estos conceptos:</p>
+                <ul>
+                    <li><span class="highlight">Liquidez:</span> Capacidad de una empresa para convertir activos en efectivo para cumplir con obligaciones a corto plazo. Representa la salud financiera inmediata de la organización.</li>
+                    <li><span class="highlight">Crédito:</span> Acuerdo mediante el cual una entidad financiera proporciona recursos con la promesa de pago futuro. Puede adoptar diversas formas según las necesidades empresariales.</li>
+                    <li><span class="highlight">Capital de trabajo:</span> Diferencia entre activos corrientes y pasivos corrientes. Es un indicador clave de la capacidad operativa de una empresa.</li>
+                    <li><span class="highlight">Ciclo de conversión de efectivo:</span> Período que transcurre desde que se realiza un desembolso hasta que se recupera el efectivo a través de las ventas.</li>
+                </ul>
+                <p>La relación entre estos conceptos determina en gran medida la viabilidad financiera a corto plazo de cualquier empresa.</p>
+            </div>
+        </div>
+
+        <!-- Diapositiva 3: Relación crédito-liquidez -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>¿Cómo se relacionan?</h2>
+                <p>El crédito puede influir directamente en la liquidez empresarial de varias maneras:</p>
+                <ul>
+                    <li><strong>Financiamiento de inventarios y cuentas por cobrar:</strong> Permite mantener niveles adecuados de stock sin afectar el flujo de caja.</li>
+                    <li><strong>Amortiguación de desfases temporales:</strong> Ayuda a cubrir períodos donde los ingresos no coinciden con los gastos operativos.</li>
+                    <li><strong>Oportunidades de negocio:</strong> Facilita la inversión inmediata en oportunidades que requieren recursos rápidos.</li>
+                    <li><strong>Estacionalidad:</strong> Permite superar períodos de baja actividad sin comprometer las operaciones.</li>
+                    <li><strong>Negociación con proveedores:</strong> Mejora la capacidad de obtener mejores condiciones de pago.</li>
+                </ul>
+                <p>La clave está en utilizar el crédito como herramienta estratégica, no como solución permanente a problemas de flujo de caja.</p>
+            </div>
+        </div>
+
+        <!-- Diapositiva 4: Tipos de crédito -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Tipos de Crédito Empresarial</h2>
+                <p>Existen diferentes modalidades de crédito que impactan de forma distinta la liquidez:</p>
+                <ul>
+                    <li><span class="highlight">Líneas de crédito:</span> Flexibilidad para disponer de fondos según necesidades. Solo se pagan intereses sobre el monto utilizado.</li>
+                    <li><span class="highlight">Préstamos a corto plazo:</span> Para financiar necesidades específicas de capital de trabajo. Generalmente con plazos menores a un año.</li>
+                    <li><span class="highlight">Créditos comerciales:</span> Plazos de pago otorgados por proveedores. Una forma de financiamiento espontáneo.</li>
+                    <li><span class="highlight">Factoring:</span> Anticipación de cuentas por cobrar. Mejora inmediatamente la posición de liquidez.</li>
+                    <li><span class="highlight">Créditos revolventes:</span> Similar a las líneas de crédito pero con renovación automática bajo ciertas condiciones.</li>
+                    <li><span class="highlight">Tarjetas de crédito corporativas:</span> Para gastos operativos menores y controlados.</li>
+                </ul>
+                <p>Cada tipo de crédito tiene ventajas, desventajas y costos diferentes que deben evaluarse cuidadosamente.</p>
+            </div>
+        </div>
+
+        <!-- Diapositiva 5: Beneficios del crédito -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Beneficios del Crédito en la Liquidez</h2>
+                <p>El acceso adecuado al crédito puede generar importantes beneficios:</p>
+                <ul>
+                    <li><strong>Mejora del ciclo de conversión de efectivo:</strong> Reduce el tiempo entre el desembolso y la recuperación de fondos.</li>
+                    <li><strong>Reducción del riesgo de insolvencia:</strong> Proporciona un colchón financiero para situaciones imprevistas.</li>
+                    <li><strong>Mayor capacidad para fluctuaciones estacionales:</strong> Permite mantener operaciones durante períodos de baja actividad.</li>
+                    <li><strong>Descuentos por pronto pago:</strong> Posibilidad de aprovechar descuentos de proveedores al disponer de efectivo inmediato.</li>
+                    <li><strong>Fortalecimiento de posición negociadora:</strong> Mejora la capacidad de negociación con proveedores y clientes.</li>
+                    <li><strong>Crecimiento acelerado:</strong> Facilita la expansión al proporcionar recursos para inversiones estratégicas.</li>
+                </ul>
+                <p>Estos beneficios solo se materializan cuando el crédito se gestiona de manera profesional y estratégica.</p>
+            </div>
+        </div>
+
+        <!-- Diapositiva 6: Riesgos y consideraciones -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Riesgos y Consideraciones</h2>
+                <p>El uso inadecuado del crédito también puede generar problemas:</p>
+                <ul>
+                    <li><strong>Costos financieros:</strong> Intereses y comisiones que reducen la rentabilidad neta.</li>
+                    <li><strong>Endeudamiento excesivo:</strong> Compromete el flujo de caja futuro con obligaciones de pago.</li>
+                    <li><strong>Dependencia financiera:</strong> Crear una necesidad permanente de financiamiento externo.</li>
+                    <li><strong>Riesgo de incumplimiento:</strong> Posibilidad de default en períodos de crisis o recesión.</li>
+                    <li><strong>Condiciones restrictivas:</strong> Algunos créditos incluyen cláusulas que limitan la operación empresarial.</li>
+                    <li><strong>Impacto en el score crediticio:</strong> Un mal manejo puede afectar la capacidad futura de obtener financiamiento.</li>
+                </ul>
+                <p>Es crucial mantener un equilibrio entre el uso del crédito y la generación interna de recursos. La sostenibilidad financiera depende de esta balanza.</p>
+            </div>
+        </div>
+
+        <!-- Diapositiva 7: Estrategias de gestión -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Estrategias para una Gestión Efectiva</h2>
+                <p>Para optimizar el impacto del crédito en la liquidez:</p>
+                <ol>
+                    <li><strong>Proyecciones precisas de flujo de caja:</strong> Anticipar necesidades y excedentes de efectivo.</li>
+                    <li><strong>Negociación de términos favorables:</strong> Buscar las mejores condiciones con proveedores y entidades financieras.</li>
+                    <li><strong>Diversificación de fuentes:</strong> No depender de un solo proveedor de financiamiento.</li>
+                    <li><strong>Nivel adecuado de capital de trabajo:</strong> Mantener un equilibrio entre activos y pasivos corrientes.</li>
+                    <li><strong>Políticas claras de cobranza:</strong> Reducir el ciclo de conversión de cuentas por cobrar.</li>
+                    <li><strong>Monitoreo constante de indicadores:</strong> Seguimiento regular de ratios de liquidez y endeudamiento.</li>
+                    <li><strong>Presupuesto de tesorería:</strong> Planificación detallada de entradas y salidas de efectivo.</li>
+                    <li><strong>Análisis de costo-beneficio:</strong> Evaluar siempre si el costo del crédito justifica sus beneficios.</li>
+                </ol>
+                <p>La implementación consistente de estas estrategias permite maximizar los beneficios del crédito mientras se minimizan sus riesgos.</p>
+            </div>
+        </div>
+
+        <!-- Diapositiva 8: Quiz -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Evaluación de Conocimientos</h2>
+                <p>Responde las siguientes preguntas para evaluar tu comprensión del tema:</p>
+                
+                <div class="quiz-container">
+                    <div class="question">
+                        <h3>1. ¿Qué representa la liquidez en una empresa?</h3>
+                        <div class="options">
+                            <div class="option" data-question="1" data-value="a">a) La capacidad de generar utilidades a largo plazo</div>
+                            <div class="option" data-question="1" data-value="b">b) La habilidad para convertir activos en efectivo y cumplir obligaciones a corto plazo</div>
+                            <div class="option" data-question="1" data-value="c">c) El total de activos fijos de la empresa</div>
+                            <div class="option" data-question="1" data-value="d">d) La relación entre deuda y patrimonio</div>
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <h3>2. ¿Cuál de las siguientes NO es una ventaja del uso adecuado del crédito?</h3>
+                        <div class="options">
+                            <div class="option" data-question="2" data-value="a">a) Mejora del ciclo de conversión de efectivo</div>
+                            <div class="option" data-question="2" data-value="b">b) Reducción del riesgo de insolvencia</div>
+                            <div class="option" data-question="2" data-value="c">c) Eliminación permanente de la necesidad de capital de trabajo</div>
+                            <div class="option" data-question="2" data-value="d">d) Posibilidad de aprovechar descuentos por pronto pago</div>
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <h3>3. ¿Qué estrategia ayuda a optimizar el impacto del crédito en la liquidez?</h3>
+                        <div class="options">
+                            <div class="option" data-question="3" data-value="a">a) Concentrar toda la financiación en una sola entidad crediticia</div>
+                            <div class="option" data-question="3" data-value="b">b) Realizar proyecciones precisas de flujo de caja</div>
+                            <div class="option" data-question="3" data-value="c">c) Maximizar el uso de crédito sin considerar los costos financieros</div>
+                            <div class="option" data-question="3" data-value="d">d) Evitar por completo el uso de financiamiento externo</div>
+                        </div>
+                    </div>
+                    
+                    <button class="submit-btn">Ver Resultado</button>
+                    <div class="result"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navegación -->
+        <div class="indicators">
+            <div class="indicator active" data-slide="0"></div>
+            <div class="indicator" data-slide="1"></div>
+            <div class="indicator" data-slide="2"></div>
+            <div class="indicator" data-slide="3"></div>
+            <div class="indicator" data-slide="4"></div>
+            <div class="indicator" data-slide="5"></div>
+            <div class="indicator" data-slide="6"></div>
+            <div class="indicator" data-slide="7"></div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn prev-btn" disabled>Anterior</button>
+            <button class="nav-btn next-btn">Siguiente</button>
+        </div>
+    </div>
+
+    <script>
+        // Variables globales
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const indicators = document.querySelectorAll('.indicator');
+        const prevBtn = document.querySelector('.prev-btn');
+        const nextBtn = document.querySelector('.next-btn');
+        const options = document.querySelectorAll('.option');
+        const submitBtn = document.querySelector('.submit-btn');
+        const resultDiv = document.querySelector('.result');
+
+        // Respuestas correctas
+        const correctAnswers = {
+            1: 'b',
+            2: 'c',
+            3: 'b'
+        };
+
+        // Objeto para almacenar las respuestas del usuario
+        let userAnswers = {};
+
+        // Funciones para navegación de diapositivas
+        function showSlide(index) {
+            // Ocultar todas las diapositivas
+            slides.forEach(slide => {
+                slide.classList.remove('active');
+            });
+            
+            // Mostrar la diapositiva actual
+            slides[index].classList.add('active');
+            
+            // Actualizar indicadores
+            indicators.forEach(indicator => {
+                indicator.classList.remove('active');
+            });
+            indicators[index].classList.add('active');
+            
+            // Actualizar botones de navegación
+            prevBtn.disabled = index === 0;
+            nextBtn.disabled = index === slides.length - 1;
+            
+            // Actualizar índice actual
+            currentSlide = index;
+        }
+
+        // Event listeners para navegación
+        prevBtn.addEventListener('click', () => {
+            if (currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentSlide < slides.length - 1) {
+                showSlide(currentSlide + 1);
+            }
+        });
+
+        // Event listeners para indicadores
+        indicators.forEach(indicator => {
+            indicator.addEventListener('click', () => {
+                const slideIndex = parseInt(indicator.getAttribute('data-slide'));
+                showSlide(slideIndex);
+            });
+        });
+
+        // Event listeners para opciones del quiz
+        options.forEach(option => {
+            option.addEventListener('click', () => {
+                const question = option.getAttribute('data-question');
+                const value = option.getAttribute('data-value');
+                
+                // Remover selección anterior para esta pregunta
+                document.querySelectorAll(`.option[data-question="${question}"]`).forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                
+                // Seleccionar la nueva opción
+                option.classList.add('selected');
+                
+                // Guardar la respuesta del usuario
+                userAnswers[question] = value;
+            });
+        });
+
+        // Event listener para el botón de enviar
+        submitBtn.addEventListener('click', () => {
+            // Verificar si se respondieron todas las preguntas
+            const answeredQuestions = Object.keys(userAnswers).length;
+            if (answeredQuestions < 3) {
+                resultDiv.innerHTML = `<p style="color: #e74c3c;">Por favor, responde todas las preguntas antes de ver el resultado.</p>`;
+                return;
+            }
+            
+            // Calcular puntuación
+            let score = 0;
+            for (const question in userAnswers) {
+                if (userAnswers[question] === correctAnswers[question]) {
+                    score++;
+                }
+            }
+            
+            // Mostrar resultado
+            resultDiv.innerHTML = `
+                <h3>Tu resultado:</h3>
+                <p>Obtuviste ${score} de 3 respuestas correctas.</p>
+                <p>${score === 3 ? '¡Excelente! Dominas el tema.' : score === 2 ? 'Buen trabajo, pero puedes mejorar.' : 'Te recomendamos repasar el material.'}</p>
+            `;
+        });
+
+        // Inicializar la primera diapositiva
+        showSlide(0);
+    </script>
+</body>
+</html>
