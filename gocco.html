@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gocco Spa - Masajes Masculinos de Lujo</title>
-        <link
+    <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
@@ -35,6 +35,95 @@
         color: var(--light);
         line-height: 1.6;
         overflow-x: hidden;
+      }
+
+      /* Estilos para el popup */
+      .popup-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+      }
+
+      .popup-overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .popup-content {
+        background-color: var(--dark);
+        border: 2px solid var(--secondary);
+        border-radius: 10px;
+        padding: 2rem;
+        max-width: 500px;
+        width: 90%;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        transform: scale(0.8);
+        transition: transform 0.3s ease;
+      }
+
+      .popup-overlay.active .popup-content {
+        transform: scale(1);
+      }
+
+      .popup-icon {
+        font-size: 3rem;
+        color: var(--secondary);
+        margin-bottom: 1rem;
+      }
+
+      .popup-content h2 {
+        color: var(--secondary);
+        margin-bottom: 1rem;
+      }
+
+      .popup-content p {
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+      }
+
+      .popup-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-top: 1.5rem;
+      }
+
+      .popup-btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .popup-btn.accept {
+        background-color: var(--secondary);
+        color: var(--dark);
+      }
+
+      .popup-btn.accept:hover {
+        background-color: #e6c231;
+      }
+
+      .popup-btn.decline {
+        background-color: var(--primary);
+        color: white;
+      }
+
+      .popup-btn.decline:hover {
+        background-color: #a00000;
       }
 
       /* Header y Navegación */
@@ -617,6 +706,10 @@
         .location-content {
           flex-direction: column;
         }
+
+        .popup-buttons {
+          flex-direction: column;
+        }
       }
 
       /* Efectos de aparición al hacer scroll */
@@ -738,6 +831,28 @@
     </style>
   </head>
   <body>
+    <!-- Popup de Aviso POC -->
+    <div id="poc-popup" class="popup-overlay">
+      <div class="popup-content">
+        <div class="popup-icon">
+          <i class="fas fa-exclamation-triangle"></i>
+        </div>
+        <h2>Aviso Importante</h2>
+        <p>
+          Esta página es un <strong>Proof of Concept (POC)</strong> y no está destinada a fines comerciales.
+          Es una demostración técnica de desarrollo web y no representa un negocio real.
+        </p>
+        <p>
+          Al hacer clic en "Aceptar", reconoces que esta es solo una demostración.
+          Si haces clic en "Declinar", esta página se borrará.
+        </p>
+        <div class="popup-buttons">
+          <button class="popup-btn accept" id="accept-poc">Aceptar</button>
+          <button class="popup-btn decline" id="decline-poc">Declinar</button>
+        </div>
+      </div>
+    </div>
+
     <!-- Header -->
     <header>
       <div class="container nav-container">
@@ -1115,6 +1230,41 @@
     </footer>
 
     <script>
+      // Control del popup POC
+      document.addEventListener('DOMContentLoaded', function() {
+        const popup = document.getElementById('poc-popup');
+        const acceptBtn = document.getElementById('accept-poc');
+        const declineBtn = document.getElementById('decline-poc');
+        
+        // Verificar si ya se ha aceptado el aviso anteriormente
+        const hasAcceptedPOC = localStorage.getItem('pocAccepted');
+        
+        if (!hasAcceptedPOC) {
+          // Mostrar el popup después de un breve retraso para mejor UX
+          setTimeout(() => {
+            popup.classList.add('active');
+          }, 500);
+        }
+        
+        // Manejar clic en Aceptar
+        acceptBtn.addEventListener('click', function() {
+          localStorage.setItem('pocAccepted', 'true');
+          popup.classList.remove('active');
+        });
+        
+        // Manejar clic en Declinar
+        declineBtn.addEventListener('click', function() {
+          // Borrar la página
+          document.body.innerHTML = `
+            <div style="display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #1a1a1a; color: white; flex-direction: column; text-align: center; padding: 2rem;">
+              <h1 style="color: #d4af37; margin-bottom: 1rem;">Página Borrada</h1>
+              <p style="margin-bottom: 2rem;">Has declinado el aviso POC. Esta página ha sido eliminada.</p>
+              <p>Puedes cerrar esta pestaña o volver atrás en tu navegador.</p>
+            </div>
+          `;
+        });
+      });
+
       // Menú Hamburguesa
       const hamburger = document.querySelector(".hamburger");
       const navMenu = document.querySelector(".nav-menu");
