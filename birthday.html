@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Feliz Cumpleaños Mamá! ❤️</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #ffb6c1 0%, #ffd1dc 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            color: rgba(255, 105, 180, 0.3);
+            animation: float 8s infinite linear;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+            border-radius: 15px;
+            color: white;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            margin-bottom: 10px;
+            color: #d23669;
+        }
+        
+        .emoji-container {
+            font-size: 3rem;
+            margin: 15px 0;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .message {
+            font-size: 1.2rem;
+            margin: 15px 0;
+            color: #5a3d5c;
+            line-height: 1.6;
+        }
+        
+        .levels {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .level-btn {
+            background: linear-gradient(45deg, #ff6b6b, #ffa36c);
+            border: none;
+            border-radius: 50px;
+            padding: 15px 25px;
+            font-size: 1.2rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 200px;
+            justify-content: center;
+        }
+        
+        .level-btn:hover:not(.locked) {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .level-btn.locked {
+            background: linear-gradient(45deg, #cccccc, #999999);
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        
+        .level-btn.completed {
+            background: linear-gradient(45deg, #00b894, #00cec9);
+        }
+        
+        .game-section {
+            display: none;
+            background-color: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #ff6b6b;
+            font-size: 2rem;
+        }
+        
+        .game-instructions {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #5a3d5c;
+            font-size: 1.1rem;
+        }
+        
+        /* Estilos para el juego del gato */
+        #tic-tac-toe {
+            text-align: center;
+        }
+        
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            max-width: 300px;
+            margin: 0 auto 20px;
+        }
+        
+        .cell {
+            aspect-ratio: 1;
+            background-color: #ffeaa7;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .cell:hover {
+            background-color: #fdcb6e;
+        }
+        
+        .cell.x {
+            color: #e17055;
+        }
+        
+        .cell.o {
+            color: #00b894;
+        }
+        
+        .status {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #5a3d5c;
+        }
+        
+        /* Estilos para el memorama */
+        #memory-game {
+            text-align: center;
+        }
+        
+        .memory-board {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .memory-card {
+            aspect-ratio: 1;
+            background-color: #a29bfe;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .memory-card.flipped {
+            transform: rotateY(180deg);
+        }
+        
+        .memory-card.matched {
+            background-color: #55efc4;
+            cursor: default;
+        }
+        
+        .memory-card .front, .memory-card .back {
+            position: absolute;
+            backface-visibility: hidden;
+        }
+        
+        .memory-card .back {
+            transform: rotateY(180deg);
+        }
+        
+        /* Estilos para Atrapa el Botón */
+        #catch-button {
+            text-align: center;
+        }
+        
+        #game-area {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            background-color: #dfe6e9;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            border: 3px dashed #ff9a9e;
+        }
+        
+        #moving-button {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(45deg, #fd79a8, #e84393);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.1s;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 10px;
+        }
+        
+        #score {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #5a3d5c;
+        }
+        
+        .progress-container {
+            width: 100%;
+            height: 20px;
+            background-color: #ddd;
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(45deg, #00b894, #00cec9);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        /* Estilos para el PDF */
+        #pdf-container {
+            display: none;
+            text-align: center;
+            margin-top: 30px;
+            padding: 30px;
+            background: linear-gradient(45deg, #ffeaa7, #fab1a0);
+            border-radius: 15px;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        #pdf-frame {
+            width: 100%;
+            height: 500px;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        #restart-btn {
+            background: linear-gradient(45deg, #00b894, #00cec9);
+            border: none;
+            border-radius: 50px;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            color: white;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        #restart-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            color: #636e72;
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .love-message {
+            font-size: 1.3rem;
+            color: #d23669;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        
+        @media (max-width: 600px) {
+            .memory-board {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .level-btn {
+                padding: 12px 20px;
+                font-size: 1rem;
+                min-width: 150px;
+            }
+            
+            #moving-button {
+                width: 80px;
+                height: 80px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hearts" id="hearts-container">
+            <!-- Los corazones se generarán con JavaScript -->
+        </div>
+        
+        <header>
+            <h1>¡Feliz Cumpleaños Mamá! ❤️</h1>
+            <div class="emoji-container">🎂 🎁 🥳 🎉 😻</div>
+            <p class="message">Te amo con todo mi corazón. Completa estos juegos para recibir tu regalo especial.</p>
+            <p class="message">Cada juego es un nivel que debes superar. ¡Tú puedes!</p>
+        </header>
+        
+        <div class="levels">
+            <button class="level-btn" id="level1-btn" onclick="showGame('tic-tac-toe')">
+                <span>Nivel 1</span>
+                <span>😸 Juego del Gato</span>
+            </button>
+            <button class="level-btn locked" id="level2-btn" onclick="showGame('memory-game')">
+                <span>Nivel 2</span>
+                <span>🧠 Memorama</span>
+            </button>
+            <button class="level-btn locked" id="level3-btn" onclick="showGame('catch-button')">
+                <span>Nivel 3</span>
+                <span>⚡ Atrapa el Botón</span>
+            </button>
+        </div>
+        
+        <!-- Juego del Gato - Nivel 1 -->
+        <section id="tic-tac-toe" class="game-section active">
+            <h2>Nivel 1: Juego del Gato 😸</h2>
+            <p class="game-instructions">Juega contra la computadora. ¡Gana para desbloquear el siguiente nivel!</p>
+            <div class="status" id="tictactoe-status">Tu turno (X)</div>
+            <div class="board" id="tictactoe-board">
+                <!-- Las celdas se generarán con JavaScript -->
+            </div>
+        </section>
+        
+        <!-- Memorama - Nivel 2 -->
+        <section id="memory-game" class="game-section">
+            <h2>Nivel 2: Memorama Gatuno 🧠</h2>
+            <p class="game-instructions">Encuentra todas las parejas de gatitos. ¡Tienes que completarlo para avanzar!</p>
+            <div class="memory-board" id="memory-board">
+                <!-- Las cartas se generarán con JavaScript -->
+            </div>
+        </section>
+        
+        <!-- Atrapa el Botón - Nivel 3 -->
+        <section id="catch-button" class="game-section">
+            <h2>Nivel 3: Atrapa el Botón ⚡</h2>
+            <p class="game-instructions">¡Atrapa el botón 10 veces! Se moverá más rápido cada vez que lo atrapes.</p>
+            <div id="score">Atrapado: 0/10 veces</div>
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+            <div id="game-area">
+                <button id="moving-button" onclick="catchButton()">¡Atrapame mamá! ❤️</button>
+            </div>
+        </section>
+        
+        <!-- PDF Container -->
+        <div id="pdf-container">
+            <h2>¡Felicidades Mamá! Has completado todos los niveles 🎉</h2>
+            <p class="message">Eres la mejor mamá del mundo y te mereces todo lo bueno.</p>
+            <p class="message">Aquí tienes tu regalo especial:</p>
+            <iframe id="pdf-frame" src="./pdf.pdf"></iframe>
+            <br>
+            <button id="restart-btn" onclick="restartAllGames()">Volver a Jugar</button>
+            <p class="love-message">¡Te amo infinitamente! ❤️</p>
+        </div>
+        
+        <footer>
+            <p>Hecho con todo el amor del mundo para el cumpleaños de mi mamá</p>
+            <p class="love-message">¡Eres la mejor mamá del universo! 🌟</p>
+        </footer>
+    </div>
+
+    <script>
+        // Variables globales para el progreso del juego
+        let completedLevels = 0;
+        let currentLevel = 1;
+        
+        // Crear corazones flotantes
+        function createHearts() {
+            const heartsContainer = document.getElementById('hearts-container');
+            const heartCount = 30;
+            
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '❤️';
+                heart.style.left = `${Math.random() * 100}%`;
+                heart.style.animationDelay = `${Math.random() * 8}s`;
+                heart.style.fontSize = `${Math.random() * 20 + 15}px`;
+                heartsContainer.appendChild(heart);
+            }
+        }
+        
+        // Mostrar/ocultar juegos
+        function showGame(gameId) {
+            const level = parseInt(gameId === 'tic-tac-toe' ? 1 : gameId === 'memory-game' ? 2 : 3);
+            
+            // Solo permitir jugar niveles desbloqueados
+            if (level > completedLevels + 1) {
+                alert(`¡Necesitas completar el nivel ${level-1} primero!`);
+                return;
+            }
+            
+            document.querySelectorAll('.game-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(gameId).classList.add('active');
+            document.getElementById('pdf-container').style.display = 'none';
+            
+            currentLevel = level;
+        }
+        
+        // Completar nivel
+        function completeLevel(level) {
+            if (level > completedLevels) {
+                completedLevels = level;
+                
+                // Actualizar botones de niveles
+                for (let i = 1; i <= 3; i++) {
+                    const btn = document.getElementById(`level${i}-btn`);
+                    if (i <= completedLevels) {
+                        btn.classList.remove('locked');
+                        btn.classList.add('completed');
+                    } else if (i === completedLevels + 1) {
+                        btn.classList.remove('locked');
+                    }
+                }
+                
+                // Mostrar mensaje de felicitación
+                if (level < 3) {
+                    alert(`¡Felicidades! Has completado el nivel ${level}. Ahora puedes jugar el nivel ${level+1}.`);
+                } else {
+                    // Todos los niveles completados
+                    showPdf();
+                }
+            }
+        }
+        
+        // Reiniciar todos los juegos
+        function restartAllGames() {
+            completedLevels = 0;
+            currentLevel = 1;
+            
+            // Restablecer botones de niveles
+            document.getElementById('level1-btn').classList.remove('locked', 'completed');
+            document.getElementById('level2-btn').classList.add('locked');
+            document.getElementById('level2-btn').classList.remove('completed');
+            document.getElementById('level3-btn').classList.add('locked');
+            document.getElementById('level3-btn').classList.remove('completed');
+            
+            document.getElementById('pdf-container').style.display = 'none';
+            resetTicTacToe();
+            resetMemoryGame();
+            resetCatchButton();
+            
+            showGame('tic-tac-toe');
+        }
+        
+        // ========== JUEGO DEL GATO ==========
+        let currentPlayer = 'X';
+        let gameBoard = ['', '', '', '', '', '', '', '', ''];
+        let gameActive = true;
+        
+        // Inicializar el tablero
+        function initializeTicTacToe() {
+            const board = document.getElementById('tictactoe-board');
+            board.innerHTML = '';
+            
+            for (let i = 0; i < 9; i++) {
+                const cell = document.createElement('div');
+                cell.className = 'cell';
+                cell.setAttribute('data-index', i);
+                cell.addEventListener('click', () => handleCellClick(i));
+                board.appendChild(cell);
+            }
+            
+            updateStatus();
+        }
+        
+        // Manejar clic en celda
+        function handleCellClick(index) {
+            if (gameBoard[index] !== '' || !gameActive || currentPlayer !== 'X') return;
+            
+            // Jugador humano
+            gameBoard[index] = currentPlayer;
+            document.querySelectorAll('.cell')[index].textContent = currentPlayer;
+            document.querySelectorAll('.cell')[index].classList.add(currentPlayer.toLowerCase());
+            
+            if (checkWinner()) {
+                document.getElementById('tictactoe-status').textContent = `¡Ganaste! ¡Felicidades!`;
+                gameActive = false;
+                setTimeout(() => completeLevel(1), 1000);
+                return;
+            }
+            
+            if (gameBoard.every(cell => cell !== '')) {
+                document.getElementById('tictactoe-status').textContent = '¡Empate!';
+                gameActive = false;
+                setTimeout(() => resetTicTacToe(), 1500);
+                return;
+            }
+            
+            // Cambiar turno a la computadora
+            currentPlayer = 'O';
+            updateStatus();
+            
+            // Turno de la computadora (simple)
+            setTimeout(computerMove, 500);
+        }
+        
+        // Movimiento de la computadora
+        function computerMove() {
+            if (!gameActive) return;
+            
+            // Buscar movimientos disponibles
+            const availableMoves = [];
+            for (let i = 0; i < 9; i++) {
+                if (gameBoard[i] === '') availableMoves.push(i);
+            }
+            
+            // Elegir movimiento aleatorio
+            if (availableMoves.length > 0) {
+                const randomIndex = Math.floor(Math.random() * availableMoves.length);
+                const computerMove = availableMoves[randomIndex];
+                
+                gameBoard[computerMove] = currentPlayer;
+                document.querySelectorAll('.cell')[computerMove].textContent = currentPlayer;
+                document.querySelectorAll('.cell')[computerMove].classList.add(currentPlayer.toLowerCase());
+                
+                if (checkWinner()) {
+                    document.getElementById('tictactoe-status').textContent = '¡La computadora ganó! Intenta de nuevo.';
+                    gameActive = false;
+                    setTimeout(() => resetTicTacToe(), 1500);
+                    return;
+                }
+                
+                if (gameBoard.every(cell => cell !== '')) {
+                    document.getElementById('tictactoe-status').textContent = '¡Empate!';
+                    gameActive = false;
+                    setTimeout(() => resetTicTacToe(), 1500);
+                    return;
+                }
+                
+                // Volver al turno del jugador
+                currentPlayer = 'X';
+                updateStatus();
+            }
+        }
+        
+        // Actualizar estado del juego
+        function updateStatus() {
+            document.getElementById('tictactoe-status').textContent = 
+                currentPlayer === 'X' ? 'Tu turno (X)' : 'Turno de la computadora (O)';
+        }
+        
+        // Comprobar ganador
+        function checkWinner() {
+            const winPatterns = [
+                [0, 1, 2], [3, 4, 5], [6, 7, 8], // Filas
+                [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columnas
+                [0, 4, 8], [2, 4, 6] // Diagonales
+            ];
+            
+            return winPatterns.some(pattern => {
+                const [a, b, c] = pattern;
+                return gameBoard[a] !== '' && gameBoard[a] === gameBoard[b] && gameBoard[a] === gameBoard[c];
+            });
+        }
+        
+        // Reiniciar juego del gato
+        function resetTicTacToe() {
+            currentPlayer = 'X';
+            gameBoard = ['', '', '', '', '', '', '', '', ''];
+            gameActive = true;
+            
+            document.querySelectorAll('.cell').forEach(cell => {
+                cell.textContent = '';
+                cell.classList.remove('x', 'o');
+            });
+            
+            updateStatus();
+        }
+        
+        // ========== MEMORAMA ==========
+        let memoryCards = [];
+        let flippedCards = [];
+        let matchedPairs = 0;
+        let canFlip = true;
+        
+        // Inicializar el memorama
+        function initializeMemoryGame() {
+            const symbols = ['😸', '😹', '😺', '😻', '😼', '😽'];
+            memoryCards = [...symbols, ...symbols];
+            shuffleArray(memoryCards);
+            
+            const board = document.getElementById('memory-board');
+            board.innerHTML = '';
+            
+            memoryCards.forEach((symbol, index) => {
+                const card = document.createElement('div');
+                card.className = 'memory-card';
+                card.setAttribute('data-index', index);
+                card.innerHTML = `
+                    <div class="front">?</div>
+                    <div class="back">${symbol}</div>
+                `;
+                card.addEventListener('click', () => flipCard(card, index));
+                board.appendChild(card);
+            });
+            
+            matchedPairs = 0;
+            flippedCards = [];
+            canFlip = true;
+        }
+        
+        // Barajar array
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+        
+        // Voltear carta
+        function flipCard(card, index) {
+            if (!canFlip || card.classList.contains('flipped') || card.classList.contains('matched')) return;
+            
+            card.classList.add('flipped');
+            flippedCards.push({ card, index });
+            
+            if (flippedCards.length === 2) {
+                canFlip = false;
+                checkMatch();
+            }
+        }
+        
+        // Comprobar si hay coincidencia
+        function checkMatch() {
+            const [card1, card2] = flippedCards;
+            const symbol1 = memoryCards[card1.index];
+            const symbol2 = memoryCards[card2.index];
+            
+            if (symbol1 === symbol2) {
+                card1.card.classList.add('matched');
+                card2.card.classList.add('matched');
+                matchedPairs++;
+                
+                if (matchedPairs === memoryCards.length / 2) {
+                    setTimeout(() => {
+                        completeLevel(2);
+                    }, 500);
+                }
+                
+                flippedCards = [];
+                canFlip = true;
+            } else {
+                setTimeout(() => {
+                    card1.card.classList.remove('flipped');
+                    card2.card.classList.remove('flipped');
+                    flippedCards = [];
+                    canFlip = true;
+                }, 1000);
+            }
+        }
+        
+        // Reiniciar memorama
+        function resetMemoryGame() {
+            flippedCards = [];
+            matchedPairs = 0;
+            canFlip = true;
+            initializeMemoryGame();
+        }
+        
+        // ========== ATRAPA EL BOTÓN ==========
+        let score = 0;
+        let gameInterval;
+        let speed = 800; // Velocidad inicial en ms
+        
+        // Inicializar juego del botón
+        function initializeCatchButton() {
+            const button = document.getElementById('moving-button');
+            const gameArea = document.getElementById('game-area');
+            
+            // Posición inicial
+            moveButtonRandomly();
+            
+            // Reiniciar variables
+            score = 0;
+            speed = 800;
+            updateScore();
+            
+            // Mover el botón
+            if (gameInterval) clearInterval(gameInterval);
+            gameInterval = setInterval(moveButtonRandomly, speed);
+        }
+        
+        // Mover el botón aleatoriamente
+        function moveButtonRandomly() {
+            const button = document.getElementById('moving-button');
+            const gameArea = document.getElementById('game-area');
+            
+            const maxX = gameArea.clientWidth - button.clientWidth;
+            const maxY = gameArea.clientHeight - button.clientHeight;
+            
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY);
+            
+            button.style.left = `${randomX}px`;
+            button.style.top = `${randomY}px`;
+        }
+        
+        // Atrapar el botón
+        function catchButton() {
+            score++;
+            updateScore();
+            
+            // Aumentar la velocidad después de cada captura
+            clearInterval(gameInterval);
+            speed = Math.max(100, 800 - (score * 70));
+            gameInterval = setInterval(moveButtonRandomly, speed);
+            
+            if (score >= 10) {
+                clearInterval(gameInterval);
+                completeLevel(3);
+            }
+        }
+        
+        // Actualizar puntuación
+        function updateScore() {
+            document.getElementById('score').textContent = `Atrapado: ${score}/10 veces`;
+            document.getElementById('progress-bar').style.width = `${(score / 10) * 100}%`;
+        }
+        
+        // Reiniciar juego del botón
+        function resetCatchButton() {
+            score = 0;
+            updateScore();
+            
+            initializeCatchButton();
+        }
+        
+        // ========== MOSTRAR PDF ==========
+        function showPdf() {
+            // Reemplaza con la URL de tu PDF
+            const pdfUrl = "./pdf.pdf";
+            document.getElementById('pdf-frame').src = pdfUrl;
+            document.getElementById('pdf-container').style.display = 'block';
+            
+            // Ocultar todos los juegos
+            document.querySelectorAll('.game-section').forEach(section => {
+                section.classList.remove('active');
+            });
+        }
+        
+        // Inicializar todos los juegos al cargar la página
+        window.onload = function() {
+            createHearts();
+            initializeTicTacToe();
+            initializeMemoryGame();
+            initializeCatchButton();
+        };
+    </script>
+</body>
+</html>
