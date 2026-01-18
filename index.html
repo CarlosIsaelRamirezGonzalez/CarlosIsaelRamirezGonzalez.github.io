@@ -3,887 +3,992 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IA en Administración de Recursos</title>
+    <title>BernaCalzado - Materiales Premium para Calzado</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        /* Reset y estilos base */
+        /* Estilos generales */
+        :root {
+            --primary-color: #8B4513;
+            --secondary-color: #D2691E;
+            --accent-color: #A0522D;
+            --light-color: #F5F5DC;
+            --dark-color: #3E2723;
+            --text-color: #333;
+            --white: #FFFFFF;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
-        :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-            --accent-color: #1abc9c;
-            --light-color: #ecf0f1;
-            --dark-color: #2c3e50;
-            --success-color: #27ae60;
-            --warning-color: #e74c3c;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
+        
         html {
             scroll-behavior: smooth;
         }
-
+        
         body {
+            font-family: 'Montserrat', sans-serif;
             line-height: 1.6;
-            color: #333;
-            background-color: #f9f9f9;
+            color: var(--text-color);
+            background-color: var(--white);
+            overflow-x: hidden;
         }
-
+        
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+        
         .container {
             width: 90%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 15px;
         }
-
-        /* Encabezado */
-        header {
+        
+        section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 70px;
+            height: 3px;
             background-color: var(--primary-color);
-            color: white;
-            padding: 1.5rem 0;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            border: 2px solid var(--primary-color);
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: transparent;
+            color: var(--primary-color);
+            transform: translateY(-3px);
             box-shadow: var(--shadow);
-            position: sticky;
+        }
+        
+        /* Header y Navegación */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: fixed;
+            width: 100%;
             top: 0;
             z-index: 1000;
         }
-
-        .header-content {
+        
+        .nav-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 20px 0;
         }
-
+        
         .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
             display: flex;
             align-items: center;
-            gap: 10px;
+            text-decoration: none;
         }
-
-        .logo i {
-            color: var(--accent-color);
+        
+        .logo-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-right: 10px;
         }
-
-        nav ul {
+        
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+        
+        .nav-links {
             display: flex;
             list-style: none;
-            gap: 2rem;
         }
-
-        nav a {
-            color: white;
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
             text-decoration: none;
+            color: var(--text-color);
             font-weight: 500;
-            transition: color 0.3s;
+            transition: var(--transition);
+            position: relative;
         }
-
-        nav a:hover {
-            color: var(--accent-color);
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            bottom: -5px;
+            left: 0;
+            transition: var(--transition);
         }
-
+        
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
         .mobile-menu-btn {
             display: none;
             background: none;
             border: none;
-            color: white;
             font-size: 1.5rem;
+            color: var(--primary-color);
             cursor: pointer;
         }
-
+        
         /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, var(--primary-color), #1a2530);
-            color: white;
-            padding: 5rem 0;
-            text-align: center;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            max-width: 700px;
-            margin: 0 auto 2rem;
-        }
-
-        .cta-button {
-            display: inline-block;
-            background-color: var(--accent-color);
-            color: white;
-            padding: 0.8rem 2rem;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: transform 0.3s, background-color 0.3s;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            background-color: #16a085;
-        }
-
-        /* Secciones */
-        section {
-            padding: 4rem 0;
-        }
-
-        h2 {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: var(--primary-color);
-            position: relative;
-        }
-
-        h2::after {
-            content: '';
-            position: absolute;
-            width: 80px;
-            height: 4px;
-            background-color: var(--accent-color);
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .section-intro {
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto 3rem;
-            font-size: 1.1rem;
-        }
-
-        /* Tarjetas de características */
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .feature-card {
-            background: white;
-            border-radius: 10px;
-            padding: 2rem;
-            box-shadow: var(--shadow);
-            transition: transform 0.3s;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .feature-icon {
-            background-color: rgba(26, 188, 156, 0.1);
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
             display: flex;
             align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem;
+            text-align: center;
+            color: var(--white);
+            margin-top: 80px;
         }
-
-        .feature-icon i {
-            font-size: 2rem;
-            color: var(--accent-color);
-        }
-
-        .feature-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--primary-color);
-        }
-
-        /* Juego */
-        #game {
-            background-color: var(--light-color);
-        }
-
-        .game-container {
+        
+        .hero-content {
             max-width: 800px;
             margin: 0 auto;
-            background-color: white;
-            border-radius: 15px;
-            padding: 3rem;
-            box-shadow: var(--shadow);
-            text-align: center;
+            animation: fadeIn 1.5s ease-out;
         }
-
-        .game-instructions {
-            margin-bottom: 2rem;
-            font-size: 1.1rem;
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: var(--white);
         }
-
-        .game-instructions ul {
-            text-align: left;
-            max-width: 500px;
-            margin: 1.5rem auto;
-            list-style-position: inside;
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
         }
-
-        .game-instructions li {
-            margin-bottom: 0.5rem;
+        
+        /* Sobre Nosotros */
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
         }
-
-        /* Cronómetro */
-        .timer-container {
-            margin: 2rem 0;
-        }
-
-        .timer-display {
-            font-size: 4rem;
-            font-weight: 700;
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-            font-family: 'Courier New', monospace;
-        }
-
-        .timer-progress {
-            width: 100%;
-            height: 20px;
-            background-color: #ddd;
+        
+        .about-img {
+            flex: 1;
             border-radius: 10px;
             overflow: hidden;
-            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
         }
-
-        .timer-progress-bar {
-            height: 100%;
-            background-color: var(--accent-color);
+        
+        .about-img img {
             width: 100%;
-            transition: width 1s linear;
-        }
-
-        /* Botón de juego */
-        .game-button {
-            background-color: var(--warning-color);
-            color: white;
-            border: none;
-            padding: 1.5rem 3rem;
-            font-size: 1.5rem;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: transform 0.1s, background-color 0.3s;
-            box-shadow: 0 6px 0 #c0392b;
-            margin-bottom: 2rem;
-            font-weight: 700;
-        }
-
-        .game-button:active {
-            transform: translateY(4px);
-            box-shadow: 0 2px 0 #c0392b;
-        }
-
-        .game-button:disabled {
-            background-color: #95a5a6;
-            cursor: not-allowed;
-            box-shadow: 0 6px 0 #7f8c8d;
-            transform: none;
-        }
-
-        /* Estadísticas del juego */
-        .game-stats {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            margin-top: 2rem;
-            gap: 1.5rem;
-        }
-
-        .stat-box {
-            background-color: var(--light-color);
-            padding: 1.5rem;
-            border-radius: 10px;
-            min-width: 150px;
-        }
-
-        .stat-box h4 {
-            color: var(--primary-color);
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-value {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--accent-color);
-        }
-
-        /* Control del juego */
-        .game-controls {
-            margin-top: 2rem;
-        }
-
-        .control-button {
-            background-color: var(--secondary-color);
-            color: white;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 600;
-            margin: 0 0.5rem;
-            transition: background-color 0.3s;
-        }
-
-        .control-button:hover {
-            background-color: #2980b9;
-        }
-
-        .control-button.reset {
-            background-color: #e67e22;
-        }
-
-        .control-button.reset:hover {
-            background-color: #d35400;
-        }
-
-        /* Mensaje de resultado */
-        .result-message {
-            margin-top: 2rem;
-            padding: 1.5rem;
-            border-radius: 10px;
-            font-size: 1.2rem;
-            display: none;
-        }
-
-        .result-message.show {
+            height: auto;
             display: block;
-            animation: fadeIn 0.5s;
+            transition: var(--transition);
         }
-
-        .result-message.good {
-            background-color: rgba(39, 174, 96, 0.2);
-            color: var(--success-color);
-            border-left: 5px solid var(--success-color);
+        
+        .about-img:hover img {
+            transform: scale(1.05);
         }
-
-        .result-message.average {
-            background-color: rgba(241, 196, 15, 0.2);
-            color: #f39c12;
-            border-left: 5px solid #f39c12;
+        
+        .about-text {
+            flex: 1;
         }
-
-        .result-message.poor {
-            background-color: rgba(231, 76, 60, 0.2);
-            color: var(--warning-color);
-            border-left: 5px solid var(--warning-color);
+        
+        .about-text h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
         }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        
+        .about-text p {
+            margin-bottom: 15px;
         }
-
+        
+        /* Productos */
+        .products {
+            background-color: var(--light-color);
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .product-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .product-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .product-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .product-card:hover .product-img img {
+            transform: scale(1.1);
+        }
+        
+        .product-info {
+            padding: 20px;
+        }
+        
+        .product-info h3 {
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .product-info p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        /* Servicios */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .service-card {
+            text-align: center;
+            padding: 30px 20px;
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+        
+        .service-card:hover h3,
+        .service-card:hover p {
+            color: var(--white);
+        }
+        
+        .service-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        .service-card:hover .service-icon {
+            color: var(--white);
+        }
+        
+        .service-card h3 {
+            margin-bottom: 15px;
+        }
+        
+        /* Contacto */
+        .contact {
+            background-color: var(--light-color);
+        }
+        
+        .contact-content {
+            display: flex;
+            gap: 50px;
+        }
+        
+        .contact-info {
+            flex: 1;
+        }
+        
+        .contact-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+        
+        .contact-details {
+            margin-bottom: 30px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .contact-icon {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin-right: 15px;
+            width: 30px;
+        }
+        
+        .contact-form {
+            flex: 1;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Montserrat', sans-serif;
+            transition: var(--transition);
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+        
         /* Footer */
         footer {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 3rem 0;
-            text-align: center;
+            background-color: var(--dark-color);
+            color: var(--white);
+            padding: 60px 0 30px;
         }
-
+        
         .footer-content {
             display: flex;
             justify-content: space-between;
             flex-wrap: wrap;
-            gap: 2rem;
+            gap: 40px;
+            margin-bottom: 40px;
         }
-
-        .footer-section {
+        
+        .footer-column {
             flex: 1;
             min-width: 250px;
         }
-
-        .footer-section h3 {
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-            color: var(--accent-color);
+        
+        .footer-column h3 {
+            color: var(--white);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
         }
-
-        .footer-section ul {
+        
+        .footer-links {
             list-style: none;
         }
-
-        .footer-section li {
-            margin-bottom: 0.5rem;
+        
+        .footer-links li {
+            margin-bottom: 10px;
         }
-
-        .footer-section a {
-            color: #ddd;
+        
+        .footer-links a {
+            color: #ccc;
             text-decoration: none;
-            transition: color 0.3s;
+            transition: var(--transition);
         }
-
-        .footer-section a:hover {
-            color: var(--accent-color);
+        
+        .footer-links a:hover {
+            color: var(--secondary-color);
+            padding-left: 5px;
         }
-
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: var(--white);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .social-icons a:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+        
         .copyright {
-            margin-top: 2rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid #34495e;
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
         }
-
+        
+        /* Botón de WhatsApp */
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 70px;
+            height: 70px;
+            background-color: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+            z-index: 999;
+            transition: var(--transition);
+            text-decoration: none;
+            animation: pulse 2s infinite;
+        }
+        
+        .whatsapp-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(37, 211, 102, 0.6);
+        }
+        
+        .whatsapp-btn i {
+            font-size: 2.2rem;
+            color: white;
+        }
+        
+        .whatsapp-tooltip {
+            position: absolute;
+            bottom: 100%;
+            right: 0;
+            background-color: var(--dark-color);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+        
+        .whatsapp-btn:hover .whatsapp-tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* Animaciones */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+        
         /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            h2 {
-                font-size: 2rem;
-            }
-
-            .header-content {
+        @media (max-width: 992px) {
+            .about-content {
                 flex-direction: column;
-                gap: 1rem;
             }
-
-            nav ul {
-                flex-wrap: wrap;
-                justify-content: center;
+            
+            .contact-content {
+                flex-direction: column;
             }
-
-            .game-container {
-                padding: 2rem;
-            }
-
-            .timer-display {
-                font-size: 3rem;
-            }
-
-            .game-button {
-                padding: 1.2rem 2.4rem;
-                font-size: 1.3rem;
-            }
-
-            .stat-value {
-                font-size: 2rem;
+            
+            .hero h1 {
+                font-size: 2.8rem;
             }
         }
-
-        @media (max-width: 480px) {
-            .hero {
-                padding: 3rem 0;
-            }
-
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            section {
-                padding: 3rem 0;
-            }
-
-            .game-container {
-                padding: 1.5rem;
-            }
-
-            .game-button {
-                padding: 1rem 2rem;
-                font-size: 1.2rem;
-            }
-
-            .control-button {
-                padding: 0.7rem 1.2rem;
-                margin-bottom: 0.5rem;
-            }
-
-            .timer-display {
-                font-size: 2.5rem;
-            }
-
-            .mobile-menu-btn {
-                display: block;
-                position: absolute;
-                top: 1.5rem;
-                right: 1.5rem;
-            }
-
-            nav {
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
                 width: 100%;
-                display: none;
-            }
-
-            nav.show {
-                display: block;
-            }
-
-            nav ul {
+                height: calc(100vh - 80px);
+                background-color: var(--white);
                 flex-direction: column;
                 align-items: center;
-                padding: 1rem 0;
-                gap: 1rem;
+                justify-content: flex-start;
+                padding-top: 50px;
+                transition: var(--transition);
+                box-shadow: var(--shadow);
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                margin: 0 0 30px 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.3rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .whatsapp-btn {
+                width: 60px;
+                height: 60px;
+                bottom: 20px;
+                right: 20px;
+            }
+            
+            .whatsapp-btn i {
+                font-size: 1.8rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            section {
+                padding: 60px 0;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Encabezado -->
+    <!-- Header y Navegación -->
     <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <i class="fas fa-brain"></i>
-                    <span>IA-Recursos</span>
-                </div>
-                <button class="mobile-menu-btn" id="mobileMenuBtn">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <nav id="mainNav">
-                    <ul>
-                        <li><a href="#home">Inicio</a></li>
-                        <li><a href="#about">Acerca de</a></li>
-                        <li><a href="#features">Características</a></li>
-                        <li><a href="#applications">Aplicaciones</a></li>
-                        <li><a href="#game">Juego</a></li>
-                    </ul>
-                </nav>
-            </div>
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <i class="fas fa-shoe-prints logo-icon"></i>
+                <span class="logo-text">BernaCalzado</span>
+            </a>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#nosotros">Nosotros</a></li>
+                <li><a href="#productos">Productos</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
         </div>
     </header>
 
-    <!-- Sección Hero -->
-    <section class="hero" id="home">
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
         <div class="container">
-            <h1>Inteligencia Artificial en la Administración de Recursos</h1>
-            <p>Descubre cómo la IA está revolucionando la gestión eficiente de recursos humanos, materiales y financieros en las organizaciones modernas.</p>
+            <div class="hero-content">
+                <h1>Materiales Premium para Calzado</h1>
+                <p>En BernaCalzado proporcionamos las mejores pieles, suelas y componentes para la fabricación de calzado de alta calidad. Somos el proveedor preferido de artesanos y fábricas de calzado.</p>
+                <a href="#productos" class="btn">Ver Nuestros Productos</a>
+            </div>
         </div>
     </section>
 
-    <!-- Sección Acerca de -->
-    <section id="about">
+    <!-- Sobre Nosotros -->
+    <section id="nosotros">
         <div class="container">
-            <h2>IA y Gestión de Recursos</h2>
-            <div class="section-intro">
-                <p>La Inteligencia Artificial está transformando radicalmente la administración de recursos, permitiendo a las organizaciones optimizar sus operaciones, reducir costos y mejorar la toma de decisiones mediante análisis predictivo y automatización inteligente.</p>
+            <div class="section-title">
+                <h2>Sobre Nosotros</h2>
             </div>
-            <div class="features">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3>Análisis Predictivo</h3>
-                    <p>La IA analiza patrones históricos para predecir futuras necesidades de recursos, optimizando la asignación y reduciendo desperdicios.</p>
+            
+            <div class="about-content">
+                <div class="about-img">
+                    <img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Taller de BernaCalzado">
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-robot"></i>
-                    </div>
-                    <h3>Automatización Inteligente</h3>
-                    <p>Procesos repetitivos de administración de recursos se automatizan, liberando tiempo para tareas estratégicas y de mayor valor.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-balance-scale"></i>
-                    </div>
-                    <h3>Toma de Decisiones</h3>
-                    <p>Los algoritmos de IA procesan grandes volúmenes de datos para ofrecer recomendaciones precisas en la distribución de recursos.</p>
+                <div class="about-text">
+                    <h3>Expertos en materiales para calzado desde 1985</h3>
+                    <p>En BernaCalzado nos especializamos en proveer materiales de la más alta calidad para la fabricación de calzado. No vendemos productos terminados, sino que nos dedicamos a suministrar los componentes esenciales que permiten a nuestros clientes crear calzado excepcional.</p>
+                    <p>Nuestra experiencia de más de 35 años en el sector peletero nos permite seleccionar cuidadosamente cada piel, suela, hilo y componente para garantizar la excelencia en cada producto final creado con nuestros materiales.</p>
+                    <p>Trabajamos con artesanos, pequeños talleres y grandes fábricas, ofreciendo asesoramiento técnico y soluciones personalizadas para cada proyecto.</p>
+                    <a href="#contacto" class="btn">Contáctenos</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Sección Características -->
-    <section id="features">
+    <!-- Productos -->
+    <section id="productos" class="products">
         <div class="container">
-            <h2>Ventajas Clave</h2>
-            <div class="section-intro">
-                <p>La implementación de sistemas de IA en la administración de recursos ofrece múltiples beneficios para organizaciones de todos los tamaños.</p>
+            <div class="section-title">
+                <h2>Nuestros Productos</h2>
             </div>
-            <div class="features">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-percentage"></i>
+            
+            <div class="products-grid" id="productsGrid">
+                <!-- Los productos se cargarán con JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Servicios -->
+    <section id="servicios">
+        <div class="container">
+            <div class="section-title">
+                <h2>Nuestros Servicios</h2>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-cut"></i>
                     </div>
-                    <h3>Reducción de Costos</h3>
-                    <p>Optimización del uso de recursos que puede reducir costos operativos hasta en un 30% mediante la eliminación de ineficiencias.</p>
+                    <h3>Corte y Preparación</h3>
+                    <p>Corte preciso de pieles según especificaciones del cliente, optimizando el material para reducir desperdicios.</p>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-bolt"></i>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-palette"></i>
                     </div>
-                    <h3>Eficiencia Operativa</h3>
-                    <p>Procesos de administración acelerados en un 40-60% gracias a la automatización y análisis en tiempo real.</p>
+                    <h3>Teñido Personalizado</h3>
+                    <p>Servicio de teñido de pieles en colores personalizados para satisfacer las necesidades específicas de cada proyecto.</p>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-user-check"></i>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-clipboard-check"></i>
                     </div>
-                    <h3>Satisfacción del Cliente</h3>
-                    <p>Asignación más efectiva de recursos que mejora la calidad del servicio y la satisfacción del cliente final.</p>
+                    <h3>Control de Calidad</h3>
+                    <p>Inspección rigurosa de cada material para garantizar la consistencia y excelencia en cada entrega.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <h3>Envío Nacional</h3>
+                    <p>Distribución a toda la península con opciones de envío rápido para pedidos urgentes.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Sección Aplicaciones -->
-    <section id="applications">
+    <!-- Contacto -->
+    <section id="contacto" class="contact">
         <div class="container">
-            <h2>Aplicaciones Prácticas</h2>
-            <div class="section-intro">
-                <p>La IA se está aplicando exitosamente en diversos aspectos de la administración de recursos en múltiples industrias.</p>
+            <div class="section-title">
+                <h2>Contacto</h2>
             </div>
-            <div class="features">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-users"></i>
+            
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Información de Contacto</h3>
+                    <p>Estamos aquí para ayudarte con cualquier consulta sobre nuestros materiales para calzado.</p>
+                    
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt contact-icon"></i>
+                            <span>Calle del Calzado, 123, 28012 Madrid, España</span>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <i class="fas fa-phone contact-icon"></i>
+                            <span>+34 912 345 678</span>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <i class="fas fa-envelope contact-icon"></i>
+                            <span>info@bernacalzado.com</span>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <i class="fas fa-clock contact-icon"></i>
+                            <span>Lunes a Viernes: 9:00 - 18:00</span>
+                        </div>
                     </div>
-                    <h3>Recursos Humanos</h3>
-                    <p>Selección de candidatos, análisis de rendimiento, planificación de capacitaciones y predicción de rotación de personal.</p>
+                    
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                    </div>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-boxes"></i>
-                    </div>
-                    <h3>Gestión de Inventarios</h3>
-                    <p>Predicción de demanda, optimización de niveles de stock y automatización de reposición de materiales.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-money-bill-wave"></i>
-                    </div>
-                    <h3>Recursos Financieros</h3>
-                    <p>Detección de fraudes, optimización de presupuestos, análisis de inversiones y predicción de flujos de caja.</p>
+                
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" placeholder="Nombre" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="email" placeholder="Correo electrónico" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="tel" placeholder="Teléfono">
+                        </div>
+                        
+                        <div class="form-group">
+                            <textarea rows="5" placeholder="Mensaje" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn">Enviar Mensaje</button>
+                    </form>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Juego de Cronómetro -->
-    <section id="game">
+    <!-- Footer -->
+    <footer>
         <div class="container">
-            <h2>Juego: Eficiencia en la Administración</h2>
-            <div class="game-container">
-                <div class="game-instructions">
-                    <p>En la administración de recursos, la eficiencia es clave. Este juego simula la necesidad de tomar decisiones rápidas para optimizar recursos.</p>
-                    <p><strong>Instrucciones:</strong></p>
-                    <ul>
-                        <li>Tienes 1 minuto para hacer clic en el botón "Tomatear" (tomar acción) tantas veces como puedas</li>
-                        <li>Cada clic representa una decisión de administración eficiente</li>
-                        <li>Tu puntuación final se basa en la cantidad de decisiones tomadas en el tiempo límite</li>
-                        <li>¡Intenta alcanzar la mayor puntuación posible!</li>
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>BernaCalzado</h3>
+                    <p>Proveedores de materiales premium para la fabricación de calzado desde 1985. Calidad, tradición e innovación en cada producto.</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Enlaces Rápidos</h3>
+                    <ul class="footer-links">
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="#nosotros">Sobre Nosotros</a></li>
+                        <li><a href="#productos">Productos</a></li>
+                        <li><a href="#servicios">Servicios</a></li>
+                        <li><a href="#contacto">Contacto</a></li>
                     </ul>
                 </div>
                 
-                <div class="timer-container">
-                    <div class="timer-display" id="timerDisplay">01:00</div>
-                    <div class="timer-progress">
-                        <div class="timer-progress-bar" id="progressBar"></div>
-                    </div>
+                <div class="footer-column">
+                    <h3>Productos</h3>
+                    <ul class="footer-links">
+                        <li><a href="#productos">Pieles para Calzado</a></li>
+                        <li><a href="#productos">Suelas y Tacones</a></li>
+                        <li><a href="#productos">Forros y Plantillas</a></li>
+                        <li><a href="#productos">Herrajes y Accesorios</a></li>
+                        <li><a href="#productos">Materiales Especiales</a></li>
+                    </ul>
                 </div>
-                
-                <button class="game-button" id="actionButton">TOMATEAR</button>
-                
-                <div class="game-stats">
-                    <div class="stat-box">
-                        <h4>Puntuación</h4>
-                        <div class="stat-value" id="scoreValue">0</div>
-                    </div>
-                    <div class="stat-box">
-                        <h4>Tiempo Restante</h4>
-                        <div class="stat-value" id="timeLeft">60s</div>
-                    </div>
-                    <div class="stat-box">
-                        <h4>Mejor Puntuación</h4>
-                        <div class="stat-value" id="bestScore">0</div>
-                    </div>
-                </div>
-                
-                <div class="game-controls">
-                    <button class="control-button" id="startButton">Iniciar Juego</button>
-                    <button class="control-button reset" id="resetButton">Reiniciar</button>
-                </div>
-                
-                <div class="result-message" id="resultMessage"></div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 BernaCalzado. Todos los derechos reservados.</p>
             </div>
         </div>
-    </section>
+    </footer>
 
+    <!-- Botón de WhatsApp -->
+    <a href="https://wa.me/3316665930?text=Hola%20BernaCalzado,%20me%20interesan%20sus%20productos%20para%20calzado" class="whatsapp-btn" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+        <span class="whatsapp-tooltip">¡Contáctanos por WhatsApp!</span>
+    </a>
 
     <script>
-        // Variables del juego
-        let score = 0;
-        let timeLeft = 60;
-        let gameActive = false;
-        let timerInterval;
-        let bestScore = localStorage.getItem('bestScore') || 0;
-        
-        // Elementos del DOM
-        const timerDisplay = document.getElementById('timerDisplay');
-        const timeLeftDisplay = document.getElementById('timeLeft');
-        const scoreValue = document.getElementById('scoreValue');
-        const bestScoreDisplay = document.getElementById('bestScore');
-        const actionButton = document.getElementById('actionButton');
-        const startButton = document.getElementById('startButton');
-        const resetButton = document.getElementById('resetButton');
-        const progressBar = document.getElementById('progressBar');
-        const resultMessage = document.getElementById('resultMessage');
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const mainNav = document.getElementById('mainNav');
-        
-        // Inicializar mejor puntuación
-        bestScoreDisplay.textContent = bestScore;
-        
-        // Formatear tiempo (mm:ss)
-        function formatTime(seconds) {
-            const mins = Math.floor(seconds / 60);
-            const secs = seconds % 60;
-            return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-        }
-        
-        // Actualizar la barra de progreso
-        function updateProgressBar() {
-            const progressPercentage = (timeLeft / 60) * 100;
-            progressBar.style.width = `${progressPercentage}%`;
-            
-            // Cambiar color según el tiempo restante
-            if (progressPercentage > 50) {
-                progressBar.style.backgroundColor = 'var(--accent-color)';
-            } else if (progressPercentage > 20) {
-                progressBar.style.backgroundColor = '#f39c12';
-            } else {
-                progressBar.style.backgroundColor = 'var(--warning-color)';
+        // Datos de productos
+        const productos = [
+            {
+                id: 1,
+                nombre: "Piel de Vaca Full Grain",
+                descripcion: "Piel de primera calidad, duradera y con un acabado natural perfecto para calzado formal.",
+                imagen: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1758&q=80"
+            },
+            {
+                id: 2,
+                nombre: "Piel de Cordero Suave",
+                descripcion: "Piel extremadamente suave y flexible, ideal para calzado de lujo y accesorios.",
+                imagen: "https://images.unsplash.com/photo-1553062407-98f5f161fc8d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+            },
+            {
+                id: 3,
+                nombre: "Suelas de Cuero Natural",
+                descripcion: "Suelas de cuero de alta resistencia, disponibles en diferentes grosores y acabados.",
+                imagen: "https://images.unsplash.com/photo-1605733160673-62c30ff0d8b7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80"
+            },
+            {
+                id: 4,
+                nombre: "Forros de Piel de Cerdo",
+                descripcion: "Forros transpirables y cómodos que proporcionan confort al calzado terminado.",
+                imagen: "https://images.unsplash.com/photo-1611312449408-fcece27cdbb7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80"
+            },
+            {
+                id: 5,
+                nombre: "Tacones de Madera y Plástico",
+                descripcion: "Tacones en diversos estilos y alturas para diferentes tipos de calzado.",
+                imagen: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+            },
+            {
+                id: 6,
+                nombre: "Herrajes y Cierres Metálicos",
+                descripcion: "Broches, hebillas, ojales y otros herrajes en diversos acabados metálicos.",
+                imagen: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1758&q=80"
             }
-        }
-        
-        // Iniciar el juego
-        function startGame() {
-            if (gameActive) return;
-            
-            resetGame();
-            gameActive = true;
-            actionButton.disabled = false;
-            startButton.disabled = true;
-            resultMessage.classList.remove('show');
-            
-            timerInterval = setInterval(() => {
-                timeLeft--;
-                timerDisplay.textContent = formatTime(timeLeft);
-                timeLeftDisplay.textContent = `${timeLeft}s`;
-                updateProgressBar();
-                
-                if (timeLeft <= 0) {
-                    endGame();
-                }
-            }, 1000);
-        }
-        
-        // Finalizar el juego
-        function endGame() {
-            clearInterval(timerInterval);
-            gameActive = false;
-            actionButton.disabled = true;
-            startButton.disabled = false;
-            
-            // Actualizar mejor puntuación
-            if (score > bestScore) {
-                bestScore = score;
-                localStorage.setItem('bestScore', bestScore);
-                bestScoreDisplay.textContent = bestScore;
-            }
-            
-            // Mostrar mensaje de resultado
-            let message = "";
-            let messageClass = "";
-            
-            if (score >= 100) {
-                message = `¡Excelente! Eres un experto en administración de recursos. Puntuación: ${score}.`;
-                messageClass = "good";
-            } else if (score >= 60) {
-                message = `¡Buen trabajo! Tienes buenas habilidades de gestión. Puntuación: ${score}.`;
-                messageClass = "average";
-            } else if (score >= 30) {
-                message = `Puntuación decente. Con más práctica mejorarás. Puntuación: ${score}.`;
-                messageClass = "average";
-            } else {
-                message = `Necesitas mejorar tu eficiencia. Puntuación: ${score}. Intenta nuevamente.`;
-                messageClass = "poor";
-            }
-            
-            resultMessage.textContent = message;
-            resultMessage.className = `result-message show ${messageClass}`;
-        }
-        
-        // Reiniciar el juego
-        function resetGame() {
-            clearInterval(timerInterval);
-            gameActive = false;
-            score = 0;
-            timeLeft = 60;
-            scoreValue.textContent = score;
-            timerDisplay.textContent = formatTime(timeLeft);
-            timeLeftDisplay.textContent = `${timeLeft}s`;
-            actionButton.disabled = true;
-            startButton.disabled = false;
-            resultMessage.classList.remove('show');
-            updateProgressBar();
-        }
-        
-        // Incrementar puntuación
-        function incrementScore() {
-            if (!gameActive) return;
-            
-            score++;
-            scoreValue.textContent = score;
-            
-            // Efecto visual en el botón
-            actionButton.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-                actionButton.style.transform = 'scale(1)';
-            }, 100);
-        }
-        
-        // Event Listeners
-        actionButton.addEventListener('click', incrementScore);
-        startButton.addEventListener('click', startGame);
-        resetButton.addEventListener('click', resetGame);
-        
-        // Menú móvil
-        mobileMenuBtn.addEventListener('click', () => {
-            mainNav.classList.toggle('show');
-        });
-        
-        // Cerrar menú al hacer clic en un enlace
-        document.querySelectorAll('nav a').forEach(link => {
-            link.addEventListener('click', () => {
-                mainNav.classList.remove('show');
-            });
-        });
-        
-        // Inicializar barra de progreso
-        updateProgressBar();
-        
-        // Efectos de animación al hacer scroll
+        ];
+
+        // Cargar productos en el grid
         document.addEventListener('DOMContentLoaded', function() {
-            const featureCards = document.querySelectorAll('.feature-card');
+            const productsGrid = document.getElementById('productsGrid');
+            
+            productos.forEach(producto => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                productCard.innerHTML = `
+                    <div class="product-img">
+                        <img src="${producto.imagen}" alt="${producto.nombre}">
+                    </div>
+                    <div class="product-info">
+                        <h3>${producto.nombre}</h3>
+                        <p>${producto.descripcion}</p>
+                    </div>
+                `;
+                
+                productsGrid.appendChild(productCard);
+            });
+            
+            // Animación para mostrar productos al hacer scroll
+            const productCards = document.querySelectorAll('.product-card');
             
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
+                        entry.target.classList.add('visible');
                     }
                 });
             }, { threshold: 0.1 });
             
-            featureCards.forEach(card => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
-                card.style.transition = 'opacity 0.5s, transform 0.5s';
+            productCards.forEach(card => {
                 observer.observe(card);
+            });
+            
+            // Menú móvil
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const navLinks = document.getElementById('navLinks');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+                const icon = this.querySelector('i');
+                if (navLinks.classList.contains('active')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+            
+            // Cerrar menú al hacer clic en un enlace
+            const links = navLinks.querySelectorAll('a');
+            links.forEach(link => {
+                link.addEventListener('click', function() {
+                    navLinks.classList.remove('active');
+                    mobileMenuBtn.querySelector('i').classList.remove('fa-times');
+                    mobileMenuBtn.querySelector('i').classList.add('fa-bars');
+                });
+            });
+            
+            // Formulario de contacto
+            const contactForm = document.getElementById('contactForm');
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Gracias por su mensaje. Nos pondremos en contacto con usted pronto.');
+                contactForm.reset();
+            });
+            
+            // Efecto de scroll suave para enlaces internos
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Efecto de cambio de color del header al hacer scroll
+            window.addEventListener('scroll', function() {
+                const header = document.querySelector('header');
+                if (window.scrollY > 100) {
+                    header.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+                    header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+                } else {
+                    header.style.backgroundColor = 'var(--white)';
+                    header.style.boxShadow = 'var(--shadow)';
+                }
             });
         });
     </script>
