@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evolución Consciente - Desarrollo Personal Integral</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2a6e5f;
+            --primary-light: #3a8d7a;
+            --secondary: #f4a261;
+            --secondary-light: #f7c9a0;
+            --accent: #e76f51;
+            --light: #f8f9fa;
+            --dark: #264653;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+            --transition: all 0.3s ease;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --border-radius: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--dark);
+            line-height: 1.6;
+            background-color: var(--light);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        h2:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary);
+        }
+
+        h3 {
+            font-size: 1.8rem;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            color: var(--gray);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        section {
+            padding: 5rem 0;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 12px 30px;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-light);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--accent);
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            color: var(--secondary);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav li {
+            margin-left: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        nav a:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+
+        nav a:hover:after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary);
+            cursor: pointer;
+        }
+
+        /* Hero */
+        .hero {
+            padding-top: 10rem;
+            padding-bottom: 5rem;
+            background: linear-gradient(135deg, rgba(42, 110, 95, 0.1) 0%, rgba(247, 201, 160, 0.1) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .hero-content {
+            flex: 1;
+            padding-right: 2rem;
+        }
+
+        .hero-image {
+            flex: 1;
+            text-align: center;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            transform: perspective(1000px) rotateY(-10deg);
+            transition: var(--transition);
+        }
+
+        .hero-image img:hover {
+            transform: perspective(1000px) rotateY(0deg);
+        }
+
+        .hero h1 span {
+            color: var(--secondary);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        /* What offers */
+        .offers {
+            background-color: white;
+        }
+
+        .section-intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+        }
+
+        .section-intro h2 {
+            margin-bottom: 1.5rem;
+        }
+
+        .section-intro h2:after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .offers-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .offer-card {
+            background-color: var(--light);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+            border-top: 4px solid var(--primary);
+        }
+
+        .offer-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .offer-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            width: 80px;
+            height: 80px;
+            line-height: 80px;
+            border-radius: 50%;
+            background-color: rgba(42, 110, 95, 0.1);
+        }
+
+        .offer-card h3 {
+            margin-bottom: 1rem;
+        }
+
+        /* Details */
+        .details {
+            background-color: #f8f9fa;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 4rem;
+            gap: 3rem;
+        }
+
+        .detail-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .detail-content {
+            flex: 1;
+        }
+
+        .detail-image {
+            flex: 1;
+            text-align: center;
+        }
+
+        .detail-image i {
+            font-size: 8rem;
+            color: var(--primary-light);
+            opacity: 0.8;
+        }
+
+        .detail-features {
+            list-style: none;
+            margin-top: 1.5rem;
+        }
+
+        .detail-features li {
+            margin-bottom: 0.8rem;
+            padding-left: 1.8rem;
+            position: relative;
+        }
+
+        .detail-features li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+            font-weight: bold;
+        }
+
+        /* Community */
+        .community {
+            background-color: white;
+            text-align: center;
+        }
+
+        .community-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .community-icons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 3rem 0;
+            flex-wrap: wrap;
+        }
+
+        .community-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .community-icon i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            width: 80px;
+            height: 80px;
+            line-height: 80px;
+            border-radius: 50%;
+            background-color: rgba(42, 110, 95, 0.1);
+            transition: var(--transition);
+        }
+
+        .community-icon:hover i {
+            transform: scale(1.1);
+            background-color: rgba(42, 110, 95, 0.2);
+        }
+
+        /* CTA */
+        .cta {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            text-align: center;
+            padding: 6rem 0;
+        }
+
+        .cta h2, .cta p {
+            color: white;
+        }
+
+        .cta h2:after {
+            background-color: var(--secondary);
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .cta .btn {
+            background-color: var(--secondary);
+            color: var(--dark);
+            margin-top: 2rem;
+        }
+
+        .cta .btn:hover {
+            background-color: white;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: var(--light-gray);
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 3rem;
+        }
+
+        .footer-col {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .footer-col h3 {
+            color: white;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: white;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: var(--light-gray);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary);
+            padding-left: 5px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-icons a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: var(--transition);
+        }
+
+        .social-icons a:hover {
+            background-color: var(--secondary);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            h1 {
+                font-size: 2.8rem;
+            }
+            
+            h2 {
+                font-size: 2.2rem;
+            }
+            
+            .hero-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .hero-content {
+                padding-right: 0;
+                margin-bottom: 3rem;
+            }
+            
+            .detail-item, .detail-item:nth-child(even) {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .detail-image i {
+                font-size: 6rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            nav ul {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                flex-direction: column;
+                align-items: center;
+                padding: 2rem 0;
+                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+                transform: translateY(-100%);
+                opacity: 0;
+                transition: var(--transition);
+                z-index: 999;
+            }
+            
+            nav ul.active {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            
+            nav li {
+                margin: 1rem 0;
+            }
+            
+            .hero-btns {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .hero-btns .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="container header-container">
+            <a href="#" class="logo">
+                <i class="fas fa-seedling"></i>
+                EvoluciónConsciente
+            </a>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="#hero">Inicio</a></li>
+                    <li><a href="#offers">¿Qué ofrecemos?</a></li>
+                    <li><a href="#details">Detalles</a></li>
+                    <li><a href="#community">Comunidad</a></li>
+                    <li><a href="#cta" class="btn">Inscríbete</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="container hero-container">
+            <div class="hero-content">
+                <h1>Transforma tu vida con <span>Evolución Consciente</span></h1>
+                <p>Un espacio formativo y de acompañamiento diseñado para apoyar a las personas en su desarrollo emocional, mental y de liderazgo personal de manera integrada y consciente.</p>
+                <div class="hero-btns">
+                    <a href="#cta" class="btn">Comienza tu evolución</a>
+                    <a href="#offers" class="btn btn-secondary">Descubre más</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <!-- Imagen representativa con ícono vectorial -->
+                <i class="fas fa-brain" style="font-size: 20rem; color: var(--primary-light); opacity: 0.8;"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- What offers Section -->
+    <section class="offers" id="offers">
+        <div class="container">
+            <div class="section-intro">
+                <h2>¿Qué ofrece Evolución Consciente?</h2>
+                <p>Nuestro programa integral está diseñado para acompañarte en cada etapa de tu desarrollo personal y profesional</p>
+            </div>
+            
+            <div class="offers-container">
+                <div class="offer-card">
+                    <div class="offer-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>Gestión de emociones</h3>
+                    <p>Aprende a identificar, comprender y regular tus emociones, convirtiéndolas en herramientas para tomar decisiones más claras y equilibradas.</p>
+                </div>
+                
+                <div class="offer-card">
+                    <div class="offer-icon">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <h3>Habilidades personales</h3>
+                    <p>Fortalece tu autoconocimiento, resiliencia emocional y comunicación consciente para una vida más plena y equilibrada.</p>
+                </div>
+                
+                <div class="offer-card">
+                    <div class="offer-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Liderazgo personal</h3>
+                    <p>Desarrolla un liderazgo desde adentro hacia afuera, basado en consciencia, propósito y coherencia interna.</p>
+                </div>
+                
+                <div class="offer-card">
+                    <div class="offer-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Comunidad y acompañamiento</h3>
+                    <p>Forma parte de una comunidad de crecimiento donde el proceso evolutivo se enriquece con el apoyo colectivo.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Details Section -->
+    <section class="details" id="details">
+        <div class="container">
+            <div class="detail-item">
+                <div class="detail-content">
+                    <h3>🧠 Gestión de emociones</h3>
+                    <p>El curso se enfoca en aprender a identificar, comprender y regular las propias emociones, proponiendo que las emociones no se repriman, sino que se conviertan en herramientas para tomar decisiones más claras y equilibradas en la vida cotidiana.</p>
+                    <ul class="detail-features">
+                        <li>Identificación emocional consciente</li>
+                        <li>Regulación emocional sin represión</li>
+                        <li>Toma de decisiones desde la claridad emocional</li>
+                        <li>Integración emocional en la vida diaria</li>
+                    </ul>
+                </div>
+                <div class="detail-image">
+                    <i class="fas fa-brain"></i>
+                </div>
+            </div>
+            
+            <div class="detail-item">
+                <div class="detail-content">
+                    <h3>🌱 Fortalecimiento de habilidades personales</h3>
+                    <p>Trabajamos en aspectos fundamentales para tu desarrollo personal:</p>
+                    <ul class="detail-features">
+                        <li><strong>Autoconocimiento:</strong> entender patrones internos y creencias que guían pensamientos y acciones.</li>
+                        <li><strong>Resiliencia emocional:</strong> desarrollar flexibilidad para enfrentar cambios, dificultades o estrés sin perder claridad mental.</li>
+                        <li><strong>Comunicación consciente:</strong> aprender a expresarse de manera clara y asertiva sin caer en reactividad.</li>
+                    </ul>
+                    <p>Este entrenamiento incluye reflexiones, prácticas guiadas y dinámicas para fortalecer esas habilidades internamente.</p>
+                </div>
+                <div class="detail-image">
+                    <i class="fas fa-hands-helping"></i>
+                </div>
+            </div>
+            
+            <div class="detail-item">
+                <div class="detail-content">
+                    <h3>💼 Desarrollo de liderazgo personal</h3>
+                    <p>Más allá de entrenar "técnicas de liderazgo" tradicionales, nuestro enfoque pone una mirada en el liderazgo desde adentro hacia afuera:</p>
+                    <ul class="detail-features">
+                        <li><strong>Liderazgo personal:</strong> aprender a gestionar la propia vida con intención y propósito.</li>
+                        <li><strong>Influencia responsable:</strong> relacionarse con otras personas desde la claridad emocional y la cohesión interna.</li>
+                        <li><strong>Propósito y coherencia interna:</strong> alinear pensamientos, valores y acciones para liderar con autenticidad.</li>
+                    </ul>
+                    <p>Este estilo de liderazgo es más humano, colaborativo y basado en valores que en autoridad jerárquica.</p>
+                </div>
+                <div class="detail-image">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Section -->
+    <section class="community" id="community">
+        <div class="container">
+            <div class="section-intro">
+                <h2>👥 Comunidad y acompañamiento</h2>
+                <p>Parte de nuestra propuesta incluye formar comunidad entre quienes participan, ya sea a través de grupos, encuentros digitales o dinámicas compartidas, para que el proceso de crecimiento no sea individualista sino también colectivo.</p>
+            </div>
+            
+            <div class="community-content">
+                <p>En Evolución Consciente creemos que el crecimiento personal se potencia cuando compartimos el camino con otros. Por eso facilitamos un espacio donde las personas pueden apoyarse entre sí mientras evolucionan a niveles más profundos de consciencia emocional y personal.</p>
+                
+                <div class="community-icons">
+                    <div class="community-icon">
+                        <i class="fas fa-user-friends"></i>
+                        <span>Grupos de apoyo</span>
+                    </div>
+                    <div class="community-icon">
+                        <i class="fas fa-video"></i>
+                        <span>Encuentros digitales</span>
+                    </div>
+                    <div class="community-icon">
+                        <i class="fas fa-comments"></i>
+                        <span>Dinámicas compartidas</span>
+                    </div>
+                    <div class="community-icon">
+                        <i class="fas fa-hands"></i>
+                        <span>Acompañamiento personal</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta" id="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Comienza tu Evolución Consciente hoy</h2>
+                <p>Únete a un programa orientado a aprender a gestionar emociones, fortalecer habilidades de autoconocimiento, resiliencia y comunicación, y entrenar un liderazgo personal basado en consciencia, responsabilidad interna y propósito.</p>
+                <a href="#" class="btn" id="enrollBtn">Inscríbete ahora</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-col">
+                    <a href="#" class="footer-logo">
+                        <i class="fas fa-seedling"></i>
+                        EvoluciónConsciente
+                    </a>
+                    <p>Un espacio formativo y de acompañamiento diseñado para apoyar a las personas en su desarrollo emocional, mental y de liderazgo personal de manera integrada y consciente.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Enlaces rápidos</h3>
+                    <ul class="footer-links">
+                        <li><a href="#hero">Inicio</a></li>
+                        <li><a href="#offers">¿Qué ofrecemos?</a></li>
+                        <li><a href="#details">Detalles del programa</a></li>
+                        <li><a href="#community">Comunidad</a></li>
+                        <li><a href="#cta">Inscripción</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Contacto</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-envelope"></i> info@evolucionconsciente.com</li>
+                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Calle Consciencia 123, Ciudad Evolución</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 Evolución Consciente. Todos los derechos reservados.</p>
+                <p>Desarrollo personal integral | Gestión emocional | Liderazgo consciente</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navMenu.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Close menu when clicking on a link
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+        
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.style.padding = '0.5rem 0';
+                header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.padding = '1rem 0';
+                header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+            }
+        });
+        
+        // Enrollment button interaction
+        const enrollBtn = document.getElementById('enrollBtn');
+        enrollBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // Create a modal for enrollment
+            const modal = document.createElement('div');
+            modal.style.position = 'fixed';
+            modal.style.top = '0';
+            modal.style.left = '0';
+            modal.style.width = '100%';
+            modal.style.height = '100%';
+            modal.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+            modal.style.display = 'flex';
+            modal.style.justifyContent = 'center';
+            modal.style.alignItems = 'center';
+            modal.style.zIndex = '2000';
+            
+            modal.innerHTML = `
+                <div style="background-color: white; padding: 2rem; border-radius: 10px; max-width: 500px; width: 90%;">
+                    <h3 style="color: var(--primary); margin-top: 0;">¡Comienza tu Evolución Consciente!</h3>
+                    <p>Por favor, completa el siguiente formulario para recibir información detallada sobre el programa y el proceso de inscripción.</p>
+                    
+                    <form id="enrollmentForm" style="margin-top: 1.5rem;">
+                        <div style="margin-bottom: 1rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Nombre completo</label>
+                            <input type="text" required style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 5px;">
+                        </div>
+                        
+                        <div style="margin-bottom: 1rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Correo electrónico</label>
+                            <input type="email" required style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 5px;">
+                        </div>
+                        
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">¿Qué área de desarrollo te interesa más?</label>
+                            <select style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 5px;">
+                                <option value="emotions">Gestión de emociones</option>
+                                <option value="skills">Habilidades personales</option>
+                                <option value="leadership">Liderazgo personal</option>
+                                <option value="all">Todas las áreas</option>
+                            </select>
+                        </div>
+                        
+                        <div style="display: flex; gap: 1rem;">
+                            <button type="submit" class="btn" style="flex: 1;">Enviar solicitud</button>
+                            <button type="button" id="closeModal" class="btn btn-secondary" style="flex: 1;">Cerrar</button>
+                        </div>
+                    </form>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            // Close modal when clicking the close button
+            document.getElementById('closeModal').addEventListener('click', () => {
+                document.body.removeChild(modal);
+            });
+            
+            // Close modal when clicking outside the form
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    document.body.removeChild(modal);
+                }
+            });
+            
+            // Handle form submission
+            document.getElementById('enrollmentForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                // Show success message
+                const formContainer = modal.querySelector('div');
+                formContainer.innerHTML = `
+                    <div style="text-align: center; padding: 2rem 0;">
+                        <i class="fas fa-check-circle" style="font-size: 4rem; color: var(--primary); margin-bottom: 1rem;"></i>
+                        <h3 style="color: var(--primary);">¡Solicitud enviada con éxito!</h3>
+                        <p>Te contactaremos en las próximas 24 horas con toda la información sobre el programa Evolución Consciente.</p>
+                        <button id="closeSuccess" class="btn" style="margin-top: 1.5rem;">Cerrar</button>
+                    </div>
+                `;
+                
+                document.getElementById('closeSuccess').addEventListener('click', () => {
+                    document.body.removeChild(modal);
+                });
+            });
+        });
+        
+        // Animation on scroll
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.offer-card, .detail-item, .community-icon');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.2;
+                
+                if (elementPosition < screenPosition) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        }
+        
+        // Set initial state for animated elements
+        document.querySelectorAll('.offer-card, .detail-item, .community-icon').forEach(element => {
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(20px)';
+            element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        });
+        
+        // Run on load and scroll
+        window.addEventListener('load', animateOnScroll);
+        window.addEventListener('scroll', animateOnScroll);
+    </script>
+</body>
+</html>

@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evolución Consciente - Desarrollo Personal Integral</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* --- Estilos base de la página (se mantienen igual) --- */
+        :root {
+            --primary: #2a6e5f;
+            --primary-light: #3a8d7a;
+            --secondary: #f4a261;
+            --secondary-light: #f7c9a0;
+            --accent: #e76f51;
+            --light: #f8f9fa;
+            --dark: #264653;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+            --transition: all 0.3s ease;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --border-radius: 8px;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--dark);
+            line-height: 1.6;
+            background-color: var(--light);
+        }
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        h2 {
+            font-size: 2.5rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        h2:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary);
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        section {
+            padding: 5rem 0;
+        }
+        .section-intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+        }
+        .section-intro h2 {
+            margin-bottom: 1.5rem;
+        }
+        .section-intro h2:after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        /* --- Estilos para las NUEVAS secciones --- */
+
+        /* 1. GALERÍA DE GRADUADOS */
+        .gallery-section {
+            background-color: #f8f9fa;
+        }
+        .gallery-container {
+            max-width: 1200px;
+        }
+        .gallery-tabs {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+        .gallery-tab {
+            padding: 0.7rem 1.5rem;
+            background-color: white;
+            border: 1px solid var(--light-gray);
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        .gallery-tab:hover,
+        .gallery-tab.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        .gallery-item {
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            background-color: white;
+        }
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        .gallery-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+        }
+        .gallery-caption {
+            padding: 1.2rem;
+            text-align: center;
+            font-style: italic;
+            color: var(--gray);
+            background-color: white;
+        }
+
+        /* 2. NUESTROS CURSOS */
+        .courses-section {
+            background-color: white;
+        }
+        .courses-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        .course-card {
+            background-color: var(--light);
+            border-radius: var(--border-radius);
+            padding: 2.5rem 2rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+            border-top: 5px solid var(--primary);
+            position: relative;
+            overflow: hidden;
+        }
+        .course-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        .course-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: var(--secondary);
+            color: var(--dark);
+            padding: 0.4rem 1rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border-bottom-left-radius: 10px;
+        }
+        .course-icon {
+            font-size: 2.8rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+        .course-card h3 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        .course-features {
+            list-style: none;
+            margin-top: 1.5rem;
+            text-align: left;
+        }
+        .course-features li {
+            margin-bottom: 0.7rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        .course-features li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+            font-weight: bold;
+        }
+
+        /* 3. MAPA DE GOOGLE MAPS */
+        .map-section {
+            background-color: #f8f9fa;
+            padding: 4rem 0;
+        }
+        .map-container {
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            height: 450px;
+            position: relative;
+        }
+        #map {
+            height: 100%;
+            width: 100%;
+        }
+        .map-overlay {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            max-width: 300px;
+            box-shadow: var(--shadow);
+            z-index: 10;
+        }
+        .map-overlay h4 {
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        .map-overlay p {
+            margin-bottom: 0.3rem;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        /* 4. CALENDARIO DE HORARIOS */
+        .schedule-section {
+            background-color: white;
+        }
+        .schedule-table-container {
+            overflow-x: auto;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+        .schedule-table thead {
+            background-color: var(--primary);
+            color: white;
+        }
+        .schedule-table th {
+            padding: 1.2rem 1rem;
+            text-align: center;
+            font-weight: 600;
+        }
+        .schedule-table tbody tr {
+            border-bottom: 1px solid var(--light-gray);
+            transition: var(--transition);
+        }
+        .schedule-table tbody tr:hover {
+            background-color: rgba(42, 110, 95, 0.05);
+        }
+        .schedule-table td {
+            padding: 1.2rem 1rem;
+            text-align: center;
+            vertical-align: middle;
+        }
+        .course-tag {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background-color: var(--secondary-light);
+            color: var(--dark);
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin: 0.2rem;
+        }
+        .tag-basico { background-color: #d4edda; color: #155724; }
+        .tag-avanzado { background-color: #d1ecf1; color: #0c5460; }
+        .tag-pl1 { background-color: #fff3cd; color: #856404; }
+        .tag-pl2 { background-color: #f8d7da; color: #721c24; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h2 { font-size: 2rem; }
+            section { padding: 3rem 0; }
+            .gallery-tabs { justify-content: flex-start; }
+            .map-overlay {
+                position: relative;
+                bottom: auto;
+                left: auto;
+                max-width: 100%;
+                margin-top: 1rem;
+            }
+            .map-container { height: 400px; }
+            .course-card { padding: 2rem 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- ... (El HEADER, HERO y otras secciones de tu código anterior se mantienen exactamente igual) ... -->
+    <!-- Te recomiendo copiar y pegar todo el código anterior aquí, antes de las nuevas secciones -->
+
+    <!-- GALERÍA DE GRADUADOS FELICES -->
+    <section class="gallery-section" id="gallery">
+        <div class="container">
+            <div class="section-intro">
+                <h2>Nuestra Comunidad Feliz</h2>
+                <p>Mira los rostros de transformación y alegría. Nuestros graduados son la mejor prueba del impacto positivo de Evolución Consciente.</p>
+            </div>
+            <div class="gallery-tabs">
+                <div class="gallery-tab active" data-filter="all">Todas</div>
+                <div class="gallery-tab" data-filter="graduacion">Graduaciones</div>
+                <div class="gallery-tab" data-filter="talleres">Talleres</div>
+                <div class="gallery-tab" data-filter="comunidad">Comunidad</div>
+            </div>
+            <div class="gallery-grid">
+                <!-- IMAGEN 1 -->
+                <div class="gallery-item" data-category="graduacion">
+                    <!-- REEMPLAZA ESTA URL POR TU FOTO REAL -->
+                    <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Graduados celebrando" class="gallery-img">
+                    <div class="gallery-caption">"Una transformación que celebra la vida" - Promoción 2024</div>
+                </div>
+                <!-- IMAGEN 2 -->
+                <div class="gallery-item" data-category="talleres">
+                    <!-- REEMPLAZA ESTA URL POR TU FOTO REAL -->
+                    <img src="https://images.unsplash.com/photo-1582213782179-e0d531f0fcc5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Taller grupal" class="gallery-img">
+                    <div class="gallery-caption">Aprendiendo juntos en nuestros talleres experienciales</div>
+                </div>
+                <!-- IMAGEN 3 -->
+                <div class="gallery-item" data-category="comunidad">
+                    <!-- REEMPLAZA ESTA URL POR TU FOTO REAL -->
+                    <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Grupo abrazándose" class="gallery-img">
+                    <div class="gallery-caption">La conexión humana es el corazón de nuestro programa</div>
+                </div>
+                <!-- IMAGEN 4 -->
+                <div class="gallery-item" data-category="graduacion">
+                    <!-- REEMPLAZA ESTA URL POR TU FOTO REAL -->
+                    <img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Persona feliz con diploma" class="gallery-img">
+                    <div class="gallery-caption">Lograr mis objetivos personales fue una experiencia liberadora</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NUESTROS CURSOS -->
+    <section class="courses-section" id="courses">
+        <div class="container">
+            <div class="section-intro">
+                <h2>Nuestros Programas de Evolución</h2>
+                <p>Diseñamos un camino progresivo para tu desarrollo personal. Comienza desde donde estés y avanza a tu ritmo.</p>
+            </div>
+            <div class="courses-container">
+                <!-- CURSO BÁSICO -->
+                <div class="course-card">
+                    <div class="course-badge">Recomendado para empezar</div>
+                    <div class="course-icon">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <h3>Básico</h3>
+                    <p>Fundamentos de autoconocimiento y gestión emocional. Tu primer paso hacia una vida más consciente.</p>
+                    <ul class="course-features">
+                        <li>Introducción a la inteligencia emocional</li>
+                        <li>Autoconocimiento y patrones de pensamiento</li>
+                        <li>4 semanas de duración</li>
+                        <li>Sesiones grupales semanales</li>
+                    </ul>
+                </div>
+                <!-- CURSO AVANZADO -->
+                <div class="course-card">
+                    <div class="course-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Avanzado</h3>
+                    <p>Profundiza en tu desarrollo personal y construye resiliencia para enfrentar desafíos.</p>
+                    <ul class="course-features">
+                        <li>Desarrollo de resiliencia emocional</li>
+                        <li>Comunicación consciente y asertiva</li>
+                        <li>6 semanas de duración</li>
+                        <li>Prácticas de mindfulness avanzadas</li>
+                    </ul>
+                </div>
+                <!-- CURSO PL1 -->
+                <div class="course-card">
+                    <div class="course-icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h3>PL1 - Liderazgo Personal</h3>
+                    <p>Primer nivel de liderazgo interno: gestiona tu vida con propósito y autenticidad.</p>
+                    <ul class="course-features">
+                        <li>Liderazgo desde la autenticidad</li>
+                        <li>Definición de propósito personal</li>
+                        <li>8 semanas de duración</li>
+                        <li>Sesiones individuales de mentoría</li>
+                    </ul>
+                </div>
+                <!-- CURSO PL2 -->
+                <div class="course-card">
+                    <div class="course-badge">Nivel máximo</div>
+                    <div class="course-icon">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <h3>PL2 - Maestría Consciente</h3>
+                    <p>Integración total y aplicación de tu evolución en todos los ámbitos de tu vida.</p>
+                    <ul class="course-features">
+                        <li>Coherencia interna total</li>
+                        <li>Influencia responsable y ética</li>
+                        <li>12 semanas de duración</li>
+                        <li>Proyecto de transformación personal</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAPA DE UBICACIÓN -->
+    <section class="map-section" id="location">
+        <div class="container">
+            <div class="section-intro">
+                <h2>Nuestro Espacio de Transformación</h2>
+                <p>Te esperamos en un entorno diseñado para el crecimiento y la reflexión.</p>
+            </div>
+            <div class="map-container">
+                <!-- Este DIV contendrá el mapa de Google -->
+                <div id="map"></div>
+                <div class="map-overlay">
+                    <h4><i class="fas fa-map-marker-alt"></i> Evolución Consciente</h4>
+                    <p><strong>Dirección:</strong> Calle Consciencia 123, Ciudad Evolución</p>
+                    <p><strong>Horario atención:</strong> Lunes a Viernes 9:00 - 19:00</p>
+                    <p><strong>Teléfono:</strong> +1 (555) 123-4567</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CALENDARIO DE HORARIOS -->
+    <section class="schedule-section" id="schedule">
+        <div class="container">
+            <div class="section-intro">
+                <h2>Calendario de Horarios 2025</h2>
+                <p>Encuentra el horario que mejor se adapte a tu ritmo de vida. Ofrecemos flexibilidad para tu crecimiento.</p>
+            </div>
+            <div class="schedule-table-container">
+                <table class="schedule-table">
+                    <thead>
+                        <tr>
+                            <th>Curso</th>
+                            <th>Días</th>
+                            <th>Horario</th>
+                            <th>Inicio</th>
+                            <th>Duración</th>
+                            <th>Modalidad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="course-tag tag-basico">Básico</span></td>
+                            <td>Lunes y Miércoles</td>
+                            <td>18:00 - 20:00</td>
+                            <td>10 Marzo 2025</td>
+                            <td>4 semanas</td>
+                            <td>Presencial / Online</td>
+                        </tr>
+                        <tr>
+                            <td><span class="course-tag tag-basico">Básico</span></td>
+                            <td>Sábados</td>
+                            <td>10:00 - 14:00</td>
+                            <td>15 Marzo 2025</td>
+                            <td>4 semanas</td>
+                            <td>Presencial</td>
+                        </tr>
+                        <tr>
+                            <td><span class="course-tag tag-avanzado">Avanzado</span></td>
+                            <td>Martes y Jueves</td>
+                            <td>19:00 - 21:00</td>
+                            <td>5 Abril 2025</td>
+                            <td>6 semanas</td>
+                            <td>Presencial</td>
+                        </tr>
+                        <tr>
+                            <td><span class="course-tag tag-pl1">PL1</span></td>
+                            <td>Miércoles</td>
+                            <td>17:00 - 20:00</td>
+                            <td>2 Abril 2025</td>
+                            <td>8 semanas</td>
+                            <td>Presencial</td>
+                        </tr>
+                        <tr>
+                            <td><span class="course-tag tag-pl2">PL2</span></td>
+                            <td>Viernes</td>
+                            <td>16:00 - 20:00</td>
+                            <td>11 Abril 2025</td>
+                            <td>12 semanas</td>
+                            <td>Presencial</td>
+                        </tr>
+                        <tr>
+                            <td><span class="course-tag tag-basico">Básico</span></td>
+                            <td>Lunes y Miércoles</td>
+                            <td>10:00 - 12:00</td>
+                            <td>28 Abril 2025</td>
+                            <td>4 semanas</td>
+                            <td>Online</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ... (El FOOTER de tu código anterior se mantiene igual) ... -->
+    <!-- Te recomiendo copiar y pegar el FOOTER de tu código anterior aquí -->
+
+    <!-- SCRIPTS -->
+    <script>
+        // ============================================
+        // 1. FUNCIONALIDAD PARA LA GALERÍA DE FOTOS
+        // ============================================
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.gallery-tab');
+            const items = document.querySelectorAll('.gallery-item');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Remover clase active de todas las pestañas
+                    tabs.forEach(t => t.classList.remove('active'));
+                    // Añadir clase active a la pestaña clickeada
+                    this.classList.add('active');
+                    
+                    const filter = this.getAttribute('data-filter');
+                    
+                    // Mostrar/ocultar elementos según el filtro
+                    items.forEach(item => {
+                        if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // ============================================
+            // 2. INICIALIZAR MAPA DE GOOGLE
+            // ============================================
+            function initMap() {
+                // IMPORTANTE: Reemplaza estas coordenadas por la ubicación REAL de tu centro
+                const location = { lat: 40.416775, lng: -3.703790 }; // Coordenadas de ejemplo (Madrid)
+                
+                // Crear el mapa centrado en la ubicación[citation:1]
+                const map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 15,
+                    center: location,
+                    styles: [
+                        {
+                            "featureType": "all",
+                            "elementType": "geometry",
+                            "stylers": [{ "color": "#f5f5f5" }]
+                        },
+                        {
+                            "featureType": "poi",
+                            "elementType": "labels",
+                            "stylers": [{ "visibility": "off" }]
+                        }
+                    ]
+                });
+                
+                // Añadir un marcador en la ubicación[citation:4]
+                new google.maps.Marker({
+                    position: location,
+                    map: map,
+                    title: 'Evolución Consciente',
+                    icon: {
+                        path: google.maps.SymbolPath.CIRCLE,
+                        fillColor: '#2a6e5f',
+                        fillOpacity: 1,
+                        strokeColor: '#ffffff',
+                        strokeWeight: 2,
+                        scale: 10
+                    }
+                });
+                
+                // Añadir información en el marcador (opcional)
+                const infoWindow = new google.maps.InfoWindow({
+                    content: '<h3 style="color:#2a6e5f; margin-bottom:5px;">Evolución Consciente</h3><p>Tu centro de desarrollo personal</p>'
+                });
+                
+                // Abrir infoWindow al hacer clic en el marcador
+                google.maps.event.addListener(map, 'click', function() {
+                    infoWindow.open(map);
+                });
+            }
+            
+            // Cargar el mapa cuando la ventana se haya cargado
+            window.onload = initMap;
+        });
+        
+        // ============================================
+        // 3. ANIMACIÓN PARA LAS TARJETAS DE CURSOS
+        // ============================================
+        function animateCards() {
+            const cards = document.querySelectorAll('.course-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 200);
+            });
+        }
+        
+        // Ejecutar animación cuando la sección de cursos sea visible
+        window.addEventListener('scroll', function() {
+            const coursesSection = document.getElementById('courses');
+            const sectionPosition = coursesSection.getBoundingClientRect().top;
+            const screenPosition = window.innerHeight / 1.2;
+            
+            if (sectionPosition < screenPosition) {
+                animateCards();
+            }
+        });
+    </script>
+    
+    <!-- 
+        IMPORTANTE: Para que el mapa funcione, NECESITAS:
+        1. Obtener una API Key de Google Maps: https://developers.google.com/maps/documentation/javascript/get-api-key[citation:4]
+        2. Reemplazar "YOUR_API_KEY" en el siguiente script con tu clave real
+        3. Habilitar facturación en tu cuenta de Google Cloud (el mapa tiene un límite gratuito)
+    -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"></script>
+</body>
+</html>
