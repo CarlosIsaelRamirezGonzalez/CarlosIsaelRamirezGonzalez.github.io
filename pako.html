@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat WhatsApp Style</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #075e54, #128c7e);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            height: 90vh;
+        }
+
+        .header {
+            background-color: #075e54;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header h1 {
+            font-size: 20px;
+            font-weight: 500;
+        }
+
+        .status {
+            font-size: 13px;
+            opacity: 0.8;
+        }
+
+        .cookie-status {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .chat-container {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background-image: url('https://web.whatsapp.com/img/bg-chat-tile_9f39b5e7e5d2d5e73b6a9e2f6c8c7c7a.png');
+            background-repeat: repeat;
+            background-blend-mode: overlay;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+            max-width: 70%;
+        }
+
+        .received {
+            align-items: flex-start;
+        }
+
+        .sent {
+            align-items: flex-end;
+            margin-left: auto;
+        }
+
+        .message-bubble {
+            padding: 10px 15px;
+            border-radius: 18px;
+            position: relative;
+            word-wrap: break-word;
+            line-height: 1.4;
+            max-width: 100%;
+        }
+
+        .received .message-bubble {
+            background-color: white;
+            border-top-left-radius: 5px;
+        }
+
+        .sent .message-bubble {
+            background-color: #dcf8c6;
+            border-top-right-radius: 5px;
+        }
+
+        .message-time {
+            font-size: 11px;
+            color: #666;
+            margin-top: 5px;
+            text-align: right;
+        }
+
+        .message-sender {
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 3px;
+            color: #075e54;
+        }
+
+        .input-container {
+            background-color: #f0f0f0;
+            padding: 15px;
+            display: flex;
+            gap: 10px;
+            border-top: 1px solid #ddd;
+        }
+
+        .message-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 25px;
+            outline: none;
+            font-size: 15px;
+            background-color: white;
+        }
+
+        .send-btn {
+            background-color: #075e54;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.2s;
+        }
+
+        .send-btn:hover {
+            background-color: #128c7e;
+        }
+
+        .send-btn:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+
+        .typing-indicator {
+            display: none;
+            align-items: center;
+            gap: 5px;
+            padding: 10px 15px;
+            background-color: white;
+            border-radius: 18px;
+            border-top-left-radius: 5px;
+            margin-bottom: 15px;
+            width: fit-content;
+        }
+
+        .typing-indicator.active {
+            display: flex;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #888;
+            animation: typing 1.5s infinite ease-in-out;
+        }
+
+        .typing-dot:nth-child(1) { animation-delay: 0s; }
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-10px); }
+        }
+
+        .cookie-info {
+            background-color: #e8f5e9;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            border-left: 4px solid #4caf50;
+            font-size: 14px;
+        }
+
+        .cookie-info h3 {
+            color: #075e54;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cookie-value {
+            background-color: white;
+            padding: 8px 10px;
+            border-radius: 5px;
+            margin-top: 5px;
+            font-family: monospace;
+            font-size: 12px;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .clear-cookies {
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 15px;
+            cursor: pointer;
+            font-size: 13px;
+            margin-top: 10px;
+            transition: background-color 0.2s;
+        }
+
+        .clear-cookies:hover {
+            background-color: #ff5252;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #4caf50;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 5px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            display: none;
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                height: 95vh;
+                max-width: 100%;
+            }
+            
+            .message {
+                max-width: 85%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-left">
+                <div class="avatar">
+                    <i class="fas fa-robot fa-2x"></i>
+                </div>
+                <div>
+                    <h1>ChatBot Assistant</h1>
+                    <div class="status">En línea • Guardando datos en cookies</div>
+                </div>
+            </div>
+            <div class="cookie-status" id="cookieStatus">
+                <i class="fas fa-cookie-bite"></i>
+                <span>Cookies activas</span>
+            </div>
+        </div>
+
+        <div class="chat-container" id="chatContainer">
+            <!-- Mensajes se agregarán aquí dinámicamente -->
+            <div class="message received">
+                <div class="message-sender">ChatBot</div>
+                <div class="message-bubble">
+                    ¡Hola! Soy un chatbot estilo WhatsApp. Puedes preguntarme lo que quieras. Cada respuesta incluirá un "summary" que se guardará en cookies y se reenviará en nuestras conversaciones.
+                </div>
+                <div class="message-time" id="currentTime"></div>
+            </div>
+        </div>
+
+        <div class="typing-indicator" id="typingIndicator">
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+            <span>ChatBot está escribiendo...</span>
+        </div>
+
+        <div class="input-container">
+            <input type="text" class="message-input" id="messageInput" placeholder="Escribe tu mensaje aquí..." autocomplete="off">
+            <button class="send-btn" id="sendButton">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+
+        <div class="cookie-info">
+            <h3><i class="fas fa-info-circle"></i> Información de Cookies</h3>
+            <p>El campo "summary" recibido del backend se guarda en cookies y se reenvía automáticamente con cada mensaje.</p>
+            <div class="cookie-value" id="cookieValue">No hay datos en cookies todavía</div>
+            <button class="clear-cookies" id="clearCookies">Limpiar Cookies</button>
+        </div>
+    </div>
+
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i> <span id="notificationText">Mensaje enviado</span>
+    </div>
+
+    <script>
+        // Elementos del DOM
+        const chatContainer = document.getElementById('chatContainer');
+        const messageInput = document.getElementById('messageInput');
+        const sendButton = document.getElementById('sendButton');
+        const typingIndicator = document.getElementById('typingIndicator');
+        const cookieValue = document.getElementById('cookieValue');
+        const clearCookiesButton = document.getElementById('clearCookies');
+        const notification = document.getElementById('notification');
+        const notificationText = document.getElementById('notificationText');
+        const cookieStatus = document.getElementById('cookieStatus');
+        const currentTimeElement = document.getElementById('currentTime');
+        
+        // URL del backend (simulado para este ejemplo)
+        const BACKEND_URL = 'http://localhost:8000/api/pakmail/v1/chat';
+        
+        // Clave para las cookies
+        const COOKIE_KEY = 'chat_summary';
+        
+        // Establecer la hora actual en el mensaje de bienvenida
+        function setCurrentTime() {
+            const now = new Date();
+            const timeString = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+            currentTimeElement.textContent = timeString;
+        }
+        
+        // Obtener la hora actual formateada
+        function getCurrentTime() {
+            const now = new Date();
+            return `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+        }
+        
+        // Funciones para manejar cookies
+        function getCookie(name) {
+            const cookies = document.cookie.split(';');
+            for (let cookie of cookies) {
+                const [key, value] = cookie.trim().split('=');
+                if (key === name) {
+                    return decodeURIComponent(value);
+                }
+            }
+            return '';
+        }
+        
+        function setCookie(name, value, days = 7) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            const expires = "expires=" + date.toUTCString();
+            document.cookie = `${name}=${encodeURIComponent(value)};${expires};path=/`;
+            updateCookieDisplay();
+            updateCookieStatus();
+        }
+        
+        function deleteCookie(name) {
+            document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/`;
+            updateCookieDisplay();
+            updateCookieStatus();
+        }
+        
+        function updateCookieDisplay() {
+            const summary = getCookie(COOKIE_KEY);
+            if (summary) {
+                cookieValue.textContent = summary.length > 100 ? summary.substring(0, 100) + '...' : summary;
+            } else {
+                cookieValue.textContent = 'No hay datos en cookies todavía';
+            }
+        }
+        
+        function updateCookieStatus() {
+            const summary = getCookie(COOKIE_KEY);
+            if (summary) {
+                cookieStatus.innerHTML = '<i class="fas fa-cookie-bite"></i><span>Summary guardado</span>';
+            } else {
+                cookieStatus.innerHTML = '<i class="fas fa-cookie"></i><span>Sin summary</span>';
+            }
+        }
+        
+        // Mostrar notificación
+        function showNotification(message, isError = false) {
+            notificationText.textContent = message;
+            notification.style.backgroundColor = isError ? '#f44336' : '#4caf50';
+            notification.style.display = 'block';
+            
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+        
+        // Agregar mensaje al chat
+        function addMessage(text, isSent = false, sender = null) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isSent ? 'sent' : 'received'}`;
+            
+            if (!isSent && sender) {
+                const senderDiv = document.createElement('div');
+                senderDiv.className = 'message-sender';
+                senderDiv.textContent = sender;
+                messageDiv.appendChild(senderDiv);
+            }
+            
+            const bubbleDiv = document.createElement('div');
+            bubbleDiv.className = 'message-bubble';
+            bubbleDiv.textContent = text;
+            messageDiv.appendChild(bubbleDiv);
+            
+            const timeDiv = document.createElement('div');
+            timeDiv.className = 'message-time';
+            timeDiv.textContent = getCurrentTime();
+            messageDiv.appendChild(timeDiv);
+            
+            chatContainer.appendChild(messageDiv);
+            // Desplazar hacia el último mensaje
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+        
+        // Simular respuesta del backend (para cuando el backend no esté disponible)
+        function simulateBackendResponse(question, summary) {
+            // Respuestas predefinidas para simulación
+            const responses = [
+                "He recibido tu mensaje. El summary que tienes en cookies es: " + (summary || "vacío"),
+                "Interesante pregunta. Estoy procesando la información con el summary: " + (summary || "no proporcionado"),
+                "Gracias por tu mensaje. Continuamos la conversación con el contexto guardado en cookies.",
+                "He actualizado el summary en cookies con información sobre nuestra conversación.",
+                "Entendido. Voy a guardar en cookies un resumen de nuestra conversación para futuras referencias."
+            ];
+            
+            const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+            const newSummary = summary ? summary + " | " + question.substring(0, 30) + "..." : "Conversación iniciada: " + question.substring(0, 50) + "...";
+            
+            return {
+                answer: randomResponse,
+                summary: newSummary
+            };
+        }
+        
+        // Enviar mensaje al backend
+        async function sendMessageToBackend(question) {
+            // Obtener el summary de las cookies
+            const summary = getCookie(COOKIE_KEY);
+            
+            // Mostrar indicador de "escribiendo"
+            typingIndicator.classList.add('active');
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+            
+            // Simular un retraso de red
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
+            try {
+                // Datos a enviar
+                const requestData = {
+                    question: question,
+                    summary: summary
+                };
+                
+                // Enviar la petición POST al backend
+                const response = await fetch(BACKEND_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(requestData)
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`Error HTTP: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                // Ocultar indicador de "escribiendo"
+                typingIndicator.classList.remove('active');
+                
+                // Guardar el nuevo summary en cookies
+                if (data.summary) {
+                    setCookie(COOKIE_KEY, data.summary);
+                }
+                
+                return data;
+                
+            } catch (error) {
+                console.error('Error al conectar con el backend:', error);
+                
+                // Ocultar indicador de "escribiendo"
+                typingIndicator.classList.remove('active');
+                
+                // Simular respuesta del backend
+                const simulatedData = simulateBackendResponse(question, summary);
+                
+                // Guardar el nuevo summary en cookies (simulado)
+                if (simulatedData.summary) {
+                    setCookie(COOKIE_KEY, simulatedData.summary);
+                }
+                
+                showNotification("Usando respuesta simulada (backend no disponible)", true);
+                
+                return simulatedData;
+            }
+        }
+        
+        // Manejar el envío de mensajes
+        async function handleSendMessage() {
+            const message = messageInput.value.trim();
+            
+            if (!message) return;
+            
+            // Agregar el mensaje del usuario al chat
+            addMessage(message, true);
+            messageInput.value = '';
+            
+            // Enviar al backend
+            const response = await sendMessageToBackend(message);
+            
+            // Agregar la respuesta al chat
+            if (response.answer) {
+                addMessage(response.answer, false, "ChatBot");
+            }
+            
+            // Mostrar notificación
+            showNotification("Respuesta recibida y summary guardado en cookies");
+        }
+        
+        // Event Listeners
+        sendButton.addEventListener('click', handleSendMessage);
+        
+        messageInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                handleSendMessage();
+            }
+        });
+        
+        clearCookiesButton.addEventListener('click', () => {
+            deleteCookie(COOKIE_KEY);
+            showNotification("Cookies limpiadas correctamente");
+        });
+        
+        // Inicializar
+        setCurrentTime();
+        updateCookieDisplay();
+        updateCookieStatus();
+        
+        // Mostrar información inicial
+        setTimeout(() => {
+            showNotification("Chat listo. Las cookies se guardarán y reenviarán automáticamente.");
+        }, 1000);
+        
+        // Mostrar mensaje de ejemplo después de un momento
+        setTimeout(() => {
+            addMessage("Puedes preguntarme sobre cualquier tema. Por ejemplo: '¿Cuál es el tiempo hoy?' o 'Explícame cómo funcionan las cookies'", false, "ChatBot");
+        }, 1500);
+    </script>
+</body>
+</html>
