@@ -20,7 +20,9 @@ Agrega `?debug=1` a la URL para ver qué agente construye cada tarea, un registr
 ## Editar el contenido
 
 Todo el texto está en `index.html`. Para que el enjambre construya un elemento, márcalo con
-`data-build`:
+`data-build`. Todo texto dentro de un elemento marcado lo escribe un cursor letra por letra (se
+parte en un `span` por carácter, con una copia oculta para lectores de pantalla); con `?debug=1`,
+"texto sin tarea" debe ser 0.
 
 | Valor | Qué hace el cursor |
 |---|---|

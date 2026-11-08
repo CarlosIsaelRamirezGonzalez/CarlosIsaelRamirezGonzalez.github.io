@@ -36,13 +36,39 @@ export interface Box {
   h: number
 }
 
-/** Estado del tecleo de un texto: la parte escrita y la que aún ocupa su lugar invisible. */
-export interface Typing {
-  full: string
-  typed: Text
-  rest: Text
+/** Un carácter de la capa animada: está oculto o visible, nunca a medias. */
+export interface Glyph {
+  el: HTMLSpanElement
+  char: string
+}
+
+/** Error de tecleo: se escribe una letra equivocada y se borra antes de la correcta. */
+export interface Typo {
+  index: number
+  wrong: string
+  show: number
+  hide: number
+}
+
+/** Lo que teclea un agente de la cuadrilla: sus letras y el momento en que aparece cada una. */
+export interface RoleScript {
+  glyphs: Glyph[]
+  /** Segundos (a velocidad 1×) desde el inicio del tecleo en que aparece cada letra. */
+  times: number[]
+  typo: Typo | null
+  end: number
+  /** Letras visibles ahora mismo. */
   shown: number
-  caret: Box
+  typoVisible: boolean
+  /** Posición del caret, en coordenadas del documento. */
+  caret: Box | null
+  /** Caja de las letras de este agente, para arrastrar su caja de texto. */
+  box: Box
+}
+
+/** Guion de una tarea en construcción, creado al asignarla. */
+export interface Script {
+  roles: RoleScript[]
 }
 
 /** Trayecto curvo de un agente, en coordenadas de pantalla salvo el destino, que se recalcula. */
@@ -62,7 +88,6 @@ export interface Task {
   el: HTMLElement
   kind: BuildKind
   box: Box
-  /** Tarea que contiene a esta; se construye primero. */
   parent: Task | null
   /** En las copias: la tarea maestra de la que se duplican. */
   master: Task | null
@@ -71,17 +96,19 @@ export interface Task {
   children: Task[]
   guide: boolean
   grow: boolean
+  /** Letras que escribe esta tarea (no incluye las de sus hijas). */
+  glyphs: Glyph[]
   /** Avance de 0 (sin construir) a 1 (terminada). */
   progress: number
-  /** Segundos que tarda a velocidad 1×. */
+  /** Segundos (a 1×) del arrastre, la selección o la reunión antes de teclear. */
+  dragTime: number
+  /** Segundos (a 1×) de toda la tarea; se fija al crear el guion. */
   duration: number
-  /** Agentes asignados; el primero es el principal. */
+  script: Script | null
   crew: Agent[]
-  /** Cuántos agentes pide la tarea. */
+  /** Cuántos agentes pide en los momentos especiales (red y contacto). */
   crewSize: number
-  /** Si la cuadrilla ya está en su lugar y la tarea avanza. */
   running: boolean
-  typing: Typing | null
 }
 
 /** Un cursor del enjambre. Existe desde el inicio y conserva su color y nombre. */
@@ -97,19 +124,16 @@ export interface Agent {
   tool: Tool
   pressed: boolean
   task: Task | null
-  /** Posición del agente dentro de la cuadrilla de su tarea. */
   role: number
   path: Path | null
-  /** Segundos que le quedan de pausa antes de hacer clic. */
   wait: number
-  /** Qué tan rápido es este agente, para que no todos se muevan igual. */
   pace: number
-  /** Lugar de descanso en pantalla. */
   home: Point
   alpha: number
   scale: number
-  /** Fase propia para el temblor y el vaivén. */
   phase: number
+  /** Posiciones recientes, para la estela cuando el enjambre va muy rápido. */
+  trail: Point[]
 }
 
 /** Dónde está y qué hace el cursor en un punto de la tarea. */

@@ -674,8 +674,8 @@
 
     <footer class="border-t border-border py-10">
       <div class="container-page flex flex-col gap-2 text-center font-mono text-xs text-muted sm:flex-row sm:justify-between sm:text-left">
-        <p>© 2026 Carlos Ramírez · Guadalajara, México</p>
-        <p>
+        <p data-build="text">© 2026 Carlos Ramírez · Guadalajara, México</p>
+        <p data-build="text">
           Hecho con Vite, TypeScript y Tailwind. Efecto de cursores inspirado en
           <a href="https://califa.github.io/swarm-site/" target="_blank" rel="noreferrer" class="underline underline-offset-2 hover:text-text">Swarm, de Joel Califa</a>.
         </p>
@@ -691,14 +691,14 @@
       aria-label="Controles de la animación"
       class="fixed bottom-3 left-1/2 z-50 flex w-max max-w-[calc(100vw-1rem)] -translate-x-1/2 flex-nowrap items-center justify-center gap-1 rounded-xl border border-border bg-bg/90 px-2 py-1.5 backdrop-blur"
     >
-      <span data-count class="px-2 font-mono text-[11px] text-muted">agentes: 0 · capas: 0</span>
+      <span data-count class="px-1.5 font-mono text-[10px] whitespace-nowrap text-muted sm:px-2 sm:text-[11px]">agentes: 0 · capas: 0</span>
       <span class="hidden h-4 w-px bg-border sm:block" aria-hidden="true"></span>
       <button type="button" class="hud-button hidden sm:inline-block" data-speed="1" aria-pressed="true" aria-label="Velocidad 1×">1×</button>
       <button type="button" class="hud-button hidden sm:inline-block" data-speed="2" aria-pressed="false" aria-label="Velocidad 2×">2×</button>
       <button type="button" class="hud-button hidden sm:inline-block" data-speed="3" aria-pressed="false" aria-label="Velocidad 3×">3×</button>
       <span class="h-4 w-px bg-border" aria-hidden="true"></span>
-      <button type="button" class="hud-button" data-sound aria-pressed="false">Sonido: no</button>
-      <button type="button" class="hud-button" data-skip>Saltar animación</button>
+      <button type="button" class="hud-button whitespace-nowrap" data-sound aria-pressed="false">Sonido: no</button>
+      <button type="button" class="hud-button whitespace-nowrap" data-skip aria-label="Saltar animación">Saltar<span class="hidden sm:inline"> animación</span></button>
     </div>
 
     <script type="module" src="/src/main.ts"></script>
