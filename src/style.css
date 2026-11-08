@@ -1,0 +1,154 @@
+@import 'tailwindcss';
+
+/* ---------------------------------------------------------------------------
+   Sistema de diseño: azul marino profundo + cian. Los tokens van tal cual.
+   --------------------------------------------------------------------------- */
+:root {
+  --bg: #070e22;
+  --surface: #0c1730;
+  --surface-2: #12203f;
+  --border: rgba(147, 168, 202, 0.16);
+  --text: #eaf2ff;
+  --muted: #93a8ca;
+  --accent: #46d2e1;
+  --accent-2: #5b93ff;
+  /* Ámbar: solo CTA, NOVA y estado destacado (< 5 % del área). */
+  --warm: #ffb454;
+  --ok: #5ee6a8;
+  --on-warm: #07101f;
+}
+
+/* Los tokens también como clases de Tailwind: bg-bg, text-muted, border-border… */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+  --color-warm: var(--warm);
+  --color-ok: var(--ok);
+  --color-on-warm: var(--on-warm);
+  --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 4.5rem;
+}
+
+/* Fondo con rejilla de 1 px al ~4 %. */
+body {
+  background-color: var(--bg);
+  background-image:
+    linear-gradient(rgb(147 168 202 / 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(147 168 202 / 0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  color: var(--text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+::selection {
+  background: rgb(70 210 225 / 0.3);
+}
+
+/* ---------------------------------------------------------------------------
+   Piezas reutilizables
+   --------------------------------------------------------------------------- */
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-[1200px] px-4 sm:px-8;
+  }
+  .section {
+    @apply py-24 md:py-36;
+  }
+  /* Etiqueta numerada de cada sección: "03 — Enfoque". */
+  .section-label {
+    @apply font-mono text-xs tracking-wider text-accent uppercase;
+  }
+  .heading-2 {
+    @apply font-display font-semibold tracking-tight text-text;
+    font-size: clamp(2.1rem, 4.6vw, 3.6rem);
+    line-height: 1.05;
+  }
+  .heading-3 {
+    @apply font-display text-xl font-semibold tracking-tight text-text sm:text-2xl;
+  }
+  .prose-body {
+    @apply max-w-[68ch] text-base leading-relaxed text-muted sm:text-lg;
+  }
+  .card {
+    @apply rounded-[14px] border border-border bg-surface/80 p-6 transition-[border-color,transform] duration-200 sm:p-7;
+  }
+  .card:hover {
+    @apply -translate-y-0.5 border-accent/50;
+  }
+  .chip {
+    @apply inline-flex items-center rounded-md border border-border bg-surface-2/60 px-2.5 py-1 font-mono text-xs text-muted;
+  }
+  .btn-warm {
+    @apply inline-flex items-center gap-2 rounded-lg bg-warm px-5 py-3 text-sm font-semibold text-on-warm transition-colors hover:bg-[#ffc677];
+  }
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 rounded-lg border border-border px-5 py-3 text-sm font-semibold text-text transition-colors hover:border-accent hover:text-accent;
+  }
+  .link {
+    @apply text-accent-2 underline decoration-accent-2/40 underline-offset-4 transition-colors hover:decoration-accent-2;
+  }
+  .meta {
+    @apply font-mono text-xs text-muted;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Enjambre
+   --------------------------------------------------------------------------- */
+
+/* Mientras arranca, lo que se va a construir no se ve. Sin JS esta clase no existe. */
+.swarm-boot [data-build] {
+  opacity: 0;
+}
+
+#swarm-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 40;
+}
+
+.hud-button {
+  @apply rounded-md px-2 py-1 font-mono text-[11px] text-muted transition-colors hover:text-text disabled:opacity-40;
+}
+.hud-button[aria-pressed='true'] {
+  @apply bg-accent/15 text-accent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* El panel usa `flex`; sin esta regla, el atributo `hidden` no lo ocultaría. */
+#swarm-hud[hidden] {
+  display: none;
+}
