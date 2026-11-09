@@ -4,16 +4,16 @@
  *
  * Atributos:
  * - `data-build="rect|media|text|line|dup|network|converge"`: tipo de tarea.
- * - `data-guide`: antes de escribir el texto, se arrastra una guía desde la regla.
- * - `data-grow`: el texto crece mientras se escribe.
+ * - `data-grow`: el texto crece mientras se escribe (títulos).
  *
  * Cada texto se parte en un `span` por carácter dentro de una capa con `aria-hidden`; al lado
- * queda una copia completa visualmente oculta para lectores de pantalla y buscadores. Los
- * caracteres ocultos siguen ocupando su lugar, así que nada se mueve mientras se escribe.
+ * queda una copia completa visualmente oculta para lectores de pantalla y buscadores.
  */
 import type { BuildKind, Box, Glyph, Task } from './types'
 
 const KINDS: readonly BuildKind[] = ['rect', 'media', 'text', 'line', 'dup', 'network', 'converge']
+/** Letras por segundo que se usan para estimar la duración antes de crear el guion. */
+const ESTIMATED_CPS = 140
 
 const clamp = (value: number, min: number, max: number): number => Math.min(max, Math.max(min, value))
 
@@ -31,10 +31,7 @@ export function measure(el: HTMLElement): Box {
   return { x: rect.left + window.scrollX, y: rect.top + window.scrollY, w: rect.width, h: rect.height }
 }
 
-/**
- * Las copias de un grupo `dup` reciben las mismas marcas que su maestra, en la misma posición,
- * para que sus textos también los escriba un cursor.
- */
+/** Las copias de un grupo `dup` reciben las mismas marcas que su maestra, en la misma posición. */
 function mirrorCopies(): void {
   const groups = new Set<HTMLElement>()
   document.querySelectorAll<HTMLElement>('[data-build="dup"]').forEach((el) => el.parentElement && groups.add(el.parentElement))
@@ -45,7 +42,6 @@ function mirrorCopies(): void {
     const [master, ...copies] = items
     if (!master) continue
     for (const marked of master.querySelectorAll<HTMLElement>('[data-build]')) {
-      // Ruta de índices desde la maestra hasta el elemento marcado.
       const path: number[] = []
       for (let node: HTMLElement = marked; node !== master; node = node.parentElement!) {
         path.unshift(Array.from(node.parentElement!.children).indexOf(node))
@@ -62,25 +58,25 @@ function mirrorCopies(): void {
 }
 
 /**
- * Parte en caracteres todo el texto que vive dentro de una tarea.
+ * Parte en caracteres el texto que vive dentro de una tarea (fuera de los SVG).
  *
  * @returns Para cada elemento con `data-build`, las letras que le pertenecen directamente.
  */
-function splitText(): Map<HTMLElement, Glyph[]> {
-  const owners = new Map<HTMLElement, Glyph[]>()
+function splitText(): Map<Element, Glyph[]> {
+  const owners = new Map<Element, Glyph[]>()
   const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT)
   const nodes: Text[] = []
   for (let node = walker.nextNode(); node; node = walker.nextNode()) {
     const text = node as Text
     if (!text.data.trim()) continue
-    if (!text.parentElement?.closest('[data-build]')) continue
-    if (text.parentElement.closest('script, style, .sr-only')) continue
+    const parent = text.parentElement
+    if (!parent?.closest('[data-build]')) continue
+    if (parent.closest('script, style, svg, .sr-only, #nova-dock')) continue
     nodes.push(text)
   }
 
   for (const text of nodes) {
-    const owner = text.parentElement!.closest<HTMLElement>('[data-build]')!
-    // El navegador colapsa los espacios: se hace igual para no crear letras invisibles de más.
+    const owner = text.parentElement!.closest('[data-build]')!
     const content = text.data.replace(/\s+/g, ' ')
     const readable = document.createElement('span')
     readable.className = 'sr-only'
@@ -103,25 +99,25 @@ function splitText(): Map<HTMLElement, Glyph[]> {
 
 /**
  * Segundos (a 1×) de la parte previa al tecleo: arrastre, selección, trazo o reunión.
- *
- * @param task Tarea ya medida.
- * @returns Duración en segundos.
+ * Todo cabe en menos de un segundo por bloque.
  */
 function dragTimeOf(task: Task): number {
-  const area = (task.box.w * task.box.h) / 600_000
+  const area = (task.box.w * task.box.h) / 900_000
   switch (task.kind) {
     case 'text':
-      return 0.3
+      return 0.08
     case 'line':
-      return 1.0
+      return task.svgPath ? 0.5 : 0.4
+    case 'media':
+      return clamp(0.35 + area, 0.35, 0.6)
     case 'dup':
-      return task.master ? 0.9 : clamp(0.55 + area, 0.55, 1.1)
+      return task.master ? 0.3 : clamp(0.25 + area, 0.25, 0.45)
     case 'network':
-      return 2.6
+      return 1.3
     case 'converge':
-      return 1.2
+      return 0.6
     default:
-      return clamp(0.55 + area, 0.55, 1.1)
+      return clamp(0.22 + area, 0.22, 0.45)
   }
 }
 
@@ -129,30 +125,30 @@ function dragTimeOf(task: Task): number {
  * Prepara el texto y crea las tareas de toda la página en orden de documento.
  *
  * @param mobile Si es un teléfono: los momentos especiales usan menos agentes.
+ * @param maxCrew Agentes que pueden trabajar a la vez; acota las cuadrillas.
  * @returns Las tareas y la cantidad de textos que quedaron fuera de toda tarea.
  */
-export function collectTasks(mobile: boolean): { tasks: Task[]; orphans: number } {
+export function collectTasks(mobile: boolean, maxCrew: number): { tasks: Task[]; orphans: number } {
   mirrorCopies()
   const glyphsByOwner = splitText()
+  const hero = document.querySelector('#entrada')
 
   const tasks: Task[] = []
-  const byElement = new Map<HTMLElement, Task>()
+  const byElement = new Map<Element, Task>()
 
-  for (const el of document.querySelectorAll<HTMLElement>('[data-build]')) {
-    const kind = el.dataset.build as BuildKind
+  for (const node of document.querySelectorAll('[data-build]')) {
+    // Los SVG también tienen `style` y `getBoundingClientRect`; se tratan como elementos HTML.
+    const el = node as HTMLElement
+    const kind = el.getAttribute('data-build') as BuildKind
     if (!KINDS.includes(kind)) continue
 
     let parent: Task | null = null
-    for (let node = el.parentElement; node && !parent; node = node.parentElement) {
-      parent = byElement.get(node) ?? null
-    }
+    for (let up = el.parentElement; up && !parent; up = up.parentElement) parent = byElement.get(up) ?? null
 
     let master: Task | null = null
     let previous: Task | null = null
     if (kind === 'dup') {
-      const siblings = Array.from(el.parentElement?.children ?? []).filter(
-        (node): node is HTMLElement => node instanceof HTMLElement && node.dataset.build === 'dup',
-      )
+      const siblings = Array.from(el.parentElement?.children ?? []).filter((item) => item.getAttribute('data-build') === 'dup')
       const index = siblings.indexOf(el)
       if (index > 0) {
         master = byElement.get(siblings[0]) ?? null
@@ -169,19 +165,22 @@ export function collectTasks(mobile: boolean): { tasks: Task[]; orphans: number 
       master,
       previous,
       children: [],
-      guide: el.hasAttribute('data-guide'),
       grow: el.hasAttribute('data-grow'),
+      svgPath: node instanceof SVGPathElement ? node : null,
       glyphs: glyphsByOwner.get(el) ?? [],
       progress: 0,
       dragTime: 0,
       duration: 1,
       script: null,
       crew: [],
-      crewSize: kind === 'network' ? (mobile ? 3 : 5) : kind === 'converge' ? (mobile ? 6 : 12) : 1,
+      crewSize: kind === 'network' ? Math.min(mobile ? 3 : 4, maxCrew) : kind === 'converge' ? maxCrew : 1,
       running: false,
+      visibleSince: -1,
+      instant: false,
+      hero: hero?.contains(el) ?? false,
     }
     task.dragTime = dragTimeOf(task)
-    task.duration = task.dragTime + task.glyphs.length / 32
+    task.duration = task.dragTime + Math.min(0.7, task.glyphs.length / ESTIMATED_CPS)
     parent?.children.push(task)
     byElement.set(el, task)
     tasks.push(task)
@@ -194,7 +193,7 @@ export function collectTasks(mobile: boolean): { tasks: Task[]; orphans: number 
     const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT)
     for (let node = walker.nextNode(); node; node = walker.nextNode()) {
       const parent = node.parentElement
-      if (node.textContent?.trim() && parent && !parent.closest('[data-build]') && !parent.closest('.sr-only')) orphans++
+      if (node.textContent?.trim() && parent && !parent.closest('[data-build]') && !parent.closest('.sr-only, svg')) orphans++
     }
   }
   return { tasks, orphans }

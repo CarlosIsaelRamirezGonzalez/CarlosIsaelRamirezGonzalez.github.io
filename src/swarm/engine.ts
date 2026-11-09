@@ -1,71 +1,65 @@
 /**
  * Motor del enjambre.
  *
- * Hay un solo grupo fijo de agentes. Cada uno tiene una máquina de estados:
- * reposo → viaje (curva) → pausa → trabajo → regreso → reposo. Una tarea solo avanza mientras
- * su cuadrilla está físicamente en ella, así que nada aparece sin un cursor que lo construya.
+ * Un grupo fijo y pequeño de agentes construye la página mientras se hace scroll. Cada agente
+ * tiene una máquina de estados (fuera → viaje → pausa → trabajo → salida) y una tarea solo avanza
+ * mientras su cuadrilla está físicamente en ella: nada aparece de la nada.
  *
- * La velocidad del scroll fija un multiplicador de 1× a 2.5×: acelera a los cursores, el tecleo y
- * suma agentes. Al detener el scroll, todo lo que está en pantalla se termina en menos de un segundo.
+ * Reglas:
+ * - Cada sección se construye una sola vez al asomar en pantalla y queda estática.
+ * - Nunca hay más de `workers` cursores en pantalla; los demás están fuera y son invisibles.
+ * - Ningún bloque tarda más de un segundo. Lo que lleva más de `MAX_WAIT` s a la vista sin su
+ *   cursor, o quedó arriba con scroll rápido, se completa de golpe para no esconder contenido.
+ * - Si la tasa de cuadros baja, el enjambre se reduce solo.
  */
 import { Sound } from './audio'
 import { collectTasks, measure } from './blueprint'
-import { apply, draw, drawRulers, pose, prepare, textCrew } from './choreography'
+import { apply, draw, pose, prepare, textCrew } from './choreography'
 import { COLORS, HOTSPOT, NAMES, sprite } from './cursors'
 import { Debug } from './debug'
 import type { Agent, Point, Task } from './types'
 
-/** Segundos que el enjambre flota antes de empezar a construir. */
-const INTRO = 1.4
-/** Multiplicador mínimo mientras se arma el hero, para que quede listo en menos de 4 s. */
-const HERO_BOOST = 1
-/** Opacidad y escala de los agentes en reposo: quedan en segundo plano. */
-const IDLE_ALPHA = 0.4
-/** Agentes en reposo que se ven a la vez, solo cerca de donde hay trabajo; el resto sale de la pantalla. */
-const MAX_ESCORTS = 3
-/** Distancia a la que un acompañante flota del agente que trabaja. */
-const ESCORT_RADIUS = 90
-const IDLE_SCALE = 0.8
-/** Segundos que tarda en desarmarse algo que quedó fuera de la pantalla por abajo. */
-const UNBUILD_TIME = 0.3
-/** Parte de la pantalla que pueden ocupar etiquetas y estelas; con los cursores queda debajo del 5 %. */
-const OVERLAY_BUDGET = 0.032
-/** Área aproximada de una etiqueta con nombre y de una imagen de estela, en px². */
+/** Segundos que puede esperar algo visible antes de completarse sin cursor. */
+const MAX_WAIT = 0.85
+/** A partir de este multiplicador aparecen las estelas y se quitan las pausas. */
+const FAST = 2.2
+/** Parte de la pantalla que pueden ocupar etiquetas y estelas. */
+const OVERLAY_BUDGET = 0.03
 const LABEL_AREA = 3100
 const TRAIL_AREA = 14 * 17
-/** Imágenes de la estela por cursor cuando el enjambre va a más de 2.5×. */
 const TRAIL_LENGTH = 4
-/** A partir de este multiplicador se quitan pausas y errores y aparecen las estelas. */
-const FAST = 2.2
-/** Ancho máximo del contenido, para ubicar los márgenes donde descansan los agentes. */
-const CONTENT_WIDTH = 1200
+/** Milisegundos por cuadro a partir de los que el enjambre se reduce. */
+const SLOW_FRAME = 24
 
 interface Profile {
   pool: number
-  base: number
   workers: number
-  maxWorkers: number
-  heroWorkers: number
-  textCrew: number
 }
 
-const DESKTOP: Profile = { pool: 20, base: 14, workers: 6, maxWorkers: 12, heroWorkers: 8, textCrew: 4 }
-const MOBILE: Profile = { pool: 10, base: 7, workers: 4, maxWorkers: 7, heroWorkers: 7, textCrew: 3 }
+const DESKTOP: Profile = { pool: 8, workers: 4 }
+const MOBILE: Profile = { pool: 6, workers: 3 }
 
 const clamp = (value: number, min: number, max: number): number => Math.min(max, Math.max(min, value))
 const ease = (t: number): number => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2)
 const random = (min: number, max: number): number => min + Math.random() * (max - min)
+
+/** Detalle del evento `swarm:assign`, que alimenta el log del hero. */
+export interface AssignDetail {
+  agent: string
+  color: string
+  kind: string
+  label: string
+}
 
 class Swarm {
   private readonly canvas: HTMLCanvasElement
   private readonly hud: HTMLElement
   private readonly ctx: CanvasRenderingContext2D
   private readonly sound = new Sound()
-  private readonly profile: Profile
   private readonly tasks: Task[]
-  private readonly heroTasks: Task[]
   private readonly agents: Agent[] = []
   private readonly debug: Debug | null
+  private workers: number
   private width = 0
   private height = 0
   private ratio = 1
@@ -75,80 +69,50 @@ class Swarm {
   private elapsed = 0
   private lastTime = 0
   private lastScroll = window.scrollY
-  /** Velocidad del scroll en px/ms, suavizada. */
   private scrollSpeed = 0
-  /** Segundos desde el último movimiento del scroll. */
   private still = 0
-  /** Multiplicador de velocidad del enjambre, de 1× a 2.5×. */
+  private settling = false
   private boost = 1
   private turboUntil = 0
-  private rulers = 0
   private mouse: Point | null = null
   private hudTimer = 0
-  private wide = false
   private queued = 0
-  /** Si hubo scroll y aún falta terminar lo que quedó a la vista. */
-  private settling = false
+  private frameCost: number[] = []
+  private reduced = false
 
   constructor(canvas: HTMLCanvasElement, hud: HTMLElement) {
     this.canvas = canvas
     this.hud = hud
     this.ctx = canvas.getContext('2d')!
     const mobile = window.matchMedia('(max-width: 767px)').matches
-    this.profile = mobile ? MOBILE : DESKTOP
-    const { tasks, orphans } = collectTasks(mobile)
+    const profile = mobile ? MOBILE : DESKTOP
+    this.workers = profile.workers
+    const { tasks, orphans } = collectTasks(mobile, profile.workers)
     this.tasks = tasks
-    const hero = document.querySelector('#inicio')
-    this.heroTasks = this.tasks.filter((task) => hero?.contains(task.el))
     this.debug = new URLSearchParams(location.search).has('debug') ? new Debug(orphans) : null
     this.resize()
-    this.spawn()
-    for (const task of this.tasks) apply(task)
-    this.bindEvents()
-  }
-
-  /** Crea el grupo fijo de agentes, todos fuera de la pantalla: entran volando. */
-  private spawn(): void {
-    for (let id = 0; id < this.profile.pool; id++) {
+    for (let id = 0; id < profile.pool; id++) {
       this.agents.push({
         id,
         name: NAMES[id % NAMES.length],
         color: COLORS[id % COLORS.length],
-        state: id < this.profile.base ? 'idle' : 'reserve',
+        state: 'away',
         x: id % 2 ? -40 : this.width + 40,
-        y: random(this.height * 0.15, this.height * 0.85),
-        vx: 0,
-        vy: 0,
+        y: random(this.height * 0.2, this.height * 0.8),
         tool: 'arrow',
         pressed: false,
         task: null,
         role: 0,
         path: null,
         wait: 0,
-        pace: random(0.85, 1.2),
-        home: { x: 0, y: 0 },
-        alpha: IDLE_ALPHA,
-        scale: IDLE_SCALE,
+        pace: random(0.9, 1.15),
+        alpha: 0,
         phase: Math.random() * Math.PI * 2,
         trail: [],
-        escort: null,
       })
     }
-    this.placeHomes()
-  }
-
-  /** Lugares de descanso: en los márgenes a los lados del contenido, o pegados al borde. */
-  private placeHomes(): void {
-    const gutter = (this.width - CONTENT_WIDTH) / 2
-    this.wide = gutter >= 56
-    const rows = Math.ceil(this.agents.length / 2)
-    this.agents.forEach((agent, index) => {
-      const left = index % 2 === 0
-      const row = Math.floor(index / 2)
-      const y = this.height * (0.14 + (0.72 * (row + 0.5)) / rows) + random(-12, 12)
-      const x = this.wide ? (left ? gutter / 2 : this.width - gutter / 2) + random(-14, 14) : left ? 6 : this.width - 14
-      agent.home = { x, y }
-    })
+    for (const task of this.tasks) apply(task)
+    this.bindEvents()
   }
 
   // -------------------------------------------------------------------------
@@ -164,24 +128,17 @@ class Swarm {
     window.addEventListener('pointermove', (event) => {
       this.mouse = { x: event.clientX, y: event.clientY }
     })
-    document.addEventListener('pointerleave', () => {
-      this.mouse = null
-    })
     window.addEventListener('keydown', (event) => {
-      // Quien navega con teclado ve la página completa de inmediato.
       if (event.key === 'Tab') this.skip()
     })
     document.addEventListener('visibilitychange', () => {
       this.lastTime = performance.now()
     })
-    // Saltar por el menú activa el modo turbo.
     document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]').forEach((link) => {
       link.addEventListener('click', () => {
         this.turboUntil = performance.now() + 1400
-        this.debug?.log(`turbo: salto a ${link.getAttribute('href')}`)
       })
     })
-
     this.hud.querySelectorAll<HTMLButtonElement>('[data-speed]').forEach((button) => {
       button.addEventListener('click', () => {
         this.speed = Number(button.dataset.speed)
@@ -195,6 +152,7 @@ class Swarm {
       soundButton.textContent = on ? 'Sonido: sí' : 'Sonido: no'
     })
     this.hud.querySelector('[data-skip]')!.addEventListener('click', () => this.skip())
+    document.querySelector('#swarm-skip')?.addEventListener('click', () => this.skip())
   }
 
   private resize(remeasure = false): void {
@@ -203,14 +161,11 @@ class Swarm {
     this.height = window.innerHeight
     this.canvas.width = Math.round(this.width * this.ratio)
     this.canvas.height = Math.round(this.height * this.ratio)
-    if (remeasure) {
-      for (const task of this.tasks) task.box = measure(task.el)
-      this.placeHomes()
-    }
+    if (remeasure) for (const task of this.tasks) task.box = measure(task.el)
   }
 
-  /** Muestra la página completa. Los agentes siguen ahí, en reposo. */
-  private skip(): void {
+  /** Muestra toda la página de inmediato. */
+  skip(): void {
     if (this.skipped) return
     this.skipped = true
     for (const task of this.tasks) {
@@ -219,14 +174,7 @@ class Swarm {
       apply(task)
     }
     this.hud.querySelector('[data-skip]')?.setAttribute('disabled', '')
-    this.hideSkip()
     this.debug?.log('saltar animación: todo construido')
-  }
-
-  /** Quita el botón de saltar cuando ya no hace falta. */
-  private hideSkip(): void {
-    const button = document.querySelector<HTMLButtonElement>('#swarm-skip')
-    if (button) button.hidden = true
   }
 
   // -------------------------------------------------------------------------
@@ -239,84 +187,66 @@ class Swarm {
       const dt = Math.min(0.05, (now - this.lastTime) / 1000)
       this.lastTime = now
       this.debug?.tick(now)
-      const start = performance.now()
+      const begin = performance.now()
       this.update(dt, now)
       this.render()
-      this.debug?.work(start)
+      this.watchPerformance(performance.now() - begin, dt)
+      this.debug?.work(begin)
       requestAnimationFrame(loop)
     }
     requestAnimationFrame(loop)
   }
 
-  /** Tareas que se ven ahora y aún no están terminadas. */
+  /** Si el navegador no sostiene 60 fps, el enjambre trabaja con menos cursores. */
+  private watchPerformance(_cost: number, dt: number): void {
+    if (this.reduced || this.elapsed < 1.5) return
+    this.frameCost.push(dt * 1000)
+    if (this.frameCost.length < 60) return
+    const average = this.frameCost.reduce((sum, value) => sum + value, 0) / this.frameCost.length
+    this.frameCost = []
+    if (average > SLOW_FRAME) {
+      this.reduced = true
+      this.workers = Math.max(2, this.workers - 2)
+      this.debug?.log(`cuadros lentos (${average.toFixed(0)} ms): el enjambre baja a ${this.workers} cursores`)
+    }
+  }
+
   private pendingInView(scrollY: number): number {
     let pending = 0
     for (const task of this.tasks) {
       if (task.progress >= 1) continue
-      if (task.box.y < scrollY + this.height && task.box.y + task.box.h > scrollY) pending++
+      if (task.box.y < scrollY + this.height - 8 && task.box.y + task.box.h > scrollY) pending++
     }
     return pending
   }
 
   private update(dt: number, now: number): void {
-    const wasIntro = this.elapsed <= INTRO
     this.elapsed += dt
-    // Al terminar la intro, cada agente vuela a su lugar sin cruzar el hero en reposo.
-    if (wasIntro && this.elapsed > INTRO) {
-      for (const agent of this.agents) if (agent.state === 'idle') this.travel(agent, false)
-    }
-
     const scrollY = window.scrollY
     const moved = Math.abs(scrollY - this.lastScroll)
-    // Los agentes se movieron con el scroll del cuadro anterior: la verificación usa ese valor.
     const movedAt = this.lastScroll
     this.lastScroll = scrollY
     this.still = moved > 0.5 ? 0 : this.still + dt
     if (moved > 0.5) this.settling = true
     const instant = moved / Math.max(dt * 1000, 1)
-    // Inercia: sube rápido y baja despacio.
     this.scrollSpeed += (instant - this.scrollSpeed) * (1 - Math.exp(-dt * (instant > this.scrollSpeed ? 10 : 2.5)))
 
-    // Multiplicador: por la velocidad del scroll, el turbo del menú o para terminar lo que se ve.
-    let target = 1 + 1.5 * clamp((this.scrollSpeed - 0.3) / 2.2, 0, 1)
-    if (now < this.turboUntil) target = 2.5
-    // Al detener el scroll, lo que se ve se termina rápido: nunca queda texto a medias.
-    let catchUp = false
+    let target = 1 + 2.5 * clamp((this.scrollSpeed - 0.3) / 2.2, 0, 1)
+    if (now < this.turboUntil) target = 3.5
     if (this.settling && this.still > 0.08) {
-      catchUp = this.pendingInView(scrollY) > 0 && !this.skipped
-      if (catchUp) target = 2.5
+      if (this.pendingInView(scrollY) > 0 && !this.skipped) target = Math.max(target, 3)
       else this.settling = false
     }
-    if (this.heroTasks.some((task) => task.progress < 1)) target = Math.max(target, HERO_BOOST)
     this.boost += (target - this.boost) * (1 - Math.exp(-dt * (target > this.boost ? 12 : 2)))
 
-    const share = (this.boost - 1) / 1.5
-    const reserves = this.profile.pool - this.profile.base
-    this.balanceReserve(this.profile.base + Math.round(reserves * share))
-
     const rate = this.speed * this.boost
-    if (this.elapsed > INTRO && !this.skipped) this.schedule(dt, rate, scrollY, movedAt, catchUp ? 1 : share)
+    if (!this.skipped) this.schedule(dt, rate, scrollY, movedAt)
     this.moveAgents(dt, rate, scrollY)
 
     if (!this.finished && this.tasks.every((task) => task.progress >= 1)) {
       this.finished = true
-      this.hideSkip()
       this.sound.chord()
       this.debug?.log('página completa')
-    }
-  }
-
-  /** Activa agentes de reserva o manda de vuelta a los que sobran; siempre entran y salen volando. */
-  private balanceReserve(wanted: number): void {
-    let active = this.agents.filter((agent) => agent.state !== 'reserve').length
-    for (const agent of this.agents) {
-      if (active < wanted && agent.state === 'reserve') {
-        agent.state = 'idle'
-        active++
-      } else if (active > wanted && agent.state === 'idle' && agent.id >= this.profile.base) {
-        agent.state = 'reserve'
-        active--
-      }
     }
   }
 
@@ -324,54 +254,55 @@ class Swarm {
   // Tareas
   // -------------------------------------------------------------------------
 
-  private schedule(dt: number, rate: number, scrollY: number, movedAt: number, share: number): void {
-    // Se desarma ya fuera de la pantalla, por abajo.
-    // Solo se construye lo que ya asoma en pantalla: ningún cursor trabaja fuera de la vista.
-    const buildLine = scrollY + this.height - 8
-    const unbuildLine = scrollY + this.height + 220
+  private schedule(dt: number, rate: number, scrollY: number, movedAt: number): void {
+    const viewportBottom = scrollY + this.height
     const waiting: Task[] = []
-    // Lo que quedó arriba se completa por partes, para no trabar un cuadro.
     let instantBudget = 40
 
     for (const task of this.tasks) {
+      if (task.progress >= 1) continue
       const before = task.progress
       const parentReady = !task.parent || task.parent.progress >= 1
       const masterReady = !task.master || task.master.progress >= 1
-      const below = task.box.y > unbuildLine && task.box.y > this.height
-      const above = task.box.y + task.box.h < scrollY - 40
+      const visible = task.box.y < viewportBottom - 8 && task.box.y + task.box.h > scrollY
+      const above = task.box.y + task.box.h <= scrollY
+      const empty = task.box.w < 1 && task.box.h < 1
 
-      if (above && task.progress < 1 && parentReady && masterReady) {
-        // Quedó arriba, fuera de la pantalla: se completa sin animar para no acumular cola.
+      if (visible && task.visibleSince < 0) task.visibleSince = this.elapsed
+
+      if ((above || empty) && parentReady && masterReady) {
+        // Quedó atrás con scroll rápido, o no ocupa lugar: se completa sin animar.
         if (instantBudget-- <= 0) continue
-        this.release(task)
-        task.progress = 1
-      } else if (below || !parentReady) {
-        this.release(task)
-        if (task.children.every((child) => child.progress <= 0)) {
-          task.progress = Math.max(0, task.progress - dt / UNBUILD_TIME)
-          if (task.progress === 0) task.script = null
-        }
-      } else if (task.progress < 1 && task.box.y < buildLine && masterReady) {
+        this.complete(task)
+      } else if (visible && parentReady && masterReady) {
         if (task.running) {
           this.advance(task, dt, rate, movedAt)
         } else if (task.crew.length === 0) {
-          waiting.push(task)
+          // Garantía de legibilidad: si lleva demasiado esperando su turno, aparece de golpe.
+          if (this.elapsed - task.visibleSince > MAX_WAIT) this.complete(task)
+          else waiting.push(task)
         } else {
           this.startIfReady(task)
         }
       }
-
       if (task.progress !== before) apply(task)
     }
+
     this.queued = waiting.length
-    this.assign(waiting, scrollY, share)
+    // Primero lo que se lee: títulos y párrafos antes que etiquetas y copias.
+    waiting.sort((a, b) => priority(a) - priority(b) || a.id - b.id)
+    this.assign(waiting, scrollY)
   }
 
-  /**
-   * Avanza una tarea; solo se llama cuando toda su cuadrilla está en su lugar.
-   *
-   * @param movedAt Scroll con el que se ubicaron los agentes, para comprobar que están ahí.
-   */
+  /** Completa una tarea sin cursor y lo anota. */
+  private complete(task: Task): void {
+    this.release(task)
+    task.progress = 1
+    task.instant = true
+    apply(task)
+    this.debug?.instant(task)
+  }
+
   private advance(task: Task, dt: number, rate: number, movedAt: number): void {
     if (this.debug) {
       for (const agent of task.crew) {
@@ -391,76 +322,86 @@ class Swarm {
     }
   }
 
-  /** Reparte las tareas en espera, de arriba hacia abajo, entre los agentes libres más cercanos. */
-  private assign(waiting: Task[], scrollY: number, share: number): void {
-    const heroDone = this.heroTasks.every((task) => task.progress >= 1)
-    const { workers, maxWorkers, heroWorkers } = this.profile
-    // Al terminar lo que quedó a la vista (share = 1) trabaja todo el grupo.
-    const limit =
-      share >= 1 ? this.profile.pool : heroDone ? Math.round(workers + (maxWorkers - workers) * share) : Math.max(heroWorkers, maxWorkers * share)
-    const calm = this.boost < FAST
-    let busy = this.agents.filter((agent) => agent.task).length
-
-    for (const task of waiting) {
-      if (busy >= limit && task.kind !== 'network' && task.kind !== 'converge') break
-      // Libres: en reposo o regresando a su lugar (desde ahí mismo cambian de rumbo).
-      const free = this.agents.filter((agent) => !agent.task && (agent.state === 'idle' || agent.state === 'travel'))
-      if (free.length === 0) break
-
-      let size = 1
-      if (task.kind === 'network' || task.kind === 'converge') {
-        size = Math.min(task.crewSize, free.length)
-        if (size < 3) continue
-      } else {
-        size = Math.min(textCrew(task, this.profile.textCrew), free.length, Math.max(1, limit - busy))
-      }
-
-      size = prepare(task, size, calm)
-      const anchor = pose(task, 0)
-      const distance = (agent: Agent): number => Math.hypot(agent.x - anchor.x, agent.y - (anchor.y - scrollY))
-      free.sort((a, b) => distance(a) - distance(b))
-      const crew = free.slice(0, size)
-      if (task.kind === 'converge') task.crewSize = crew.length
-      task.crew = crew
-      crew.forEach((agent, role) => {
-        agent.task = task
-        agent.role = role
-        this.travel(agent, calm && size === 1 && Math.random() < 0.12)
-      })
-      busy += crew.length
-      this.debug?.log(`#${task.id} ${task.kind} → ${crew.map((agent) => `${agent.name}(${agent.id})`).join(', ')}`)
-    }
-  }
-
-  /** Si toda la cuadrilla ya está en su lugar, la tarea empieza. */
   private startIfReady(task: Task): void {
     if (task.running || !task.crew.every((agent) => agent.state === 'ready')) return
     task.running = true
     for (const agent of task.crew) agent.state = 'work'
   }
 
-  /** Libera a la cuadrilla de una tarea: cada agente regresa volando a su lugar de descanso. */
+  /** Reparte las tareas en espera; nunca hay más de `workers` agentes dentro de la pantalla. */
+  private assign(waiting: Task[], scrollY: number): void {
+    const calm = this.boost < FAST
+    // Cuentan los que trabajan y los que todavía se ven saliendo: nunca más de `workers` en pantalla.
+    let busy = this.agents.filter((agent) => agent.task || (agent.state === 'travel' && this.inside(agent))).length
+
+    for (const task of waiting) {
+      if (busy >= this.workers) break
+      const free = this.agents.filter((agent) => !agent.task)
+      if (free.length === 0) break
+      const room = this.workers - busy
+
+      let size = 1
+      if (task.kind === 'network' || task.kind === 'converge') {
+        size = Math.min(task.crewSize, free.length, room)
+        if (size < 3) {
+          if (room < 3) break
+          continue
+        }
+      } else {
+        size = Math.min(textCrew(task, 3), free.length, room)
+      }
+
+      size = prepare(task, size, calm)
+      const anchor = pose(task, 0)
+      // Entran por el borde más cercano a su tarea.
+      for (const agent of free) {
+        if (agent.state !== 'away') continue
+        agent.x = anchor.x - window.scrollX < this.width / 2 ? -30 : this.width + 30
+        agent.y = clamp(anchor.y - scrollY + random(-80, 80), 20, this.height - 20)
+      }
+      const distance = (agent: Agent): number => Math.hypot(agent.x - anchor.x, agent.y - (anchor.y - scrollY))
+      free.sort((a, b) => distance(a) - distance(b))
+      const crew = free.slice(0, size)
+      task.crew = crew
+      crew.forEach((agent, role) => {
+        agent.task = task
+        agent.role = role
+        this.travel(agent)
+      })
+      busy += crew.length
+      this.debug?.log(`#${task.id} ${task.kind} → ${crew.map((agent) => `${agent.name}(${agent.id})`).join(', ')}`)
+      if (task.hero) this.announce(task, crew[0])
+    }
+  }
+
+  private inside(agent: Agent): boolean {
+    return agent.x > -10 && agent.x < this.width + 10
+  }
+
+  /** Avisa de una asignación del hero, para el log que se ve en la entrada. */
+  private announce(task: Task, agent: Agent): void {
+    const text = task.glyphs.map((glyph) => glyph.char).join('').trim()
+    const label = task.kind === 'text' ? `«${text.slice(0, 28)}${text.length > 28 ? '…' : ''}»` : task.kind
+    const detail: AssignDetail = { agent: agent.name, color: agent.color, kind: task.kind, label }
+    window.dispatchEvent(new CustomEvent<AssignDetail>('swarm:assign', { detail }))
+  }
+
   private release(task: Task): void {
     for (const agent of task.crew) {
       if (agent.task !== task) continue
       agent.task = null
-      this.travel(agent, false)
+      this.travel(agent)
     }
     task.crew = []
     task.running = false
   }
 
-  /**
-   * Inicia un viaje por una curva hacia la tarea del agente (o hacia su lugar si no tiene).
-   *
-   * @param agent Agente que viaja.
-   * @param mistake Si primero se equivoca de lugar y luego corrige.
-   */
-  private travel(agent: Agent, mistake: boolean): void {
+  /** Viaje por una curva hacia la tarea del agente, o hacia fuera de la pantalla si no tiene. */
+  private travel(agent: Agent): void {
     const target = this.targetOf(agent, window.scrollY)
     const distance = Math.hypot(target.x - agent.x, target.y - agent.y)
     const side = Math.random() < 0.5 ? -1 : 1
-    const bend = distance * random(0.12, 0.28) * side
+    const bend = distance * random(0.1, 0.22) * side
     const nx = distance ? -(target.y - agent.y) / distance : 0
     const ny = distance ? (target.x - agent.x) / distance : 0
     agent.state = 'travel'
@@ -468,89 +409,23 @@ class Swarm {
       from: { x: agent.x, y: agent.y },
       bend: { x: nx * bend, y: ny * bend },
       elapsed: 0,
-      duration: clamp(distance / (400 * agent.pace), 0.28, 0.85),
-      miss: mistake ? { x: random(-28, 28), y: random(14, 26) * side } : null,
+      duration: clamp(distance / (1000 * agent.pace), 0.16, 0.42),
     }
   }
 
-  /** A dónde va un agente, en coordenadas de pantalla. */
+  /** A dónde va un agente, en pantalla: a su tarea, o al borde más cercano para salir. */
   private targetOf(agent: Agent, scrollY: number): Point {
     if (agent.task) {
       const target = pose(agent.task, agent.role)
       return { x: target.x - window.scrollX, y: target.y - scrollY }
     }
-    const parked = { x: agent.home.x < this.width / 2 ? -40 : this.width + 40, y: agent.home.y }
-    if (agent.state === 'reserve') return parked
-    if (this.elapsed < INTRO) {
-      // Intro: el enjambre flota alrededor del centro antes de repartirse.
-      const angle = agent.phase + this.elapsed * 0.8
-      return {
-        x: this.width / 2 + Math.cos(angle) * (90 + (agent.id % 5) * 34),
-        y: this.height * 0.5 + Math.sin(angle) * (60 + (agent.id % 4) * 22),
-      }
-    }
-    // En reposo: acompaña el trabajo activo o espera fuera de la pantalla. Nunca se queda en los márgenes.
-    return agent.escort ?? parked
+    return { x: agent.x < this.width / 2 ? -40 : this.width + 40, y: agent.y }
   }
 
-  /**
-   * Elige hasta tres agentes en reposo para acompañar a los que trabajan; los demás salen de la pantalla.
-   */
-  private chooseEscorts(zones: DOMRect[]): void {
-    const workers = this.agents.filter(
-      (agent) => agent.task && agent.x > 0 && agent.x < this.width && agent.y > 0 && agent.y < this.height,
-    )
-    const idle = this.agents.filter((agent) => !agent.task && agent.state !== 'reserve')
-    if (workers.length === 0 || this.elapsed < INTRO) {
-      for (const agent of idle) agent.escort = null
-      return
-    }
-
-    const nearest = (agent: Agent): Agent =>
-      workers.reduce((best, worker) =>
-        Math.hypot(worker.x - agent.x, worker.y - agent.y) < Math.hypot(best.x - agent.x, best.y - agent.y) ? worker : best,
-      )
-    const distance = (agent: Agent): number => {
-      const worker = nearest(agent)
-      return Math.hypot(worker.x - agent.x, worker.y - agent.y)
-    }
-    // Los que ya acompañaban siguen primero, para que no se enciendan y apaguen distintos agentes.
-    const current = idle.filter((agent) => agent.escort).sort((a, b) => distance(a) - distance(b))
-    const others = idle.filter((agent) => !agent.escort).sort((a, b) => distance(a) - distance(b))
-
-    let chosen = 0
-    for (const agent of [...current, ...others]) {
-      const spot = chosen < MAX_ESCORTS ? this.freeSpotNear(agent, nearest(agent), zones) : null
-      agent.escort = spot
-      if (spot) chosen++
-    }
-  }
-
-  /**
-   * Busca, alrededor de un agente que trabaja, un lugar donde no haya nada construido.
-   *
-   * @param agent Acompañante.
-   * @param worker Agente que trabaja.
-   * @param zones Zonas ya construidas.
-   * @returns El lugar, o `null` si no hay ninguno libre.
-   */
-  private freeSpotNear(agent: Agent, worker: Agent, zones: DOMRect[]): Point | null {
-    for (let step = 0; step < 12; step++) {
-      const angle = agent.phase + this.elapsed * 0.3 + (step * Math.PI) / 6
-      const x = clamp(worker.x + Math.cos(angle) * ESCORT_RADIUS, 12, this.width - 24)
-      const y = clamp(worker.y + Math.sin(angle) * ESCORT_RADIUS * 0.7, 70, this.height - 24)
-      const blocked = zones.some((zone) => x > zone.left - 12 && x < zone.right + 12 && y > zone.top - 12 && y < zone.bottom + 12)
-      if (!blocked) return { x, y }
-    }
-    return null
-  }
-
-  /** Sonidos ligados al avance. */
   private cue(task: Task, before: number): void {
     if (!this.sound.enabled) return
     const pan = ((task.box.x + task.box.w / 2) / this.width) * 2 - 1
-    const typed = task.script?.roles.some((role) => role.shown > 0 && role.shown < role.glyphs.length)
-    if (typed) this.sound.key(pan)
+    if (task.script?.roles.some((role) => role.shown > 0 && role.shown < role.glyphs.length)) this.sound.key(pan)
     const dropped = task.dragTime / task.duration
     if (task.kind !== 'text' && before < dropped && task.progress >= dropped) {
       this.sound.note(1 - Math.min(1, (task.box.w * task.box.h) / 300_000), pan)
@@ -562,34 +437,17 @@ class Swarm {
   // -------------------------------------------------------------------------
 
   private moveAgents(dt: number, rate: number, scrollY: number): void {
-    const zones = this.builtZones(scrollY)
     const calm = this.boost < FAST
-    this.chooseEscorts(zones)
     for (const agent of this.agents) {
-      const working = agent.task !== null
-      // Trabajando se ve completo; acompañando, tenue; el resto se desvanece mientras sale de la pantalla.
-      // En reposo nunca se dibuja encima de algo ya construido, ni aunque solo esté de paso.
-      const overBuilt =
-        !working && zones.some((zone) => agent.x > zone.left && agent.x < zone.right && agent.y > zone.top && agent.y < zone.bottom)
-      const visible = working ? 1 : (agent.escort || this.elapsed < INTRO) && !overBuilt ? IDLE_ALPHA : 0
-      if (visible === 0) {
-        // El que termina y no acompaña desaparece en el acto: no deja rastro sobre la página.
-        agent.alpha = 0
-      } else {
-        agent.alpha += (visible - agent.alpha) * (1 - Math.exp(-dt * 6))
-      }
-      agent.scale += ((working ? 1 : IDLE_SCALE) - agent.scale) * (1 - Math.exp(-dt * 6))
-
+      const target = this.targetOf(agent, scrollY)
       switch (agent.state) {
         case 'travel':
-          this.moveAlongPath(agent, dt, rate, scrollY, calm)
+          this.moveAlongPath(agent, dt, rate, target, calm)
           break
         case 'hover':
         case 'ready':
-        case 'work': {
-          const target = this.targetOf(agent, scrollY)
+        case 'work':
           if (agent.state === 'work') {
-            // Trabajando, el agente es la herramienta: está exactamente donde ocurre la acción.
             agent.x = target.x
             agent.y = target.y
             if (agent.task) {
@@ -611,134 +469,47 @@ class Swarm {
             }
           }
           break
-        }
         default:
-          this.drift(agent, dt, zones)
+          break
       }
-
-      // Ya en su nueva posición: si en reposo quedó sobre algo construido, no se dibuja este cuadro.
-      if (!agent.task && zones.some((zone) => agent.x > zone.left && agent.x < zone.right && agent.y > zone.top && agent.y < zone.bottom)) {
-        agent.alpha = 0
-      }
-
-      // Estela: últimas posiciones de los cursores ocupados.
+      // Visible solo mientras tiene trabajo o va saliendo; afuera, nada.
+      const inside = agent.x > -20 && agent.x < this.width + 20
+      agent.alpha = agent.task || (agent.state === 'travel' && inside) ? 1 : 0
       agent.trail.unshift({ x: agent.x, y: agent.y })
       if (agent.trail.length > TRAIL_LENGTH * 2 + 1) agent.trail.pop()
     }
   }
 
-  /** Sigue la curva hacia su destino, con un poco de temblor; al llegar, hace una pausa. */
-  private moveAlongPath(agent: Agent, dt: number, rate: number, scrollY: number, calm: boolean): void {
+  private moveAlongPath(agent: Agent, dt: number, rate: number, target: Point, calm: boolean): void {
     const path = agent.path
     if (!path) {
-      agent.state = agent.task ? 'hover' : 'idle'
+      agent.state = agent.task ? 'hover' : 'away'
       return
     }
-    // Con prisa, los viajes se aceleran igual que el resto; en calma, un poco menos.
     path.elapsed += dt * (calm ? Math.sqrt(rate) : rate)
     const t = clamp(path.elapsed / path.duration, 0, 1)
-    const target = this.targetOf(agent, scrollY)
-    const end = path.miss ? { x: target.x + path.miss.x, y: target.y + path.miss.y } : target
     const k = ease(t)
-    const cx = (path.from.x + end.x) / 2 + path.bend.x
-    const cy = (path.from.y + end.y) / 2 + path.bend.y
+    const cx = (path.from.x + target.x) / 2 + path.bend.x
+    const cy = (path.from.y + target.y) / 2 + path.bend.y
     const shake = calm ? Math.sin(agent.phase + path.elapsed * 23) * 1.2 * (1 - t) : 0
-    agent.x = (1 - k) ** 2 * path.from.x + 2 * (1 - k) * k * cx + k * k * end.x + shake
-    agent.y = (1 - k) ** 2 * path.from.y + 2 * (1 - k) * k * cy + k * k * end.y + shake * 0.6
+    agent.x = (1 - k) ** 2 * path.from.x + 2 * (1 - k) * k * cx + k * k * target.x + shake
+    agent.y = (1 - k) ** 2 * path.from.y + 2 * (1 - k) * k * cy + k * k * target.y + shake * 0.6
     agent.tool = 'arrow'
     agent.pressed = false
     if (t < 1) return
-
-    if (path.miss) {
-      // Se equivocó de lugar: pequeña corrección.
-      agent.path = { from: { x: agent.x, y: agent.y }, bend: { x: 0, y: 0 }, elapsed: 0, duration: 0.2, miss: null }
+    agent.path = null
+    if (!agent.task) {
+      agent.state = 'away'
       return
     }
-    agent.path = null
-    agent.vx = agent.vy = 0
-    if (agent.task && calm) {
-      // Pausa humana antes del clic.
+    if (calm) {
       agent.state = 'hover'
-      agent.wait = random(0.08, 0.2)
-    } else if (agent.task) {
-      // Con prisa no hay pausa: clic al llegar.
+      agent.wait = random(0.06, 0.14)
+    } else {
       agent.state = 'ready'
       agent.pressed = true
       this.startIfReady(agent.task)
-    } else {
-      agent.state = 'idle'
     }
-  }
-
-  /** Cajas ya construidas y visibles, en pantalla: los agentes en reposo no se meten ahí. */
-  private builtZones(scrollY: number): DOMRect[] {
-    const zones: DOMRect[] = []
-    for (const task of this.tasks) {
-      if (task.progress < 0.5 || task.kind === 'line') continue
-      const top = task.box.y - scrollY
-      if (top > this.height || top + task.box.h < 0) continue
-      zones.push(new DOMRect(task.box.x - window.scrollX - 10, top - 10, task.box.w + 20, task.box.h + 20))
-    }
-    return zones
-  }
-
-  /** Reposo: flota cerca de su lugar, se separa de los demás y evita el texto y el mouse. */
-  private drift(agent: Agent, dt: number, zones: DOMRect[]): void {
-    const rest = this.targetOf(agent, window.scrollY)
-    const sway = agent.state === 'reserve' ? 0 : 1
-    // Pegados al borde, casi no se mueven a los lados para no invadir el texto.
-    const tx = rest.x + Math.cos(agent.phase + this.elapsed * 0.7) * (this.wide ? 14 : 2) * sway
-    const ty = rest.y + Math.sin(agent.phase * 1.3 + this.elapsed * 0.5) * 22 * sway
-
-    let ax = (tx - agent.x) * 7 - agent.vx * 4
-    let ay = (ty - agent.y) * 7 - agent.vy * 4
-
-    for (const other of this.agents) {
-      if (other === agent || other.task) continue
-      const dx = agent.x - other.x
-      const dy = agent.y - other.y
-      const distance = dx * dx + dy * dy
-      if (distance < 900 && distance > 0.01) {
-        ax += (dx / distance) * 2400
-        ay += (dy / distance) * 2400
-      }
-    }
-
-    // Zonas de exclusión: si está encima de algo construido, sale por el borde más cercano.
-    for (const zone of zones) {
-      if (agent.x < zone.left || agent.x > zone.right || agent.y < zone.top || agent.y > zone.bottom) continue
-      const exits = [agent.x - zone.left, zone.right - agent.x, agent.y - zone.top, zone.bottom - agent.y]
-      const nearest = exits.indexOf(Math.min(...exits))
-      const push = 2600
-      if (nearest === 0) ax -= push
-      else if (nearest === 1) ax += push
-      else if (nearest === 2) ay -= push
-      else ay += push
-    }
-
-    if (this.mouse) {
-      const dx = agent.x - this.mouse.x
-      const dy = agent.y - this.mouse.y
-      const distance = Math.hypot(dx, dy)
-      if (distance < 90 && distance > 0.01) {
-        const push = ((90 - distance) / 90) * 3000
-        ax += (dx / distance) * push
-        ay += (dy / distance) * push
-      }
-    }
-
-    agent.vx += ax * dt
-    agent.vy += ay * dt
-    const speed = Math.hypot(agent.vx, agent.vy)
-    const max = 400 * agent.pace
-    if (speed > max) {
-      agent.vx *= max / speed
-      agent.vy *= max / speed
-    }
-    agent.x += agent.vx * dt
-    agent.y += agent.vy * dt
-    agent.tool = 'arrow'
-    agent.pressed = false
   }
 
   // -------------------------------------------------------------------------
@@ -752,27 +523,19 @@ class Swarm {
     ctx.setTransform(ratio, 0, 0, ratio, 0, 0)
     ctx.clearRect(0, 0, this.width, this.height)
 
-    let guides = false
     ctx.save()
     ctx.translate(-scrollX, -scrollY)
     for (const task of this.tasks) {
-      // Solo mientras alguien la construye: al terminar no quedan contornos, medidas ni guías.
       if (!task.running || task.progress <= 0 || task.progress >= 1) continue
       if (task.box.y > scrollY + this.height || task.box.y + task.box.h < scrollY) continue
-      if (task.guide) guides = true
-      draw(ctx, task, this.height, scrollY)
+      draw(ctx, task)
     }
     ctx.restore()
 
-    this.rulers += ((guides ? 1 : 0) - this.rulers) * 0.25
-    drawRulers(ctx, this.width, this.height, scrollY, this.rulers)
-
-    const onScreen = (agent: Agent): boolean =>
-      agent.x > -30 && agent.x < this.width + 30 && agent.y > -30 && agent.y < this.height + 30
+    const onScreen = (agent: Agent): boolean => agent.x > -30 && agent.x < this.width + 30 && agent.y > -30 && agent.y < this.height + 30
     let covered = 0
     let budget = OVERLAY_BUDGET * this.width * this.height
 
-    // Estelas de los cursores ocupados cuando el enjambre va a más de 2.5×.
     if (this.boost > FAST) {
       for (const agent of this.agents) {
         if (!agent.task || !onScreen(agent)) continue
@@ -780,7 +543,7 @@ class Swarm {
           const point = agent.trail[i * 2]
           if (!point || budget < TRAIL_AREA) continue
           const image = sprite('arrow', agent.color, null, ratio)
-          ctx.globalAlpha = 0.32 * (1 - i / (TRAIL_LENGTH + 1))
+          ctx.globalAlpha = 0.3 * (1 - i / (TRAIL_LENGTH + 1))
           ctx.drawImage(image, point.x - HOTSPOT, point.y - HOTSPOT, image.width / ratio, image.height / ratio)
           budget -= TRAIL_AREA
           covered += TRAIL_AREA
@@ -789,30 +552,29 @@ class Swarm {
     }
 
     for (const agent of this.agents) {
-      if (!onScreen(agent) || agent.alpha < 0.02) continue
+      if (agent.alpha < 0.02 || !onScreen(agent)) continue
       const hovered = this.mouse !== null && Math.hypot(this.mouse.x - agent.x, this.mouse.y - agent.y) < 18
-      // Etiqueta: solo quien trabaja (en cuadrillas, el principal) o el que tiene el mouse encima.
       const wantsLabel = (agent.task !== null && agent.role === 0) || hovered
       const label = wantsLabel && budget >= LABEL_AREA ? agent.name : null
       if (label) budget -= LABEL_AREA
       const image = sprite(agent.tool, agent.color, label, ratio)
-      const w = (image.width / ratio) * agent.scale
-      const h = (image.height / ratio) * agent.scale
+      const w = image.width / ratio
+      const h = image.height / ratio
       const press = agent.pressed ? 1 : 0
       ctx.globalAlpha = agent.alpha
-      ctx.drawImage(image, agent.x - HOTSPOT * agent.scale + press, agent.y - HOTSPOT * agent.scale + press, w, h)
-      covered += label ? (w - 12) * 28 : 14 * 17 * agent.scale * agent.scale
+      ctx.drawImage(image, agent.x - HOTSPOT + press, agent.y - HOTSPOT + press, w, h)
+      covered += label ? (w - 12) * 28 : 14 * 17
     }
     ctx.globalAlpha = 1
 
     if (this.debug) {
       this.debug.frame(ctx, this.tasks, this.agents, scrollY, {
         coverage: covered / (this.width * this.height),
-        zones: this.builtZones(scrollY),
         boost: this.boost,
         queued: this.queued,
         pendingInView: this.pendingInView(scrollY),
         still: this.still,
+        workers: this.workers,
       })
     }
     this.updateHud()
@@ -822,13 +584,20 @@ class Swarm {
     const now = performance.now()
     if (now - this.hudTimer < 200) return
     this.hudTimer = now
-    // El botón de saltar solo aparece mientras algo se construye en pantalla: nunca tapa lo terminado.
     const skip = document.querySelector<HTMLButtonElement>('#swarm-skip')
-    if (skip && !this.debug) skip.hidden = this.skipped || this.pendingInView(window.scrollY) === 0
+    if (skip) skip.hidden = this.skipped || this.finished
     const built = this.tasks.filter((task) => task.progress >= 1).length
-    const agents = this.agents.filter((agent) => agent.state !== 'reserve').length
-    this.hud.querySelector('[data-count]')!.textContent = `agentes: ${agents} · capas: ${built}/${this.tasks.length}`
+    const visible = this.agents.filter((agent) => agent.alpha > 0).length
+    this.hud.querySelector('[data-count]')!.textContent = `cursores: ${visible} · capas: ${built}/${this.tasks.length}`
   }
+}
+
+/** Orden de construcción dentro de lo visible: lo que se lee va primero. */
+function priority(task: Task): number {
+  if (task.kind === 'network' || task.kind === 'converge') return 0
+  if (task.kind === 'text') return task.grow ? 1 : 2
+  if (task.kind === 'rect' || task.kind === 'media' || task.kind === 'line') return 3
+  return 4
 }
 
 /**
@@ -843,14 +612,8 @@ export async function startSwarm(): Promise<void> {
   const swarm = new Swarm(canvas, hud)
   document.documentElement.classList.remove('swarm-boot')
   canvas.hidden = false
-  // La barra de controles es solo para depurar; fuera de ella queda un botón discreto para saltar.
-  if (new URLSearchParams(location.search).has('debug')) {
-    hud.hidden = false
-  } else {
-    // Fuera de depuración solo queda este botón; el motor lo muestra mientras hay algo en construcción.
-    document
-      .querySelector<HTMLButtonElement>('#swarm-skip')
-      ?.addEventListener('click', () => hud.querySelector<HTMLButtonElement>('[data-skip]')?.click())
-  }
+  if (new URLSearchParams(location.search).has('debug')) hud.hidden = false
+  const skip = document.querySelector<HTMLButtonElement>('#swarm-skip')
+  if (skip) skip.hidden = false
   swarm.start()
 }

@@ -5,7 +5,7 @@
 import type { Tool } from './types'
 
 /** Colores de los cursores: uno por agente, siempre el mismo. */
-export const COLORS = ['#46D2E1', '#5B93FF', '#A78BFA', '#5EE6A8', '#FFB454', '#FF7A7A']
+export const COLORS = ['#D9A441', '#8FB38A', '#D98C8C', '#8FB3C9', '#ABA8E8', '#EDE6DA']
 
 /** Nombres de los agentes; cada uno conserva el suyo. */
 export const NAMES = [
