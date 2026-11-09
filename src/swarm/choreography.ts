@@ -22,9 +22,9 @@ const PLACEHOLDER = 'rgba(238, 237, 248, 0.06)'
 const NODE_FILL = '#11101F'
 
 /** Letras por segundo de un cursor a 1×; cada agente varía un poco. */
-const BASE_CPS = 95
+const BASE_CPS = 72
 /** Ningún bloque tarda más que esto en teclearse a 1×. */
-const MAX_TYPING = 0.9
+const MAX_TYPING = 1.1
 /** Textos más largos que esto se reparten por líneas entre varios agentes. */
 export const LONG_TEXT = 120
 
