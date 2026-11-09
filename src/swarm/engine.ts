@@ -20,7 +20,7 @@ import { Debug } from './debug'
 import type { Agent, Point, Task } from './types'
 
 /** Segundos que puede esperar algo visible antes de completarse sin cursor. */
-const MAX_WAIT = 0.65
+const MAX_WAIT = 2.0
 /** A partir de este multiplicador aparecen las estelas y se quitan las pausas. */
 const FAST = 2.2
 /** Parte de la pantalla que pueden ocupar etiquetas y estelas. */
@@ -410,7 +410,7 @@ class Swarm {
       from: { x: agent.x, y: agent.y },
       bend: { x: nx * bend, y: ny * bend },
       elapsed: 0,
-      duration: clamp(distance / (520 * agent.pace), 0.3, 0.6),
+      duration: clamp(distance / (420 * agent.pace), 0.4, 0.9),
     }
   }
 
@@ -505,7 +505,7 @@ class Swarm {
     }
     if (calm) {
       agent.state = 'hover'
-      agent.wait = random(0.1, 0.2)
+      agent.wait = random(0.15, 0.3)
     } else {
       agent.state = 'ready'
       agent.pressed = true

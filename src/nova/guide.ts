@@ -245,9 +245,9 @@ export class Guide {
       return
     }
     if (narrow()) {
-      // En celular se queda abajo, a la izquierda, y la burbuja encima.
+      // En celular, NOVA y la burbuja forman una franja fija abajo; la página deja ese espacio libre.
       this.goal = { x: margin, y: window.innerHeight - size - margin }
-      this.bubbleOffset = { x: 0, y: -(bubbleHeight + 8) }
+      this.bubbleOffset = { x: size + 8, y: 0 }
       return
     }
     const y = Math.min(Math.max(rect.top + rect.height / 2 - size / 2, 72), window.innerHeight - size - margin)
@@ -275,7 +275,19 @@ export class Guide {
   }
 
   private size(): number {
-    return narrow() ? 150 : 210
+    return narrow() ? 116 : 210
+  }
+
+  /** Alto de la franja de abajo en celular: NOVA o la burbuja, lo que sea más alto, más margen. */
+  private sheetHeight(): number {
+    return Math.max(this.size(), this.bubble.offsetHeight) + 24
+  }
+
+  /** En celular, la página reserva la franja de abajo para que nada quede tapado. */
+  private reserveSheet(on: boolean): void {
+    const height = on && narrow() ? `${this.sheetHeight()}px` : ''
+    document.body.style.paddingBottom = height
+    document.documentElement.style.scrollPaddingBottom = height
   }
 
   private loop(): void {
@@ -323,7 +335,16 @@ export class Guide {
       this.avatar.setGaze(null)
     }
 
-    const bubbleWidth = narrow() ? window.innerWidth - 24 : 340
+    if (narrow()) {
+      // Franja de abajo: NOVA a la izquierda, la burbuja ocupa el resto, y la página no pasa por debajo.
+      const left = 12 + size + 8
+      this.bubble.style.left = `${left}px`
+      this.bubble.style.width = `${window.innerWidth - left - 12}px`
+      this.bubble.style.top = `${Math.round(window.innerHeight - this.bubble.offsetHeight - 12)}px`
+      this.reserveSheet(true)
+      return
+    }
+    const bubbleWidth = 340
     const left = Math.min(Math.max(12, x + this.bubbleOffset.x), window.innerWidth - bubbleWidth - 12)
     const top = Math.min(Math.max(64, y + this.bubbleOffset.y), window.innerHeight - this.bubble.offsetHeight - 12)
     this.bubble.style.left = `${Math.round(left)}px`
@@ -356,6 +377,7 @@ export class Guide {
       cancelAnimationFrame(this.frame)
       this.root.hidden = true
       this.bubble.style.visibility = ''
+      this.reserveSheet(false)
       this.avatar.stop()
       this.onExit()
     }

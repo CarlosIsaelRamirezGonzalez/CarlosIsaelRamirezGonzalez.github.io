@@ -13,7 +13,7 @@ import type { BuildKind, Box, Glyph, Task } from './types'
 
 const KINDS: readonly BuildKind[] = ['rect', 'media', 'text', 'line', 'dup', 'network', 'converge']
 /** Letras por segundo que se usan para estimar la duración antes de crear el guion. */
-const ESTIMATED_CPS = 72
+const ESTIMATED_CPS = 55
 
 const clamp = (value: number, min: number, max: number): number => Math.min(max, Math.max(min, value))
 
@@ -180,7 +180,7 @@ export function collectTasks(mobile: boolean, maxCrew: number): { tasks: Task[];
       hero: hero?.contains(el) ?? false,
     }
     task.dragTime = dragTimeOf(task)
-    task.duration = task.dragTime + Math.min(1.1, task.glyphs.length / ESTIMATED_CPS)
+    task.duration = task.dragTime + Math.min(1.6, task.glyphs.length / ESTIMATED_CPS)
     parent?.children.push(task)
     byElement.set(el, task)
     tasks.push(task)
