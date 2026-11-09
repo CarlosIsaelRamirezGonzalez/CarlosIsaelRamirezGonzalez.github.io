@@ -273,6 +273,17 @@ body {
   image-rendering: pixelated;
   will-change: transform;
 }
+.nova-sheet {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--ink);
+  border-top: 1px solid var(--rule);
+}
+.nova-sheet[hidden] {
+  display: none;
+}
 .nova-bubble {
   position: absolute;
   pointer-events: auto;

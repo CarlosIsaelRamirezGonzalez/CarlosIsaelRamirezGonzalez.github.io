@@ -36,6 +36,8 @@ export class Guide {
   private readonly canvas: HTMLCanvasElement
   readonly avatar: NovaAvatar
   private readonly bubble: HTMLElement
+  /** Fondo sólido de la franja de abajo en celular. */
+  private readonly sheet: HTMLElement
   readonly subtitle: HTMLElement
   private readonly status: HTMLElement
   private readonly buttons: Record<'prev' | 'pause' | 'next' | 'voice' | 'exit', HTMLButtonElement>
@@ -73,6 +75,8 @@ export class Guide {
     this.canvas.className = 'nova-guide-canvas'
     this.avatar = new NovaAvatar(this.canvas)
 
+    this.sheet = element('div', 'nova-sheet')
+    this.sheet.hidden = true
     this.bubble = element('div', 'nova-bubble')
     this.subtitle = element('div', '')
     this.subtitle.id = 'nova-subtitle'
@@ -90,7 +94,7 @@ export class Guide {
     controls.append(this.buttons.prev, this.buttons.pause, this.buttons.next, this.buttons.voice, this.buttons.exit)
     const foot = element('p', 'mono mt-3 text-[11.5px]', 'Demo guiada de NOVA. La real corre en la app de escritorio de Carlos.')
     this.bubble.append(this.subtitle, this.status, controls, foot)
-    this.root.append(this.canvas, this.bubble)
+    this.root.append(this.sheet, this.canvas, this.bubble)
     document.body.append(this.root)
 
     const start = this.from()
@@ -335,8 +339,10 @@ export class Guide {
       this.avatar.setGaze(null)
     }
 
+    this.sheet.hidden = !narrow()
     if (narrow()) {
       // Franja de abajo: NOVA a la izquierda, la burbuja ocupa el resto, y la página no pasa por debajo.
+      this.sheet.style.height = `${this.sheetHeight()}px`
       const left = 12 + size + 8
       this.bubble.style.left = `${left}px`
       this.bubble.style.width = `${window.innerWidth - left - 12}px`
