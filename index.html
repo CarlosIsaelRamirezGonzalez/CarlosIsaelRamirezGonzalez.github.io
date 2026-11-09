@@ -6,10 +6,10 @@
     <title>Carlos Ramírez · Desarrollador Full-Stack con enfoque en IA generativa y sistemas agénticos</title>
     <meta
       name="description"
-      content="Desarrollador Full-Stack con enfoque en IA generativa y sistemas agénticos, en Guadalajara, México: empleados virtuales con IA, RAG, automatización con n8n, React, TypeScript y FastAPI."
+      content="Desarrollador Full-Stack con enfoque en IA generativa y sistemas agénticos, en Guadalajara, México. Empleados virtuales con IA, automatización con n8n, web y apps móviles de inicio a publicación."
     />
     <meta name="author" content="Carlos Ramírez" />
-    <meta name="theme-color" content="#070E22" />
+    <meta name="theme-color" content="#15120F" />
     <link rel="canonical" href="https://carlosisaelramirezgonzalez.github.io/" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
@@ -17,7 +17,7 @@
     <meta property="og:url" content="https://carlosisaelramirezgonzalez.github.io/" />
     <meta property="og:site_name" content="Carlos Ramírez" />
     <meta property="og:title" content="Carlos Ramírez · Desarrollador Full-Stack con enfoque en IA generativa y sistemas agénticos" />
-    <meta property="og:description" content="Desarrollador Full-Stack con enfoque en IA generativa y sistemas agénticos. Empleados virtuales que no solo conversan: ejecutan procesos." />
+    <meta property="og:description" content="Empleados virtuales con IA, automatización con n8n, web y apps móviles de inicio a publicación. Guadalajara, México." />
     <meta property="og:locale" content="es_MX" />
     <meta property="og:image" content="https://carlosisaelramirezgonzalez.github.io/og-image.png" />
     <meta property="og:image:width" content="1200" />
@@ -25,14 +25,13 @@
     <meta property="og:image:alt" content="Carlos Ramírez, desarrollador Full-Stack con enfoque en IA generativa y sistemas agénticos" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Carlos Ramírez · Desarrollador Full-Stack con enfoque en IA generativa y sistemas agénticos" />
-    <meta name="twitter:description" content="Desarrollador Full-Stack con enfoque en IA generativa y sistemas agénticos. Empleados virtuales que no solo conversan: ejecutan procesos." />
+    <meta name="twitter:description" content="Empleados virtuales con IA, automatización con n8n, web y apps móviles de inicio a publicación. Guadalajara, México." />
     <meta name="twitter:image" content="https://carlosisaelramirezgonzalez.github.io/og-image.png" />
-    <meta name="twitter:image:alt" content="Carlos Ramírez, desarrollador Full-Stack con enfoque en IA generativa y sistemas agénticos" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600&family=IBM+Plex+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
 
@@ -47,674 +46,404 @@
   <body>
     <a
       href="#contenido"
-      class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[70] focus:rounded-md focus:bg-accent focus:px-3 focus:py-2 focus:text-bg"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[70] focus:rounded-[2px] focus:bg-amber focus:px-3 focus:py-2 focus:text-amber-ink"
       >Saltar al contenido</a
     >
 
-    <!-- Barra superior: anclas y progreso del scroll. -->
-    <header class="fixed inset-x-0 top-0 z-50 border-b border-border bg-bg">
-      <nav aria-label="Secciones" class="container-page flex h-14 items-center justify-between gap-4">
-        <a href="#inicio" class="font-mono text-sm text-accent">carlos.ramírez</a>
-        <ul class="flex items-center gap-4 overflow-x-auto text-sm text-muted sm:gap-6">
-          <li class="hidden md:block"><a href="#enfoque" class="hover:text-text">Enfoque</a></li>
-          <li class="hidden md:block"><a href="#servicios" class="hover:text-text">Servicios</a></li>
-          <li class="hidden lg:block"><a href="#stack" class="hover:text-text">Stack</a></li>
-          <li><a href="#proyectos" class="hover:text-text">Proyectos</a></li>
-          <li class="hidden sm:block"><a href="#experiencia" class="hover:text-text">Experiencia</a></li>
-          <li><a href="#contacto" class="hover:text-text">Contacto</a></li>
+    <header class="fixed inset-x-0 top-0 z-50 border-b border-rule bg-ink">
+      <nav aria-label="Secciones" class="page flex h-14 items-center justify-between gap-6">
+        <a href="#entrada" class="font-mono text-[13px] text-bone">~/carlos-ramirez</a>
+        <ul class="flex items-center gap-5 overflow-x-auto font-mono text-[13px] text-dust">
+          <li><a href="#proyectos" class="hover:text-bone">proyectos</a></li>
+          <li class="hidden sm:block"><a href="#nova" class="hover:text-bone">nova</a></li>
+          <li class="hidden md:block"><a href="#trayectoria" class="hover:text-bone">trayectoria</a></li>
+          <li class="hidden md:block"><a href="#stack" class="hover:text-bone">stack</a></li>
+          <li><a href="#contacto" class="hover:text-bone">contacto</a></li>
         </ul>
       </nav>
-      <div
-        id="scroll-progress"
-        class="absolute bottom-0 left-0 h-0.5 w-full origin-left scale-x-0 bg-gradient-to-r from-accent to-accent-2"
-        aria-hidden="true"
-      ></div>
     </header>
 
     <main id="contenido">
-      <!-- 01 — Inicio -->
-      <section id="inicio" aria-labelledby="nombre" class="relative overflow-hidden">
-        <div
-          aria-hidden="true"
-          class="pointer-events-none absolute top-[-12rem] left-1/2 h-[38rem] w-[56rem] -translate-x-1/2 rounded-full bg-accent/[0.07] blur-[120px]"
-        ></div>
-        <div class="container-page relative flex min-h-svh flex-col justify-center pt-24 pb-20">
-          <p data-build="text" class="section-label">01 — Inicio</p>
-          <p
-            data-build="rect"
-            class="mt-6 inline-flex w-fit items-center gap-2 rounded-full border border-border bg-surface/80 px-3 py-1.5 text-xs text-text sm:text-sm"
-          >
-            <span class="h-2 w-2 rounded-full bg-ok shadow-[0_0_10px_var(--ok)]" aria-hidden="true"></span>
-            Disponible para trabajo remoto · Guadalajara, México
-          </p>
-          <h1 id="nombre" class="mt-6 font-display font-bold tracking-tight" style="font-size: clamp(3rem, 9vw, 7rem); line-height: 0.98">
-            <span data-build="text" data-grow class="inline-block">Carlos</span>
-            <span data-build="text" data-grow class="inline-block">Ramírez</span>
+      <!-- Entrada -->
+      <section id="entrada" aria-labelledby="nombre" class="page grid-12 min-h-svh items-end pt-28 pb-16 md:pb-24">
+        <div class="md:col-span-8">
+          <p data-build="text" class="mono">Guadalajara, México. Trabajo remoto.</p>
+          <h1 id="nombre" class="display mt-5" style="font-size: clamp(3.2rem, 8.5vw, 7rem)">
+            <span data-build="text" data-grow class="block">Carlos</span>
+            <span data-build="text" data-grow class="block">Ramírez</span>
           </h1>
-          <p data-build="text" class="mt-6 max-w-[34ch] font-display text-2xl font-medium text-text sm:text-3xl lg:text-4xl">
-            Desarrollador Full-Stack con enfoque en IA generativa y sistemas agénticos
+          <p data-build="text" class="mt-7 max-w-[30ch] text-[1.35rem] leading-[1.3] font-medium sm:text-[1.6rem]">
+            Desarrollador Full-Stack con enfoque en IA generativa y sistemas agénticos.
           </p>
-          <p data-build="text" class="prose-body mt-5">
-            Construyo empleados virtuales con IA que no solo conversan: ejecutan procesos de negocio, de la interfaz
-            al backend.
+          <p data-build="text" class="body mt-5">
+            Hago páginas web, aplicaciones web y apps móviles de inicio a publicación, y empleados virtuales con IA que
+            atienden clientes, dan seguimiento a quejas y validan documentos.
           </p>
-          <div class="mt-10 flex flex-wrap gap-3">
-            <a data-build="rect" href="#proyectos" class="btn-warm">Ver proyectos</a>
-            <a data-build="rect" href="#contacto" class="btn-ghost">Contacto</a>
-          </div>
+          <p class="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+            <a data-build="rect" href="#proyectos" class="btn">Ver proyectos</a>
+            <a data-build="text" href="#contacto" class="link">Escríbeme</a>
+          </p>
         </div>
+        <aside class="md:col-span-4 md:col-start-9 md:self-end" aria-label="Registro de construcción de la página">
+          <p data-build="text" class="mono mb-2">build.log</p>
+          <ol id="build-log" aria-live="off"></ol>
+        </aside>
       </section>
 
-      <!-- 02 — Ahora mismo -->
-      <section id="ahora" aria-labelledby="ahora-titulo" class="border-y border-border bg-surface/40">
-        <div class="container-page py-20 md:py-24">
-          <div class="grid gap-8 lg:grid-cols-12">
-            <div class="lg:col-span-3">
-              <p data-build="text" class="section-label">02 — Ahora mismo</p>
-              <h2 id="ahora-titulo" data-build="text" class="mt-3 font-display text-2xl font-semibold">En qué estoy</h2>
+      <!-- Qué construyo -->
+      <section id="que-construyo" aria-labelledby="que-titulo" class="section">
+        <div class="page grid-12">
+          <h2 id="que-titulo" data-build="text" class="h2 md:col-span-4">Qué construyo</h2>
+          <dl class="rows md:col-span-7 md:col-start-6">
+            <div data-build="rect">
+              <dt data-build="text" class="h3">Empleados virtuales con IA</dt>
+              <dd data-build="text" class="body mt-2">
+                Agentes conversacionales que atienden clientes, dan seguimiento a quejas y validan documentos, con RAG y
+                GraphRAG. Es lo que hago en DataSign desde abril de 2025.
+              </dd>
             </div>
-            <ul class="grid gap-4 sm:grid-cols-2 lg:col-span-9">
-              <li data-build="dup" class="card">
-                <p data-build="text" class="meta">Atom · remoto · desde ago. 2026</p>
-                <p data-build="text" class="mt-2 font-display text-lg font-semibold">Ingeniero de IA Jr</p>
-                <p data-build="text" class="mt-2 text-sm leading-relaxed text-muted">
-                  Frontend en React, TypeScript y Tailwind sobre GoHighLevel, con integración por MCP.
-                </p>
-              </li>
-              <li data-build="dup" class="card">
-                <p class="meta">TopLearning · desde ene. 2026</p>
-                <p class="mt-2 font-display text-lg font-semibold">Instructor de IA y automatización</p>
-                <p class="mt-2 text-sm leading-relaxed text-muted">Enseño a usar IA y a automatizar procesos.</p>
-              </li>
-              <li data-build="dup" class="card">
-                <p class="meta">DataSign · medio tiempo, híbrido · desde abr. 2025</p>
-                <p class="mt-2 font-display text-lg font-semibold">Full-Stack con enfoque en IA</p>
-                <p class="mt-2 text-sm leading-relaxed text-muted">
-                  Empleados virtuales con IA y RAG, automatizaciones con n8n, GraphQL y FastAPI.
-                </p>
-              </li>
-              <li data-build="dup" class="card border-warm/40">
-                <p class="meta text-warm">En paralelo · proyecto personal</p>
-                <p class="mt-2 font-display text-lg font-semibold">NOVA</p>
-                <p class="mt-2 text-sm leading-relaxed text-muted">
-                  Mi compañera de IA personal: voz, emociones, memoria, visión y app de escritorio.
-                </p>
-              </li>
-            </ul>
-          </div>
-          <dl class="mt-12 grid gap-6 border-t border-border pt-10 sm:grid-cols-3">
-            <div data-build="dup">
-              <dt class="meta">Proveedores de LLM que he usado</dt>
-              <dd class="mt-2 font-display text-3xl font-semibold">4</dd>
-              <dd class="mt-1 text-sm text-muted">OpenAI · Gemini · Grok · Claude</dd>
+            <div data-build="rect">
+              <dt data-build="text" class="h3">Automatización e integraciones</dt>
+              <dd data-build="text" class="body mt-2">
+                Flujos con n8n e integraciones entre sistemas. En Atom conecto un frontend en React con un backend en
+                GoHighLevel a través de MCP.
+              </dd>
             </div>
-            <div data-build="dup">
-              <dt class="meta">Roles activos</dt>
-              <dd class="mt-2 font-display text-3xl font-semibold">3 + NOVA</dd>
-              <dd class="mt-1 text-sm text-muted">Ingeniería, formación y desarrollo</dd>
+            <div data-build="rect">
+              <dt data-build="text" class="h3">Web y móvil, de inicio a publicación</dt>
+              <dd data-build="text" class="body mt-2">
+                Páginas web, aplicaciones web y apps en Flutter publicadas en DataSign y SoftCode. Las apps móviles las
+                usan más de 200 usuarios.
+              </dd>
             </div>
-            <div data-build="dup">
-              <dt class="meta">Desarrollando profesionalmente</dt>
-              <dd class="mt-2 font-display text-3xl font-semibold">desde 2024</dd>
-              <dd class="mt-1 text-sm text-muted">Remoto y desde Guadalajara</dd>
+            <div data-build="rect">
+              <dt data-build="text" class="h3">Formación</dt>
+              <dd data-build="text" class="body mt-2">Doy clases de IA y automatización en TopLearning, y asesorías.</dd>
             </div>
           </dl>
         </div>
       </section>
 
-      <!-- 03 — Enfoque -->
-      <section id="enfoque" aria-labelledby="enfoque-titulo" class="section">
-        <div class="container-page grid gap-10 lg:grid-cols-12">
-          <div class="lg:col-span-4">
-            <p data-build="text" class="section-label">03 — Enfoque</p>
-            <h2 id="enfoque-titulo" data-build="text" data-guide data-grow class="heading-2 mt-4">
-              Software de IA pensado para el negocio
-            </h2>
+      <!-- Proyectos -->
+      <section id="proyectos" aria-labelledby="proyectos-titulo" class="section">
+        <div class="page">
+          <div class="grid-12">
+            <h2 id="proyectos-titulo" data-build="text" class="h2 md:col-span-4">Proyectos</h2>
+            <p data-build="text" class="lede md:col-span-7 md:col-start-6">
+              Dos proyectos propios que puedes revisar en GitHub y el tipo de trabajo que hago para clientes.
+            </p>
           </div>
-          <div class="space-y-6 lg:col-span-8">
-            <p data-build="text" class="prose-body text-text">
-              Parto de procesos reales, no de demos. Antes de proponerle una automatización a alguien, la pruebo en
-              mis propios flujos de trabajo.
-            </p>
-            <p data-build="text" class="prose-body">
-              Decido cuándo construir y cuándo esperar a que una herramienta madure, y crezco por fases: primero lo
-              que resuelve el problema, después lo que lo hace escalar.
-            </p>
-            <p data-build="text" class="prose-body">
-              Prefiero hablar de <strong class="font-semibold text-text">empleados virtuales</strong> más que de
-              agentes: no solo conversan, ejecutan procesos.
-            </p>
-            <hr data-build="line" class="border-border" />
-            <div>
-              <p data-build="text" class="meta">Me interesan</p>
-              <ul class="mt-4 flex flex-wrap gap-2" aria-label="Intereses">
-                <li data-build="dup" class="chip">Desarrollo independiente de software</li>
-                <li data-build="dup" class="chip">Productos SaaS</li>
-                <li data-build="dup" class="chip">Agentes de IA</li>
-                <li data-build="dup" class="chip">Sistemas POS y de gestión</li>
-                <li data-build="dup" class="chip">Cafeterías</li>
-                <li data-build="dup" class="chip">Transporte de carga</li>
-                <li data-build="dup" class="chip">Lácteos</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="container-page mt-16 grid gap-5 md:grid-cols-3">
-          <article data-build="dup" class="card">
-            <p data-build="text" class="font-mono text-xs text-accent">principio 1</p>
-            <h3 data-build="text" class="heading-3 mt-3">Procesos reales primero</h3>
-            <p data-build="text" class="mt-3 text-sm leading-relaxed text-muted">
-              El punto de partida es cómo trabaja hoy el negocio, no lo que puede hacer el modelo.
-            </p>
-          </article>
-          <article data-build="dup" class="card">
-            <p class="font-mono text-xs text-accent">principio 2</p>
-            <h3 class="heading-3 mt-3">Automatizo lo mío antes</h3>
-            <p class="mt-3 text-sm leading-relaxed text-muted">
-              Si una automatización no me sirve a mí en el día a día, no la recomiendo.
-            </p>
-          </article>
-          <article data-build="dup" class="card">
-            <p class="font-mono text-xs text-accent">principio 3</p>
-            <h3 class="heading-3 mt-3">Crecer por fases</h3>
-            <p class="mt-3 text-sm leading-relaxed text-muted">
-              Construir cuando conviene, esperar cuando la herramienta aún no está lista, y avanzar paso a paso.
-            </p>
-          </article>
-        </div>
-      </section>
 
-      <!-- 04 — Qué hago -->
-      <section id="servicios" aria-labelledby="servicios-titulo" class="section pt-0 md:pt-0">
-        <div class="container-page">
-          <p data-build="text" class="section-label">04 — Qué hago</p>
-          <h2 id="servicios-titulo" data-build="text" data-guide data-grow class="heading-2 mt-4 max-w-[20ch]">
-            En qué te puedo ayudar
-          </h2>
-          <div class="mt-12 grid gap-5 md:grid-cols-2">
-            <article data-build="dup" class="card">
-              <p data-build="text" class="font-mono text-xs text-accent">a</p>
-              <h3 data-build="text" class="heading-3 mt-3">Empleados virtuales y agentes de IA</h3>
-              <p data-build="text" class="mt-3 text-sm leading-relaxed text-muted">
-                Para atención al cliente, ventas y validación de documentos, con RAG y orquestación de agentes.
+          <!-- NOVA -->
+          <article data-build="network" class="frame mt-14 grid-12 gap-y-8 p-6 sm:p-10" aria-labelledby="nova-caso">
+            <div class="md:col-span-7">
+              <p data-build="text" class="mono">Proyecto propio · en desarrollo · github.com/CarlosIsaelRamirezGonzalez/NOVA</p>
+              <h3 id="nova-caso" data-build="text" data-grow class="display mt-4 text-[2.6rem] sm:text-[3.4rem]">NOVA</h3>
+              <p data-build="text" class="lede mt-3">
+                Una compañera de IA personal que vive en mi Mac. La llamo por su nombre, platica con voz en español de
+                México, muestra lo que siente en su cuerpo y recuerda lo que le cuento.
               </p>
-            </article>
-            <article data-build="dup" class="card">
-              <p class="font-mono text-xs text-accent">b</p>
-              <h3 class="heading-3 mt-3">Automatización e integraciones</h3>
-              <p class="mt-3 text-sm leading-relaxed text-muted">
-                Flujos con n8n e integraciones con WhatsApp, GoHighLevel y otras APIs.
-              </p>
-            </article>
-            <article data-build="dup" class="card">
-              <p class="font-mono text-xs text-accent">c</p>
-              <h3 class="heading-3 mt-3">Web y apps móviles</h3>
-              <p class="mt-3 text-sm leading-relaxed text-muted">
-                Páginas web, aplicaciones web y apps móviles con Flutter, de inicio a publicación, con backends en
-                FastAPI. En DataSign y SoftCode hice apps que usan más de 200 usuarios.
-              </p>
-            </article>
-            <article data-build="dup" class="card">
-              <p class="font-mono text-xs text-accent">d</p>
-              <h3 class="heading-3 mt-3">Formación y asesoría</h3>
-              <p class="mt-3 text-sm leading-relaxed text-muted">
-                Cursos y acompañamiento en IA y automatización, para equipos y personas.
-              </p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <!-- 05 — Stack -->
-      <section id="stack" aria-labelledby="stack-titulo" class="section border-t border-border">
-        <div class="container-page">
-          <p data-build="text" class="section-label">05 — Stack</p>
-          <h2 id="stack-titulo" data-build="text" data-guide data-grow class="heading-2 mt-4">Con qué construyo, y dónde lo usé</h2>
-          <div class="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            <article data-build="dup" class="card lg:row-span-2">
-              <h3 data-build="text" class="heading-3">IA y agentes</h3>
-              <ul class="mt-5 space-y-3 text-sm">
-                <li data-build="dup"><span class="font-medium">APIs de LLMs</span> <span class="meta">— Claude en NOVA (antes Grok); OpenAI y Gemini</span></li>
-                <li data-build="dup"><span class="font-medium">OpenAI Agents SDK</span> <span class="meta">— validación de documentos fiscales</span></li>
-                <li data-build="dup"><span class="font-medium">MCP</span> <span class="meta">— Atom</span></li>
-                <li data-build="dup"><span class="font-medium">Orquestación de agentes</span> <span class="meta">— validación fiscal</span></li>
-                <li data-build="dup"><span class="font-medium">RAG</span> <span class="meta">— DataSign</span></li>
-                <li data-build="dup"><span class="font-medium">Qdrant</span> <span class="meta">— NOVA</span></li>
-                <li data-build="dup"><span class="font-medium">Ingeniería de prompts</span> <span class="meta">— agente de ventas</span></li>
-                <li data-build="dup"><span class="font-medium">LLM-as-judge</span> <span class="meta">— agente de ventas</span></li>
-                <li data-build="dup"><span class="font-medium">Chatbots</span> <span class="meta">— atención al cliente</span></li>
-              </ul>
-            </article>
-            <article data-build="dup" class="card">
-              <h3 class="heading-3">Frontend</h3>
-              <ul class="mt-5 space-y-3 text-sm">
-                <li><span class="font-medium">React</span> <span class="meta">— Atom, SoftCode</span></li>
-                <li><span class="font-medium">TypeScript</span> <span class="meta">— Atom</span></li>
-                <li><span class="font-medium">Tailwind CSS</span> <span class="meta">— Atom</span></li>
-                <li><span class="font-medium">Flutter</span> <span class="meta">— DataSign, SoftCode, RutaCafé</span></li>
-              </ul>
-            </article>
-            <article data-build="dup" class="card">
-              <h3 class="heading-3">Backend y datos</h3>
-              <ul class="mt-5 space-y-3 text-sm">
-                <li><span class="font-medium">Python · FastAPI</span> <span class="meta">— DataSign, SoftCode, RutaCafé</span></li>
-                <li><span class="font-medium">Flask</span> <span class="meta">— Alert AI</span></li>
-                <li><span class="font-medium">REST · GraphQL</span> <span class="meta">— GraphQL en DataSign</span></li>
-                <li><span class="font-medium">MongoDB</span> <span class="meta">— RutaCafé, Alert AI</span></li>
-                <li><span class="font-medium">SQLite</span> <span class="meta">— agente de ventas, NOVA</span></li>
-                <li><span class="font-medium">JWT</span> <span class="meta">— RutaCafé</span></li>
-              </ul>
-            </article>
-            <article data-build="dup" class="card">
-              <h3 class="heading-3">Automatización</h3>
-              <ul class="mt-5 space-y-3 text-sm">
-                <li><span class="font-medium">n8n</span> <span class="meta">— DataSign</span></li>
-                <li><span class="font-medium">Integración de APIs</span></li>
-                <li><span class="font-medium">WhatsApp</span> <span class="meta">— validación fiscal</span></li>
-                <li><span class="font-medium">GoHighLevel (GHL)</span> <span class="meta">— Atom</span></li>
-              </ul>
-            </article>
-            <article data-build="dup" class="card">
-              <h3 class="heading-3">Herramientas</h3>
-              <ul class="mt-5 space-y-3 text-sm">
-                <li><span class="font-medium">Git</span></li>
-                <li><span class="font-medium">Docker</span> <span class="meta">— SoftCode, DataSign</span></li>
-                <li><span class="font-medium">pytest</span> <span class="meta">— SoftCode, DataSign</span></li>
-                <li><span class="font-medium">Claude Code</span></li>
-              </ul>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <!-- 06 — Proyectos -->
-      <section id="proyectos" aria-labelledby="proyectos-titulo" class="section border-t border-border">
-        <div class="container-page">
-          <p data-build="text" class="section-label">06 — Proyectos</p>
-          <h2 id="proyectos-titulo" data-build="text" data-guide data-grow class="heading-2 mt-4">Casos de estudio</h2>
-          <p data-build="text" class="prose-body mt-5">
-            Problema, solución, stack y las decisiones que tomé. Los proyectos para clientes se describen sin
-            nombrarlos.
-          </p>
-
-          <!-- NOVA: el caso protagonista, nace de una red de agentes. -->
-          <article data-build="network" class="card mt-14 border-warm/40 bg-gradient-to-br from-surface to-surface-2 p-7 sm:p-10">
-            <div class="flex flex-wrap items-center gap-3">
-              <span data-build="rect" class="rounded-full bg-warm px-3 py-1 font-mono text-xs font-medium text-on-warm">Proyecto insignia</span>
-              <span data-build="text" class="meta">Personal · en desarrollo</span>
-            </div>
-            <h3 data-build="text" data-grow class="mt-5 font-display font-bold tracking-tight" style="font-size: clamp(2.6rem, 6vw, 4.5rem); line-height: 1">NOVA</h3>
-            <p data-build="text" class="mt-3 max-w-[48ch] font-display text-xl text-text sm:text-2xl">
-              Compañera de IA personal con voz, emociones, memoria, visión por cámara y app de escritorio.
-            </p>
-
-            <div class="mt-10 grid gap-8 lg:grid-cols-12">
-              <div class="space-y-6 lg:col-span-7">
+              <dl class="mt-8 grid gap-6 sm:grid-cols-2">
                 <div>
-                  <p data-build="text" class="meta text-accent">Problema</p>
-                  <p data-build="text" class="mt-2 text-sm leading-relaxed text-muted sm:text-base">
-                    Quería una IA en español de México que viva en mi computadora, que aparezca cuando la llamo por su
-                    nombre, que recuerde lo que le cuento y que no mande mi audio a internet.
-                  </p>
+                  <dt data-build="text" class="mono">Problema</dt>
+                  <dd data-build="text" class="body mt-1 text-[15.5px]">
+                    Quería un asistente que apareciera cuando lo llamo, que no mandara mi audio a internet y que no
+                    se le olvidara nada entre una plática y otra.
+                  </dd>
                 </div>
                 <div>
-                  <p data-build="text" class="meta text-accent">Solución</p>
-                  <ul class="mt-2 space-y-2 text-sm leading-relaxed text-muted sm:text-base">
-                    <li data-build="text">Se activa con "Oye Nova" (Vosk) y transcribe con Whisper dentro del equipo.</li>
-                    <li data-build="text">Conversa con voz (ElevenLabs) y decide con herramientas cuándo buscar, mirar u olvidar.</li>
-                    <li data-build="text">Memoria en SQLite sincronizada con Turso, con Qdrant y Obsidian como índices reconstruibles.</li>
-                    <li data-build="text">Un redactor aparte, sin herramientas ni memoria, escribe en otras apps y nunca envía.</li>
-                    <li data-build="text">Vive en el escritorio con Electron y reconoce mi cara sin que la huella salga de la Mac.</li>
-                  </ul>
+                  <dt data-build="text" class="mono">Qué hice</dt>
+                  <dd data-build="text" class="body mt-1 text-[15.5px]">
+                    Todo: el servidor en Python, la memoria, la voz local, el personaje en pixel art, la app de
+                    escritorio y la bitácora de cada versión.
+                  </dd>
                 </div>
+              </dl>
+              <ul class="mt-7 flex flex-wrap gap-1.5" aria-label="Stack de NOVA">
+                <li data-build="dup" class="tag">Python</li>
+                <li data-build="dup" class="tag">aiohttp</li>
+                <li data-build="dup" class="tag">Claude</li>
+                <li data-build="dup" class="tag">ElevenLabs</li>
+                <li data-build="dup" class="tag">Vosk</li>
+                <li data-build="dup" class="tag">Whisper</li>
+                <li data-build="dup" class="tag">SQLite + Turso</li>
+                <li data-build="dup" class="tag">Qdrant</li>
+                <li data-build="dup" class="tag">MediaPipe</li>
+                <li data-build="dup" class="tag">React</li>
+                <li data-build="dup" class="tag">Electron</li>
+              </ul>
+              <p class="mt-7 flex flex-wrap gap-x-6 gap-y-2">
+                <a data-build="text" href="#nova" class="link">Cómo funciona</a>
+                <a data-build="text" href="https://github.com/CarlosIsaelRamirezGonzalez/NOVA" class="link" rel="noreferrer">Código en GitHub</a>
+              </p>
+            </div>
+            <div class="md:col-span-5 md:col-start-8">
+              <div data-build="media" class="frame flex aspect-square items-center justify-center bg-[#0d0c33]/40" aria-label="NOVA, dibujada con el mismo código de la app">
+                <canvas id="nova-hero" width="160" height="160" class="h-[80%] w-[80%] [image-rendering:pixelated]" aria-hidden="true"></canvas>
               </div>
-              <div class="space-y-4 lg:col-span-5">
-                <p data-build="text" class="meta text-accent">Decisiones que se midieron</p>
-                <dl class="space-y-3 text-sm">
-                  <div data-build="rect" class="rounded-lg border border-border bg-bg/60 p-4">
-                    <dt class="text-muted">Herramientas en vez de etiquetas de texto para decidir buscar</dt>
-                    <dd class="mt-1 font-mono text-text">9 de 16 → 16 de 16 veces</dd>
-                  </div>
-                  <div data-build="rect" class="rounded-lg border border-border bg-bg/60 p-4">
-                    <dt class="text-muted">Modelo sin razonamiento: tiempo hasta oírla</dt>
-                    <dd class="mt-1 font-mono text-text">~10 s → 0.96 a 1.9 s</dd>
-                  </div>
-                  <div data-build="rect" class="rounded-lg border border-border bg-bg/60 p-4">
-                    <dt class="text-muted">"Oye Nova" con palabras parecidas: activaciones falsas</dt>
-                    <dd class="mt-1 font-mono text-text">14 de 18 → 1 a 2 de 18</dd>
-                  </div>
-                </dl>
-              </div>
+              <p data-build="text" class="mono mt-2">Dibujada aquí con el renderizador real de la app, en pixel art.</p>
             </div>
-
-            <ul class="mt-10 flex flex-wrap gap-2" aria-label="Stack de NOVA">
-              <li data-build="dup" class="chip">Python</li>
-              <li data-build="dup" class="chip">aiohttp</li>
-              <li data-build="dup" class="chip">Claude</li>
-              <li data-build="dup" class="chip">Qdrant</li>
-              <li data-build="dup" class="chip">SQLite · Turso</li>
-              <li data-build="dup" class="chip">ElevenLabs</li>
-              <li data-build="dup" class="chip">Whisper</li>
-              <li data-build="dup" class="chip">Vosk</li>
-              <li data-build="dup" class="chip">React</li>
-              <li data-build="dup" class="chip">TypeScript</li>
-              <li data-build="dup" class="chip">Electron</li>
-            </ul>
-            <!-- TODO: agregar capturas o un video corto de NOVA (no hay imágenes publicadas en el repo). -->
-            <a
-              data-build="text"
-              href="https://github.com/CarlosIsaelRamirezGonzalez/NOVA"
-              target="_blank"
-              rel="noreferrer"
-              class="link mt-8 inline-block text-sm"
-              aria-label="Código de NOVA en GitHub (se abre en otra pestaña)"
-              >Ver el código en GitHub ↗</a
-            >
           </article>
 
-          <div class="mt-8 grid gap-5 lg:grid-cols-2">
-            <!-- Agente de ventas -->
-            <article data-build="rect" class="card flex flex-col">
-              <p data-build="text" class="meta">Empresa del sector lácteo</p>
-              <h3 data-build="text" class="heading-3 mt-3">Agente de ventas que optimiza su propio prompt</h3>
-              <dl class="mt-5 space-y-4 text-sm leading-relaxed">
+          <!-- AlertIA -->
+          <article class="grid-12 mt-16 gap-y-6" aria-labelledby="alertia-caso">
+            <div class="md:col-span-4">
+              <p data-build="text" class="mono">Proyecto propio · github.com/CarlosIsaelRamirezGonzalez/AlertIA</p>
+              <h3 id="alertia-caso" data-build="text" class="display mt-3 text-[2rem]">AlertIA</h3>
+            </div>
+            <div class="md:col-span-7 md:col-start-6">
+              <p data-build="text" class="lede">
+                Vigila cámaras con un modelo de visión y avisa por correo cuando detecta armas, incendios, peleas,
+                choques o personas heridas.
+              </p>
+              <dl class="mt-6 grid gap-6 sm:grid-cols-2">
                 <div>
-                  <dt data-build="text" class="meta text-accent">Problema</dt>
-                  <dd data-build="text" class="mt-1 text-muted">Mejorar el prompt de sistema de un agente de ventas sin intervenir a mano en cada ciclo.</dd>
-                </div>
-                <div>
-                  <dt data-build="text" class="meta text-accent">Solución</dt>
-                  <dd data-build="text" class="mt-1 text-muted">
-                    Pipeline en Python con persistencia en SQLite. Un módulo LLM-as-judge evalúa las respuestas contra una
-                    lista de reglas de negocio y un ciclo optimizador reescribe el prompt de sistema. Todo se opera desde
-                    una CLI.
+                  <dt data-build="text" class="mono">Problema</dt>
+                  <dd data-build="text" class="body mt-1 text-[15.5px]">
+                    Una cámara graba todo pero nadie la mira. Hacía falta algo que avise solo cuando pasa algo grave,
+                    sin inundar de falsas alarmas.
                   </dd>
                 </div>
                 <div>
-                  <dt data-build="text" class="meta text-accent">Decisiones</dt>
-                  <dd data-build="text" class="mt-1 text-muted">Reglas de negocio explícitas como criterio de evaluación, y cada ciclo guardado en SQLite.</dd>
-                </div>
-              </dl>
-              <ul class="mt-auto flex flex-wrap gap-2 pt-6" aria-label="Stack">
-                <li data-build="dup" class="chip">Python</li>
-                <li data-build="dup" class="chip">SQLite</li>
-                <li data-build="dup" class="chip">LLM-as-judge</li>
-                <li data-build="dup" class="chip">CLI</li>
-              </ul>
-            </article>
-
-            <!-- Validación fiscal -->
-            <article data-build="rect" class="card flex flex-col">
-              <p data-build="text" class="meta">Empresa de transporte de carga</p>
-              <h3 data-build="text" class="heading-3 mt-3">Validación de documentos fiscales por WhatsApp</h3>
-              <dl class="mt-5 space-y-4 text-sm leading-relaxed">
-                <div>
-                  <dt data-build="text" class="meta text-accent">Problema</dt>
-                  <dd data-build="text" class="mt-1 text-muted">
-                    Recibir y validar documentos fiscales mexicanos: Carta Porte, CFDI, Opinión de Cumplimiento,
-                    Constancia de Situación Fiscal y RFC.
-                  </dd>
-                </div>
-                <div>
-                  <dt data-build="text" class="meta text-accent">Solución</dt>
-                  <dd data-build="text" class="mt-1 text-muted">
-                    Recepción por WhatsApp y validación contra el SAT con OpenAI Agents SDK. Un servicio detecta riesgo en
-                    la conversación: frustración, bajo interés o solicitud de un agente humano.
-                  </dd>
-                </div>
-                <div>
-                  <dt data-build="text" class="meta text-accent">Decisiones</dt>
-                  <dd data-build="text" class="mt-1 text-muted">
-                    Pasé de endpoints dispersos a un orquestador unificado, y luego lo dividí en servicios por
-                    responsabilidad: handoff, identificación de tenant, contexto de turno y cierre de turno. Documenté
-                    para tres audiencias: técnica, comercial e integración con n8n.
+                  <dt data-build="text" class="mono">Qué hice</dt>
+                  <dd data-build="text" class="body mt-1 text-[15.5px]">
+                    La aplicación web con usuarios y cámaras, el modelo de 12 clases y las reglas que piden varias
+                    detecciones seguidas antes de confirmar una amenaza.
                   </dd>
                 </div>
               </dl>
-              <ul class="mt-auto flex flex-wrap gap-2 pt-6" aria-label="Stack">
-                <li data-build="dup" class="chip">OpenAI Agents SDK</li>
-                <li data-build="dup" class="chip">WhatsApp</li>
-                <li data-build="dup" class="chip">SAT</li>
-                <li data-build="dup" class="chip">n8n</li>
+              <ul class="mt-6 flex flex-wrap gap-1.5" aria-label="Stack de AlertIA">
+                <li data-build="dup" class="tag">Flask</li>
+                <li data-build="dup" class="tag">MongoDB</li>
+                <li data-build="dup" class="tag">TensorFlow / Keras</li>
+                <li data-build="dup" class="tag">OpenCV</li>
+                <li data-build="dup" class="tag">Pydantic</li>
               </ul>
-            </article>
+              <div class="placeholder mt-6 aspect-[16/9]" data-build="media">
+                [PENDIENTE] captura del panel de cámaras de AlertIA · public/img/raw/alertia-panel.png
+              </div>
+              <p class="mt-6">
+                <a data-build="text" href="https://github.com/CarlosIsaelRamirezGonzalez/AlertIA" class="link" rel="noreferrer">Código en GitHub</a>
+              </p>
+            </div>
+          </article>
 
-            <!-- RutaCafé -->
-            <article data-build="rect" class="card flex flex-col">
-              <p data-build="text" class="meta">Punto de venta para cafetería</p>
-              <h3 data-build="text" class="heading-3 mt-3">RutaCafé</h3>
-              <dl class="mt-5 space-y-4 text-sm leading-relaxed">
-                <div>
-                  <dt data-build="text" class="meta text-accent">Problema</dt>
-                  <dd data-build="text" class="mt-1 text-muted">Una app de punto de venta y barista para operar una cafetería.</dd>
-                </div>
-                <div>
-                  <dt data-build="text" class="meta text-accent">Solución</dt>
-                  <dd data-build="text" class="mt-1 text-muted">
-                    App en Flutter con backend FastAPI y MongoDB (Beanie/Motor). Productos e insumos modelados con roles
-                    de modificador e ingrediente, CLI para asignar insumos, login por QR con vinculación de dispositivo y
-                    JWT firmados, e impresión térmica por Bluetooth con ESC/POS, incluida la codificación de caracteres
-                    en español.
-                  </dd>
-                </div>
-                <div>
-                  <dt data-build="text" class="meta text-accent">Decisiones</dt>
-                  <dd data-build="text" class="mt-1 text-muted">
-                    Arquitectura limpia en Flutter (feature-first, DTOs separados de los modelos de dominio) y migración
-                    de datos sintéticos a producción.
-                  </dd>
-                </div>
-              </dl>
-              <ul class="mt-auto flex flex-wrap gap-2 pt-6" aria-label="Stack">
-                <li data-build="dup" class="chip">Flutter</li>
-                <li data-build="dup" class="chip">FastAPI</li>
-                <li data-build="dup" class="chip">MongoDB</li>
-                <li data-build="dup" class="chip">JWT</li>
-                <li data-build="dup" class="chip">ESC/POS</li>
-              </ul>
-            </article>
-
-            <!-- Alert AI -->
-            <article data-build="rect" class="card flex flex-col">
-              <p data-build="text" class="meta">CETI · 2023–2024</p>
-              <h3 data-build="text" class="heading-3 mt-3">Alert AI</h3>
-              <dl class="mt-5 space-y-4 text-sm leading-relaxed">
-                <div>
-                  <dt data-build="text" class="meta text-accent">Problema</dt>
-                  <dd data-build="text" class="mt-1 text-muted">Vigilar cámaras y avisar a tiempo cuando ocurre una situación de riesgo.</dd>
-                </div>
-                <div>
-                  <dt data-build="text" class="meta text-accent">Solución</dt>
-                  <dd data-build="text" class="mt-1 text-muted">
-                    Aplicación web en Flask con MongoDB. Un modelo de TensorFlow/Keras distingue 12 situaciones (armas,
-                    incendios, peleas, choques, entre otras) y, al confirmar una amenaza, envía alertas por correo y SMS.
-                  </dd>
-                </div>
-                <div>
-                  <dt data-build="text" class="meta text-accent">Decisiones</dt>
-                  <dd data-build="text" class="mt-1 text-muted">Una amenaza se confirma solo si se detecta varias veces seguidas, para reducir falsas alarmas.</dd>
-                </div>
-              </dl>
-              <ul class="mt-auto flex flex-wrap gap-2 pt-6" aria-label="Stack">
-                <li data-build="dup" class="chip">Flask</li>
-                <li data-build="dup" class="chip">TensorFlow</li>
-                <li data-build="dup" class="chip">MongoDB</li>
-                <li data-build="dup" class="chip">OpenCV</li>
-              </ul>
-              <a
-                data-build="text"
-                href="https://github.com/CarlosIsaelRamirezGonzalez/AlertIA"
-                target="_blank"
-                rel="noreferrer"
-                class="link mt-6 inline-block w-fit text-sm"
-                aria-label="Código de Alert AI en GitHub (se abre en otra pestaña)"
-                >Ver el código en GitHub ↗</a
-              >
-            </article>
-          </div>
-
-          <div data-build="rect" class="mt-8 rounded-[14px] border border-dashed border-border p-6 sm:p-7">
-            <h3 data-build="text" class="font-display text-lg font-semibold">Otros trabajos</h3>
-            <ul class="mt-4 space-y-2 text-sm text-muted">
-              <li data-build="text">Landing pages para cafeterías en HTML, CSS y JavaScript, y en React + TypeScript + Tailwind.</li>
-              <li data-build="text">Comparativa de proveedores de pago (Stripe, Conekta y Mercado Pago) para una app en Flutter.</li>
+          <!-- Para clientes -->
+          <div class="grid-12 mt-16 gap-y-6">
+            <div class="md:col-span-4">
+              <p data-build="text" class="mono">Para clientes</p>
+              <h3 data-build="text" class="display mt-3 text-[2rem]">Empleados virtuales en producción</h3>
+            </div>
+            <ul class="rows md:col-span-7 md:col-start-6">
+              <li data-build="rect">
+                <p data-build="text" class="h3">Atención al cliente y seguimiento de quejas</p>
+                <p data-build="text" class="body mt-2 text-[15.5px]">
+                  Agentes que contestan, registran la queja y le dan seguimiento, con RAG sobre la información de la
+                  empresa.
+                </p>
+              </li>
+              <li data-build="rect">
+                <p data-build="text" class="h3">Validación de documentos</p>
+                <p data-build="text" class="body mt-2 text-[15.5px]">
+                  Un agente recibe documentos, los revisa contra las reglas del negocio y responde qué falta.
+                </p>
+              </li>
+              <li data-build="rect">
+                <p data-build="text" class="h3">Apps móviles en uso</p>
+                <p data-build="text" class="body mt-2 text-[15.5px]">
+                  Apps en Flutter con backend en FastAPI, publicadas y usadas por más de 200 personas.
+                </p>
+              </li>
             </ul>
           </div>
         </div>
       </section>
 
-      <!-- 07 — Experiencia -->
-      <section id="experiencia" aria-labelledby="experiencia-titulo" class="section border-t border-border">
-        <div class="container-page grid gap-10 lg:grid-cols-12">
-          <div class="lg:col-span-4">
-            <p data-build="text" class="section-label">07 — Experiencia</p>
-            <h2 id="experiencia-titulo" data-build="text" data-guide data-grow class="heading-2 mt-4">Dónde he trabajado</h2>
+      <!-- NOVA: cómo funciona -->
+      <section id="nova" aria-labelledby="nova-titulo" class="section">
+        <div class="page">
+          <div class="grid-12">
+            <div class="md:col-span-4">
+              <h2 id="nova-titulo" data-build="text" class="h2">Cómo funciona NOVA</h2>
+              <p data-build="text" class="body mt-4">
+                Todo corre en la Mac menos tres servicios: el modelo, su búsqueda web y la voz. Los componentes son los
+                del repositorio.
+              </p>
+              <p class="mt-6">
+                <button type="button" id="tour-start" data-build="rect" class="btn">Dame el tour con NOVA</button>
+              </p>
+              <p data-build="text" class="mono mt-3 max-w-[34ch]">
+                Demo guiada de NOVA. La versión real corre en mi app de escritorio.
+              </p>
+            </div>
+
+            <div class="relative md:col-span-8" id="nova-diagram">
+              <svg id="nova-wires" class="pointer-events-none absolute inset-0 h-full w-full" aria-hidden="true" preserveAspectRatio="none" viewBox="0 0 100 100"></svg>
+              <div class="relative grid grid-cols-2 gap-3 sm:grid-cols-3" role="list" aria-label="Componentes de NOVA">
+                <div class="node" role="listitem" data-build="rect" data-component="voice-in">Micrófono<small>Vosk: «Oye Nova» · Whisper: transcripción, en local</small></div>
+                <div class="node" role="listitem" data-build="rect" data-component="claude">Claude<small>modelo, tool use y búsqueda web</small></div>
+                <div class="node" role="listitem" data-build="rect" data-component="voice-out">Voz<small>ElevenLabs, frase por frase</small></div>
+                <div class="node" role="listitem" data-build="rect" data-component="memory">Memoria<small>SQLite sincronizado con Turso</small></div>
+                <div class="node" role="listitem" data-build="rect" data-component="server">Servidor<small>Python · aiohttp · WebSocket</small></div>
+                <div class="node" role="listitem" data-build="rect" data-component="vision">Cámara<small>MediaPipe en el navegador · InsightFace local</small></div>
+                <div class="node" role="listitem" data-build="rect" data-component="qdrant">Qdrant<small>recuerdos por significado · fastembed</small></div>
+                <div class="node" role="listitem" data-build="rect" data-component="obsidian">Obsidian<small>bóveda de notas, solo lectura</small></div>
+                <div class="node" role="listitem" data-build="rect" data-component="writer">Redactor<small>llamada aparte, sin herramientas ni memoria</small></div>
+                <div class="node node-nova" role="listitem" data-build="rect" data-component="desktop">Escritorio<small>Electron · personaje en pixel art</small></div>
+              </div>
+              </div>
+            </div>
           </div>
-          <ol class="relative space-y-10 border-l border-border pl-8 lg:col-span-8">
-            <li data-build="rect" class="relative">
-              <span class="absolute top-1.5 -left-[37px] h-3 w-3 rounded-full border-2 border-bg bg-accent" aria-hidden="true"></span>
-              <p data-build="text" class="meta">ago. 2026 – actualidad · remoto</p>
-              <h3 data-build="text" class="heading-3 mt-1">Ingeniero de IA Junior · Atom</h3>
-              <ul class="mt-3 list-disc space-y-1 pl-5 text-sm leading-relaxed text-muted marker:text-accent">
-                <li data-build="text">Frontend en React, TypeScript y Tailwind sobre GoHighLevel.</li>
-                <li data-build="text">Integración con MCP.</li>
-              </ul>
+
+          <ul class="rows mt-16 grid-12 !gap-y-0" aria-label="Qué hace NOVA">
+            <li data-build="rect" class="md:col-span-12 grid gap-2 md:grid-cols-12">
+              <p data-build="text" class="h3 md:col-span-4">Voz en español de México</p>
+              <p data-build="text" class="body md:col-span-7 md:col-start-6">Se activa con «Oye Nova», transcribe dentro de la Mac y responde con voz. A internet solo viaja el texto.</p>
             </li>
-            <li data-build="rect" class="relative">
-              <span class="absolute top-1.5 -left-[37px] h-3 w-3 rounded-full border-2 border-bg bg-accent" aria-hidden="true"></span>
-              <p data-build="text" class="meta">ene. 2026 – actualidad</p>
-              <h3 data-build="text" class="heading-3 mt-1">Instructor de IA y automatización · TopLearning</h3>
-              <ul class="mt-3 list-disc space-y-1 pl-5 text-sm leading-relaxed text-muted marker:text-accent">
-                <!-- TODO: temas o formatos de los cursos en TopLearning. -->
-                <li data-build="text">Formación en inteligencia artificial y automatización.</li>
-              </ul>
+            <li data-build="rect" class="md:col-span-12 grid gap-2 md:grid-cols-12">
+              <p data-build="text" class="h3 md:col-span-4">Emociones que se ven</p>
+              <p data-build="text" class="body md:col-span-7 md:col-start-6">El modelo marca mezclas de emociones y el personaje las muestra al momento: triste y preocupada a la vez, por ejemplo.</p>
             </li>
-            <li data-build="rect" class="relative">
-              <span class="absolute top-1.5 -left-[37px] h-3 w-3 rounded-full border-2 border-bg bg-accent" aria-hidden="true"></span>
-              <p data-build="text" class="meta">abr. 2025 – actualidad · medio tiempo, híbrido</p>
-              <h3 data-build="text" class="heading-3 mt-1">Desarrollador Full-Stack con enfoque en IA · DataSign</h3>
-              <ul class="mt-3 list-disc space-y-1 pl-5 text-sm leading-relaxed text-muted marker:text-accent">
-                <li data-build="text">Empleados virtuales con IA y RAG: atención al cliente, seguimiento de quejas y validación de documentos.</li>
-                <li data-build="text">Automatizaciones con n8n.</li>
-                <li data-build="text">APIs con GraphQL y FastAPI; Docker en algunos proyectos.</li>
-                <li data-build="text">Pruebas con pytest.</li>
-                <li data-build="text">Páginas web, aplicaciones web y apps móviles con Flutter, de inicio a publicación.</li>
-              </ul>
+            <li data-build="rect" class="md:col-span-12 grid gap-2 md:grid-cols-12">
+              <p data-build="text" class="h3 md:col-span-4">Memoria</p>
+              <p data-build="text" class="body md:col-span-7 md:col-start-6">Decide qué guardar de cada plática, lo busca por significado y lo olvida si se lo pido.</p>
             </li>
-            <li data-build="rect" class="relative">
-              <span class="absolute top-1.5 -left-[37px] h-3 w-3 rounded-full border-2 border-bg bg-muted" aria-hidden="true"></span>
-              <p data-build="text" class="meta">feb. – oct. 2024 · remoto</p>
-              <h3 data-build="text" class="heading-3 mt-1">Desarrollador Full-Stack · SoftCode</h3>
-              <ul class="mt-3 list-disc space-y-1 pl-5 text-sm leading-relaxed text-muted marker:text-accent">
-                <li data-build="text">Páginas web, aplicaciones web y apps móviles con Flutter, de inicio a publicación.</li>
-                <li data-build="text">Aplicaciones con React y Flutter, y backends con FastAPI.</li>
-                <li data-build="text">Docker y pruebas con pytest.</li>
-              </ul>
+            <li data-build="rect" class="md:col-span-12 grid gap-2 md:grid-cols-12">
+              <p data-build="text" class="h3 md:col-span-4">Cámara solo a petición</p>
+              <p data-build="text" class="body md:col-span-7 md:col-start-6">Apagada por defecto. Mira cuando se lo pido y puede aprender mi cara sin que la huella salga del equipo.</p>
+            </li>
+            <li data-build="rect" class="md:col-span-12 grid gap-2 md:grid-cols-12">
+              <p data-build="text" class="h3 md:col-span-4">Escribe en otras apps</p>
+              <p data-build="text" class="body md:col-span-7 md:col-start-6">Le digo «termina este mensaje» y teclea un borrador en la app que tengo al frente. Nunca presiona Enter.</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Trayectoria -->
+      <section id="trayectoria" aria-labelledby="trayectoria-titulo" class="section">
+        <div class="page grid-12">
+          <h2 id="trayectoria-titulo" data-build="text" class="h2 md:col-span-4">Trayectoria</h2>
+          <ol class="rows md:col-span-7 md:col-start-6">
+            <li data-build="rect" class="grid gap-x-6 gap-y-1 sm:grid-cols-[7rem_1fr]">
+              <p data-build="text" class="mono pt-1">2026 → hoy</p>
+              <div>
+                <p data-build="text" class="h3">Ingeniero de IA Jr · Atom</p>
+                <p data-build="text" class="body mt-1 text-[15.5px]">Remoto. Frontend con React, TypeScript y Tailwind sobre un backend en GoHighLevel; integración con MCP.</p>
+              </div>
+            </li>
+            <li data-build="rect" class="grid gap-x-6 gap-y-1 sm:grid-cols-[7rem_1fr]">
+              <p data-build="text" class="mono pt-1">ene. 2026 → hoy</p>
+              <div>
+                <p data-build="text" class="h3">Instructor de IA y automatización · TopLearning</p>
+                <p data-build="text" class="body mt-1 text-[15.5px]">Clases y asesorías.</p>
+              </div>
+            </li>
+            <li data-build="rect" class="grid gap-x-6 gap-y-1 sm:grid-cols-[7rem_1fr]">
+              <p data-build="text" class="mono pt-1">abr. 2025 → hoy</p>
+              <div>
+                <p data-build="text" class="h3">Desarrollador Full-Stack con enfoque en IA · DataSign</p>
+                <p data-build="text" class="body mt-1 text-[15.5px]">Agentes conversacionales, automatización con n8n e integraciones. Empleados virtuales de atención al cliente, seguimiento de quejas y validación de documentos, con RAG y GraphRAG. Web y apps móviles de inicio a publicación.</p>
+              </div>
+            </li>
+            <li data-build="rect" class="grid gap-x-6 gap-y-1 sm:grid-cols-[7rem_1fr]">
+              <p data-build="text" class="mono pt-1">feb. → oct. 2024</p>
+              <div>
+                <p data-build="text" class="h3">Desarrollador Full-Stack · SoftCode</p>
+                <p data-build="text" class="body mt-1 text-[15.5px]">Remoto. React, Flutter y FastAPI. Páginas web, aplicaciones web y apps móviles de inicio a publicación.</p>
+              </div>
             </li>
           </ol>
         </div>
       </section>
 
-      <!-- 08 — Educación e idiomas -->
-      <section id="educacion" aria-labelledby="educacion-titulo" class="section border-t border-border">
-        <div class="container-page grid gap-10 lg:grid-cols-12">
-          <div class="lg:col-span-4">
-            <p data-build="text" class="section-label">08 — Educación e idiomas</p>
-            <h2 id="educacion-titulo" data-build="text" data-guide data-grow class="heading-2 mt-4">Formación</h2>
+      <!-- Stack -->
+      <section id="stack" aria-labelledby="stack-titulo" class="section">
+        <div class="page grid-12">
+          <div class="md:col-span-4">
+            <h2 id="stack-titulo" data-build="text" class="h2">Stack</h2>
+            <p data-build="text" class="body mt-4">Agrupado por lo que hago con cada cosa, no por íconos.</p>
           </div>
-          <div class="grid gap-5 sm:grid-cols-2 lg:col-span-8">
-            <article data-build="rect" class="card sm:col-span-2">
-              <p data-build="text" class="meta">jun. 2019 – jun. 2024</p>
-              <h3 data-build="text" class="heading-3 mt-2">Tecnólogo en Desarrollo de Software</h3>
-              <p data-build="text" class="mt-1 text-muted">CETI</p>
-            </article>
-            <article data-build="dup" class="card">
-              <p data-build="text" class="meta">Idioma</p>
-              <p data-build="text" class="mt-2 font-display text-xl font-semibold">Español</p>
-              <p data-build="text" class="text-sm text-muted">Nativo</p>
-            </article>
-            <article data-build="dup" class="card">
-              <p class="meta">Idioma</p>
-              <p class="mt-2 font-display text-xl font-semibold">Inglés</p>
-              <p class="text-sm text-muted">Avanzado (C1)</p>
-            </article>
+          <dl class="rows md:col-span-7 md:col-start-6">
+            <div data-build="rect" class="grid gap-x-6 gap-y-1 sm:grid-cols-[9rem_1fr]">
+              <dt data-build="text" class="mono pt-1">backend y agentes</dt>
+              <dd data-build="text" class="text-[15.5px]">Python, FastAPI, pytest. RAG y GraphRAG, Qdrant (en NOVA). APIs de Claude, OpenAI, Gemini y Grok. MCP (en Atom). n8n (en DataSign).</dd>
+            </div>
+            <div data-build="rect" class="grid gap-x-6 gap-y-1 sm:grid-cols-[9rem_1fr]">
+              <dt data-build="text" class="mono pt-1">interfaces</dt>
+              <dd data-build="text" class="text-[15.5px]">React, TypeScript y Tailwind (Atom, SoftCode y este sitio). Flutter (DataSign y SoftCode).</dd>
+            </div>
+            <div data-build="rect" class="grid gap-x-6 gap-y-1 sm:grid-cols-[9rem_1fr]">
+              <dt data-build="text" class="mono pt-1">operación</dt>
+              <dd data-build="text" class="text-[15.5px]">Docker, Git y GitHub Actions (este sitio, NOVA y AlertIA se prueban y publican solos).</dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+
+      <!-- Sobre mí -->
+      <section id="sobre-mi" aria-labelledby="sobre-titulo" class="section">
+        <div class="page grid-12">
+          <h2 id="sobre-titulo" data-build="text" class="h2 md:col-span-4">Sobre mí</h2>
+          <div class="md:col-span-5 md:col-start-6">
+            <p data-build="text" class="lede">Estudié Desarrollo de Software y empecé a trabajar en 2024. Desde entonces no he soltado dos cosas: publicar lo que hago y aprender en público.</p>
+            <p data-build="text" class="body mt-5">Hablo español e inglés (C1). Trabajo desde Guadalajara, casi siempre en remoto. NOVA es el proyecto donde pruebo primero lo que después llevo a los clientes.</p>
+          </div>
+          <div class="md:col-span-3 md:col-start-10">
+            <div class="placeholder aspect-[4/5]" data-build="media">[PENDIENTE] retrato · public/img/raw/retrato.jpg</div>
           </div>
         </div>
       </section>
 
-      <!-- 09 — Contacto -->
-      <section id="contacto" aria-labelledby="contacto-titulo" class="section border-t border-border">
-        <div class="container-page text-center">
-          <p data-build="text" class="section-label">09 — Contacto</p>
-          <h2 id="contacto-titulo" data-build="text" data-grow class="heading-2 mx-auto mt-4 max-w-[18ch]">¿Construimos algo juntos?</h2>
-          <p data-build="text" class="prose-body mx-auto mt-5">
-            Estoy disponible para trabajo remoto. Escríbeme y te respondo.
-          </p>
-          <div class="mt-12 flex justify-center">
-            <a data-build="converge" href="mailto:carlosramirez3982@gmail.com" class="btn-warm px-8 py-4 text-base">
-              Escríbeme
-            </a>
-          </div>
-          <div class="mx-auto mt-12 flex max-w-2xl flex-col items-center gap-4">
-            <p data-build="rect" class="flex flex-wrap items-center justify-center gap-3 rounded-xl border border-border bg-surface/80 px-4 py-3">
-              <a href="mailto:carlosramirez3982@gmail.com" class="font-mono text-sm text-text hover:text-accent">carlosramirez3982@gmail.com</a>
-              <button type="button" hidden data-copy-email="carlosramirez3982@gmail.com" class="rounded-md border border-border px-2.5 py-1 font-mono text-xs text-muted hover:border-accent hover:text-accent">
-                Copiar correo
-              </button>
+      <!-- Contacto -->
+      <section id="contacto" aria-labelledby="contacto-titulo" class="section">
+        <div class="page grid-12">
+          <h2 id="contacto-titulo" data-build="text" class="h2 md:col-span-4">Contacto</h2>
+          <div class="md:col-span-7 md:col-start-6">
+            <p data-build="text" class="lede">Si quieres platicar de un proyecto o de un puesto, escríbeme. Respondo yo.</p>
+            <p class="mt-7 flex flex-wrap items-center gap-3">
+              <a data-build="converge" href="mailto:carlosramirez3982@gmail.com" class="btn text-[16px]">carlosramirez3982@gmail.com</a>
+              <button type="button" hidden data-build="text" data-copy-email="carlosramirez3982@gmail.com" class="btn-quiet">Copiar</button>
             </p>
-            <ul class="flex flex-wrap justify-center gap-3">
-              <li data-build="dup">
-                <a href="https://www.linkedin.com/in/carlos-i-ramirez" target="_blank" rel="noreferrer" class="btn-ghost" aria-label="LinkedIn de Carlos Ramírez (se abre en otra pestaña)">LinkedIn ↗</a>
-              </li>
-              <li data-build="dup">
-                <a href="https://github.com/CarlosIsaelRamirezGonzalez" target="_blank" rel="noreferrer" class="btn-ghost" aria-label="GitHub de Carlos Ramírez (se abre en otra pestaña)">GitHub ↗</a>
-              </li>
-              <li data-build="dup">
-                <a href="/cv.pdf" download class="btn-ghost" aria-label="Descargar el CV de Carlos Ramírez en PDF">Descargar CV</a>
-              </li>
+            <ul class="mt-8 flex flex-wrap gap-x-7 gap-y-2 font-mono text-[14px]">
+              <li data-build="dup"><a href="https://github.com/CarlosIsaelRamirezGonzalez" class="link" rel="noreferrer">github.com/CarlosIsaelRamirezGonzalez</a></li>
+              <li data-build="dup"><a href="https://www.linkedin.com/in/carlos-i-ramirez" class="link" rel="noreferrer">linkedin.com/in/carlos-i-ramirez</a></li>
+              <li data-build="dup" id="cv-item" hidden><a href="/cv.pdf" class="link" download>cv.pdf</a></li>
             </ul>
           </div>
         </div>
       </section>
     </main>
 
-    <footer class="border-t border-border py-10">
-      <div class="container-page flex flex-col gap-2 text-center font-mono text-xs text-muted sm:flex-row sm:justify-between sm:text-left">
-        <p data-build="text">© 2026 Carlos Ramírez · Guadalajara, México</p>
-        <p data-build="text">
-          Hecho con Vite, TypeScript y Tailwind. Efecto de cursores inspirado en
-          <a href="https://califa.github.io/swarm-site/" target="_blank" rel="noreferrer" class="underline underline-offset-2 hover:text-text">Swarm, de Joel Califa</a>.
+    <footer class="border-t border-rule py-8">
+      <div class="page flex flex-col gap-2 font-mono text-[12.5px] text-dust sm:flex-row sm:justify-between">
+        <p>Carlos Ramírez · 2026</p>
+        <p>
+          Vite, TypeScript y Tailwind. El efecto de cursores está inspirado en
+          <a href="https://califa.github.io/swarm-site/" class="underline underline-offset-2 hover:text-bone" rel="noreferrer">Swarm, de Joel Califa</a>; el motor es propio.
         </p>
       </div>
     </footer>
 
-    <!-- Capa del enjambre y sus controles: solo existen con JS. -->
+    <!-- Enjambre: lienzo, controles de depuración y botón de saltar. -->
     <canvas id="swarm-canvas" aria-hidden="true" hidden></canvas>
-    <div
-      id="swarm-hud"
-      hidden
-      role="group"
-      aria-label="Controles de la animación"
-      class="fixed bottom-3 left-1/2 z-50 flex w-max max-w-[calc(100vw-1rem)] -translate-x-1/2 flex-nowrap items-center justify-center gap-1 rounded-xl border border-border bg-bg/90 px-2 py-1.5 backdrop-blur"
-    >
-      <span data-count class="px-1.5 font-mono text-[10px] whitespace-nowrap text-muted sm:px-2 sm:text-[11px]">agentes: 0 · capas: 0</span>
-      <span class="hidden h-4 w-px bg-border sm:block" aria-hidden="true"></span>
-      <button type="button" class="hud-button hidden sm:inline-block" data-speed="1" aria-pressed="true" aria-label="Velocidad 1×">1×</button>
-      <button type="button" class="hud-button hidden sm:inline-block" data-speed="2" aria-pressed="false" aria-label="Velocidad 2×">2×</button>
-      <button type="button" class="hud-button hidden sm:inline-block" data-speed="3" aria-pressed="false" aria-label="Velocidad 3×">3×</button>
-      <span class="h-4 w-px bg-border" aria-hidden="true"></span>
-      <button type="button" class="hud-button whitespace-nowrap" data-sound aria-pressed="false">Sonido: no</button>
-      <button type="button" class="hud-button whitespace-nowrap" data-skip aria-label="Saltar animación">Saltar<span class="hidden sm:inline"> animación</span></button>
+    <div id="swarm-hud" hidden role="group" aria-label="Controles de la animación" class="fixed bottom-3 left-3 z-50 flex items-center gap-1 rounded-[2px] border border-rule bg-ink px-2 py-1.5">
+      <span data-count class="px-1.5 font-mono text-[11px] text-dust">agentes: 0 · capas: 0</span>
+      <button type="button" class="hud-button" data-speed="1" aria-pressed="true">1×</button>
+      <button type="button" class="hud-button" data-speed="2" aria-pressed="false">2×</button>
+      <button type="button" class="hud-button" data-speed="3" aria-pressed="false">3×</button>
+      <button type="button" class="hud-button" data-sound aria-pressed="false">Sonido: no</button>
+      <button type="button" class="hud-button" data-skip>Saltar</button>
     </div>
-
-    <button
-      id="swarm-skip"
-      type="button"
-      hidden
-      class="fixed right-4 bottom-4 z-50 rounded-md border border-border bg-bg px-3 py-1.5 text-xs text-muted transition-colors hover:border-accent hover:text-text"
-    >
+    <button type="button" id="swarm-skip" hidden class="fixed bottom-4 left-4 z-50 rounded-[2px] border border-rule bg-ink px-3 py-1.5 font-mono text-[12px] text-dust hover:border-dust hover:text-bone">
       Saltar animación
     </button>
+
+    <!-- NOVA: el widget se arma desde src/nova/widget.ts -->
+    <div id="nova-dock"></div>
+    <svg id="nova-pointer" hidden viewBox="0 0 18 24" aria-hidden="true">
+      <path d="M1 1 L1 19 L6 14.5 L9.5 22 L12.5 20.6 L9.2 13.2 L16 13.2 Z" fill="#5B46C4" stroke="#F3F3FF" stroke-width="1.4" stroke-linejoin="round" />
+    </svg>
 
     <script type="module" src="/src/main.ts"></script>
   </body>
