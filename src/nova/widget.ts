@@ -56,6 +56,7 @@ class NovaWidget {
   private readonly status: HTMLElement
   private readonly buttons: Record<'prev' | 'pause' | 'next' | 'exit' | 'voice' | 'tour', HTMLButtonElement>
   private offer: HTMLElement | null = null
+  private chips: HTMLElement | null = null
   private step = -1
   private paused = false
   private voice = false
@@ -115,6 +116,7 @@ class NovaWidget {
     this.subtitle.setAttribute('aria-atomic', 'true')
 
     const chips = element('div', 'mt-3 flex flex-wrap gap-1.5')
+    this.chips = chips
     for (const item of QUICK) {
       const chip = element('button', 'nova-chip', item.question)
       chip.type = 'button'
@@ -193,6 +195,8 @@ class NovaWidget {
       this.dock.prepend(this.offer)
       this.setMood('curious')
       window.setTimeout(() => this.setMood('idle'), 2500)
+      // Si nadie contesta, la oferta se retira sola; se volverá a ofrecer en otra visita.
+      window.setTimeout(() => this.dismissOffer(), 25_000)
     }, 2500)
   }
 
@@ -243,6 +247,8 @@ class NovaWidget {
     const inTour = this.step >= 0
     for (const key of ['prev', 'pause', 'next'] as const) this.buttons[key].hidden = !inTour
     this.buttons.tour.hidden = inTour
+    // Durante el tour el panel se encoge: sin preguntas rápidas, tapa menos página.
+    if (this.chips) this.chips.hidden = inTour
     this.buttons.prev.disabled = this.step <= 0
     this.buttons.next.disabled = this.step >= TOUR.length - 1
     this.buttons.pause.textContent = this.paused ? '▶' : '⏸'
@@ -425,7 +431,10 @@ class NovaWidget {
     this.clearFocus()
     lightComponents(step.components ?? [])
     if (!target) return
-    target.scrollIntoView({ behavior: reducedMotion() ? 'auto' : 'smooth', block: 'center' })
+    // El enjambre arma de inmediato la sección a la que NOVA lleva la página.
+    window.dispatchEvent(new Event('swarm:turbo'))
+    // En pantallas angostas el panel ocupa la parte baja: el objetivo va arriba para que se vea.
+    target.scrollIntoView({ behavior: reducedMotion() ? 'auto' : 'smooth', block: window.innerWidth < 640 ? 'start' : 'center' })
     target.setAttribute('data-nova-focus', '')
     this.focused = target
     if (!this.pointer) return

@@ -20,7 +20,7 @@ import { Debug } from './debug'
 import type { Agent, Point, Task } from './types'
 
 /** Segundos que puede esperar algo visible antes de completarse sin cursor. */
-const MAX_WAIT = 0.85
+const MAX_WAIT = 0.7
 /** A partir de este multiplicador aparecen las estelas y se quitan las pausas. */
 const FAST = 2.2
 /** Parte de la pantalla que pueden ocupar etiquetas y estelas. */
@@ -134,11 +134,12 @@ class Swarm {
     document.addEventListener('visibilitychange', () => {
       this.lastTime = performance.now()
     })
-    document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]').forEach((link) => {
-      link.addEventListener('click', () => {
-        this.turboUntil = performance.now() + 1400
-      })
-    })
+    // Saltar por el menú, o que NOVA lleve la página a una sección, arma esa sección de inmediato.
+    const turbo = (): void => {
+      this.turboUntil = performance.now() + 1400
+    }
+    document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]').forEach((link) => link.addEventListener('click', turbo))
+    window.addEventListener('swarm:turbo', turbo)
     this.hud.querySelectorAll<HTMLButtonElement>('[data-speed]').forEach((button) => {
       button.addEventListener('click', () => {
         this.speed = Number(button.dataset.speed)
@@ -585,7 +586,8 @@ class Swarm {
     if (now - this.hudTimer < 200) return
     this.hudTimer = now
     const skip = document.querySelector<HTMLButtonElement>('#swarm-skip')
-    if (skip) skip.hidden = this.skipped || this.finished
+    // El botón de saltar solo se ve mientras algo se construye en pantalla.
+    if (skip) skip.hidden = this.skipped || this.finished || this.pendingInView(window.scrollY) === 0
     const built = this.tasks.filter((task) => task.progress >= 1).length
     const visible = this.agents.filter((agent) => agent.alpha > 0).length
     this.hud.querySelector('[data-count]')!.textContent = `cursores: ${visible} · capas: ${built}/${this.tasks.length}`
