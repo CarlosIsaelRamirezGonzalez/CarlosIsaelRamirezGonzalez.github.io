@@ -21,6 +21,10 @@ const INTRO = 1.4
 const HERO_BOOST = 1
 /** Opacidad y escala de los agentes en reposo: quedan en segundo plano. */
 const IDLE_ALPHA = 0.4
+/** Agentes en reposo que se ven a la vez, solo cerca de donde hay trabajo; el resto sale de la pantalla. */
+const MAX_ESCORTS = 3
+/** Distancia a la que un acompañante flota del agente que trabaja. */
+const ESCORT_RADIUS = 90
 const IDLE_SCALE = 0.8
 /** Segundos que tarda en desarmarse algo que quedó fuera de la pantalla por abajo. */
 const UNBUILD_TIME = 0.3
@@ -127,6 +131,7 @@ class Swarm {
         scale: IDLE_SCALE,
         phase: Math.random() * Math.PI * 2,
         trail: [],
+        escort: null,
       })
     }
     this.placeHomes()
@@ -214,7 +219,14 @@ class Swarm {
       apply(task)
     }
     this.hud.querySelector('[data-skip]')?.setAttribute('disabled', '')
+    this.hideSkip()
     this.debug?.log('saltar animación: todo construido')
+  }
+
+  /** Quita el botón de saltar cuando ya no hace falta. */
+  private hideSkip(): void {
+    const button = document.querySelector<HTMLButtonElement>('#swarm-skip')
+    if (button) button.hidden = true
   }
 
   // -------------------------------------------------------------------------
@@ -288,6 +300,7 @@ class Swarm {
 
     if (!this.finished && this.tasks.every((task) => task.progress >= 1)) {
       this.finished = true
+      this.hideSkip()
       this.sound.chord()
       this.debug?.log('página completa')
     }
@@ -312,8 +325,9 @@ class Swarm {
   // -------------------------------------------------------------------------
 
   private schedule(dt: number, rate: number, scrollY: number, movedAt: number, share: number): void {
-    // Se desbloquea al acercarse a la pantalla y se desarma ya fuera de ella, por abajo.
-    const buildLine = scrollY + this.height + 60
+    // Se desarma ya fuera de la pantalla, por abajo.
+    // Solo se construye lo que ya asoma en pantalla: ningún cursor trabaja fuera de la vista.
+    const buildLine = scrollY + this.height - 8
     const unbuildLine = scrollY + this.height + 220
     const waiting: Task[] = []
     // Lo que quedó arriba se completa por partes, para no trabar un cuadro.
@@ -465,7 +479,8 @@ class Swarm {
       const target = pose(agent.task, agent.role)
       return { x: target.x - window.scrollX, y: target.y - scrollY }
     }
-    if (agent.state === 'reserve') return { x: agent.home.x < this.width / 2 ? -40 : this.width + 40, y: agent.home.y }
+    const parked = { x: agent.home.x < this.width / 2 ? -40 : this.width + 40, y: agent.home.y }
+    if (agent.state === 'reserve') return parked
     if (this.elapsed < INTRO) {
       // Intro: el enjambre flota alrededor del centro antes de repartirse.
       const angle = agent.phase + this.elapsed * 0.8
@@ -474,7 +489,60 @@ class Swarm {
         y: this.height * 0.5 + Math.sin(angle) * (60 + (agent.id % 4) * 22),
       }
     }
-    return agent.home
+    // En reposo: acompaña el trabajo activo o espera fuera de la pantalla. Nunca se queda en los márgenes.
+    return agent.escort ?? parked
+  }
+
+  /**
+   * Elige hasta tres agentes en reposo para acompañar a los que trabajan; los demás salen de la pantalla.
+   */
+  private chooseEscorts(zones: DOMRect[]): void {
+    const workers = this.agents.filter(
+      (agent) => agent.task && agent.x > 0 && agent.x < this.width && agent.y > 0 && agent.y < this.height,
+    )
+    const idle = this.agents.filter((agent) => !agent.task && agent.state !== 'reserve')
+    if (workers.length === 0 || this.elapsed < INTRO) {
+      for (const agent of idle) agent.escort = null
+      return
+    }
+
+    const nearest = (agent: Agent): Agent =>
+      workers.reduce((best, worker) =>
+        Math.hypot(worker.x - agent.x, worker.y - agent.y) < Math.hypot(best.x - agent.x, best.y - agent.y) ? worker : best,
+      )
+    const distance = (agent: Agent): number => {
+      const worker = nearest(agent)
+      return Math.hypot(worker.x - agent.x, worker.y - agent.y)
+    }
+    // Los que ya acompañaban siguen primero, para que no se enciendan y apaguen distintos agentes.
+    const current = idle.filter((agent) => agent.escort).sort((a, b) => distance(a) - distance(b))
+    const others = idle.filter((agent) => !agent.escort).sort((a, b) => distance(a) - distance(b))
+
+    let chosen = 0
+    for (const agent of [...current, ...others]) {
+      const spot = chosen < MAX_ESCORTS ? this.freeSpotNear(agent, nearest(agent), zones) : null
+      agent.escort = spot
+      if (spot) chosen++
+    }
+  }
+
+  /**
+   * Busca, alrededor de un agente que trabaja, un lugar donde no haya nada construido.
+   *
+   * @param agent Acompañante.
+   * @param worker Agente que trabaja.
+   * @param zones Zonas ya construidas.
+   * @returns El lugar, o `null` si no hay ninguno libre.
+   */
+  private freeSpotNear(agent: Agent, worker: Agent, zones: DOMRect[]): Point | null {
+    for (let step = 0; step < 12; step++) {
+      const angle = agent.phase + this.elapsed * 0.3 + (step * Math.PI) / 6
+      const x = clamp(worker.x + Math.cos(angle) * ESCORT_RADIUS, 12, this.width - 24)
+      const y = clamp(worker.y + Math.sin(angle) * ESCORT_RADIUS * 0.7, 70, this.height - 24)
+      const blocked = zones.some((zone) => x > zone.left - 12 && x < zone.right + 12 && y > zone.top - 12 && y < zone.bottom + 12)
+      if (!blocked) return { x, y }
+    }
+    return null
   }
 
   /** Sonidos ligados al avance. */
@@ -496,9 +564,20 @@ class Swarm {
   private moveAgents(dt: number, rate: number, scrollY: number): void {
     const zones = this.builtZones(scrollY)
     const calm = this.boost < FAST
+    this.chooseEscorts(zones)
     for (const agent of this.agents) {
       const working = agent.task !== null
-      agent.alpha += ((working ? 1 : IDLE_ALPHA) - agent.alpha) * (1 - Math.exp(-dt * 6))
+      // Trabajando se ve completo; acompañando, tenue; el resto se desvanece mientras sale de la pantalla.
+      // En reposo nunca se dibuja encima de algo ya construido, ni aunque solo esté de paso.
+      const overBuilt =
+        !working && zones.some((zone) => agent.x > zone.left && agent.x < zone.right && agent.y > zone.top && agent.y < zone.bottom)
+      const visible = working ? 1 : (agent.escort || this.elapsed < INTRO) && !overBuilt ? IDLE_ALPHA : 0
+      if (visible === 0) {
+        // El que termina y no acompaña desaparece en el acto: no deja rastro sobre la página.
+        agent.alpha = 0
+      } else {
+        agent.alpha += (visible - agent.alpha) * (1 - Math.exp(-dt * 6))
+      }
       agent.scale += ((working ? 1 : IDLE_SCALE) - agent.scale) * (1 - Math.exp(-dt * 6))
 
       switch (agent.state) {
@@ -535,6 +614,11 @@ class Swarm {
         }
         default:
           this.drift(agent, dt, zones)
+      }
+
+      // Ya en su nueva posición: si en reposo quedó sobre algo construido, no se dibuja este cuadro.
+      if (!agent.task && zones.some((zone) => agent.x > zone.left && agent.x < zone.right && agent.y > zone.top && agent.y < zone.bottom)) {
+        agent.alpha = 0
       }
 
       // Estela: últimas posiciones de los cursores ocupados.
@@ -672,14 +756,15 @@ class Swarm {
     ctx.save()
     ctx.translate(-scrollX, -scrollY)
     for (const task of this.tasks) {
-      if (task.progress <= 0 || task.progress >= 1) continue
+      // Solo mientras alguien la construye: al terminar no quedan contornos, medidas ni guías.
+      if (!task.running || task.progress <= 0 || task.progress >= 1) continue
       if (task.box.y > scrollY + this.height || task.box.y + task.box.h < scrollY) continue
       if (task.guide) guides = true
       draw(ctx, task, this.height, scrollY)
     }
     ctx.restore()
 
-    this.rulers += ((guides ? 1 : 0) - this.rulers) * 0.12
+    this.rulers += ((guides ? 1 : 0) - this.rulers) * 0.25
     drawRulers(ctx, this.width, this.height, scrollY, this.rulers)
 
     const onScreen = (agent: Agent): boolean =>
@@ -704,7 +789,7 @@ class Swarm {
     }
 
     for (const agent of this.agents) {
-      if (!onScreen(agent)) continue
+      if (!onScreen(agent) || agent.alpha < 0.02) continue
       const hovered = this.mouse !== null && Math.hypot(this.mouse.x - agent.x, this.mouse.y - agent.y) < 18
       // Etiqueta: solo quien trabaja (en cuadrillas, el principal) o el que tiene el mouse encima.
       const wantsLabel = (agent.task !== null && agent.role === 0) || hovered
@@ -737,6 +822,9 @@ class Swarm {
     const now = performance.now()
     if (now - this.hudTimer < 200) return
     this.hudTimer = now
+    // El botón de saltar solo aparece mientras algo se construye en pantalla: nunca tapa lo terminado.
+    const skip = document.querySelector<HTMLButtonElement>('#swarm-skip')
+    if (skip && !this.debug) skip.hidden = this.skipped || this.pendingInView(window.scrollY) === 0
     const built = this.tasks.filter((task) => task.progress >= 1).length
     const agents = this.agents.filter((agent) => agent.state !== 'reserve').length
     this.hud.querySelector('[data-count]')!.textContent = `agentes: ${agents} · capas: ${built}/${this.tasks.length}`
@@ -755,6 +843,14 @@ export async function startSwarm(): Promise<void> {
   const swarm = new Swarm(canvas, hud)
   document.documentElement.classList.remove('swarm-boot')
   canvas.hidden = false
-  hud.hidden = false
+  // La barra de controles es solo para depurar; fuera de ella queda un botón discreto para saltar.
+  if (new URLSearchParams(location.search).has('debug')) {
+    hud.hidden = false
+  } else {
+    // Fuera de depuración solo queda este botón; el motor lo muestra mientras hay algo en construcción.
+    document
+      .querySelector<HTMLButtonElement>('#swarm-skip')
+      ?.addEventListener('click', () => hud.querySelector<HTMLButtonElement>('[data-skip]')?.click())
+  }
   swarm.start()
 }

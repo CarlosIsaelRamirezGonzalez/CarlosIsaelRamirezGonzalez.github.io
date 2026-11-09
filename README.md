@@ -14,8 +14,10 @@ npm run build    # compila a dist/
 npm run lint
 ```
 
-Agrega `?debug=1` a la URL para ver qué agente construye cada tarea, un registro y las mediciones
-(violaciones, cobertura de pantalla y agentes en reposo sobre contenido).
+Agrega `?debug=1` a la URL para ver la barra de controles (velocidad, sonido, contador), qué agente
+construye cada tarea, un registro y las mediciones (violaciones, cobertura de pantalla, agentes en
+reposo visibles y sobre contenido). Sin `debug`, solo aparece un botón "Saltar animación" mientras
+algo se construye en pantalla.
 
 ## Editar el contenido
 

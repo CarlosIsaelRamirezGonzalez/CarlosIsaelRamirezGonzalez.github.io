@@ -134,6 +134,8 @@ export interface Agent {
   phase: number
   /** Posiciones recientes, para la estela cuando el enjambre va muy rápido. */
   trail: Point[]
+  /** Si acompaña el trabajo activo (en pantalla, cerca); los demás en reposo salen de la pantalla. */
+  escort: Point | null
 }
 
 /** Dónde está y qué hace el cursor en un punto de la tarea. */

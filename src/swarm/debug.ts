@@ -4,7 +4,7 @@
  *
  * - Violaciones: veces que una tarea avanzó sin su agente en su lugar. Debe ser 0.
  * - Cobertura: parte de la pantalla que tapan cursores, estelas y etiquetas. Debe ser ≤ 5 %.
- * - En reposo sobre contenido: agentes en reposo dentro de algo ya construido. Debe ser 0.
+ * - En reposo sobre contenido: agentes en reposo visibles dentro de algo ya construido. Debe ser 0.
  * - Asentado: segundos desde que se detiene el scroll hasta que todo lo visible queda completo.
  * - Texto sin tarea: textos de la página que ningún cursor escribiría. Debe ser 0.
  *
@@ -30,6 +30,9 @@ export interface SwarmStats {
   maxCoverage: number
   idleOverText: number
   maxIdleOverText: number
+  /** Agentes en reposo visibles en pantalla; deben ser 3 o menos. */
+  idleVisible: number
+  maxIdleVisible: number
   boost: number
   maxBoost: number
   queued: number
@@ -50,6 +53,8 @@ export interface SwarmStats {
 declare global {
   interface Window {
     __swarmStats?: SwarmStats
+    /** Agentes del enjambre, solo en depuración, para inspeccionarlos desde la consola. */
+    __swarmAgents?: Agent[]
   }
 }
 
@@ -73,6 +78,8 @@ export class Debug {
       maxCoverage: 0,
       idleOverText: 0,
       maxIdleOverText: 0,
+      idleVisible: 0,
+      maxIdleVisible: 0,
       boost: 1,
       maxBoost: 1,
       queued: 0,
@@ -168,9 +175,17 @@ export class Debug {
     const stats = this.stats
     const overText = agents.filter(
       (agent) =>
-        agent.state === 'idle' &&
+        !agent.task &&
+        agent.alpha > 0.05 &&
         info.zones.some((zone) => agent.x > zone.left + 10 && agent.x < zone.right - 10 && agent.y > zone.top + 10 && agent.y < zone.bottom - 10),
     ).length
+    const idleVisible = agents.filter(
+      (agent) => !agent.task && agent.alpha > 0.05 && agent.x > 0 && agent.x < innerWidth && agent.y > 0 && agent.y < innerHeight,
+    ).length
+    stats.idleVisible = idleVisible
+    window.__swarmAgents = agents
+    // La intro (todos flotando antes de empezar) no cuenta.
+    if (performance.now() > 3000) stats.maxIdleVisible = Math.max(stats.maxIdleVisible, idleVisible)
     stats.coverage = info.coverage
     stats.maxCoverage = Math.max(stats.maxCoverage, info.coverage)
     stats.idleOverText = overText
@@ -200,6 +215,7 @@ export class Debug {
       `violaciones: ${stats.violations} · texto sin tarea: ${stats.orphans}`,
       `cobertura: ${(info.coverage * 100).toFixed(2)} % (máx ${(stats.maxCoverage * 100).toFixed(2)} %)`,
       `en reposo sobre contenido: ${overText} (máx ${stats.maxIdleOverText})`,
+      `en reposo visibles: ${idleVisible} (máx ${stats.maxIdleVisible})`,
       `asentado tras scroll: ${stats.settles.slice(-4).join(' s, ') || '—'}${stats.settles.length ? ' s' : ''}`,
       '—',
       ...stats.log.slice(-8),
