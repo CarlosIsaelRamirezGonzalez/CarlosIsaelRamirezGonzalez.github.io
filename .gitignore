@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Claves locales (ElevenLabs para generar los audios de NOVA). Nunca se suben.
+.env

@@ -1,16 +1,16 @@
 @import 'tailwindcss';
 
 /* ---------------------------------------------------------------------------
-   Tokens. Ver docs/DESIGN.md: tinta cálida, hueso, un solo acento ámbar.
+   Tokens. Ver docs/DESIGN.md: todo sale de la hoja de NOVA: tinta índigo, blanco y lavanda.
    --------------------------------------------------------------------------- */
 :root {
-  --ink: #15120f;
-  --ink-2: #1e1a16;
-  --rule: #3a332c;
-  --bone: #ede6da;
-  --dust: #a49a8c;
-  --amber: #d9a441;
-  --amber-ink: #15120f;
+  --ink: #11101f;
+  --ink-2: #19182d;
+  --rule: #2c2b49;
+  --bone: #eeedf8;
+  --dust: #9d9bbe;
+  --accent: #aba8e8;
+  --accent-ink: #16123f;
   /* Solo NOVA: su paleta viene de su renderizador real. */
   --nova-violet: #5b46c4;
   --nova-lavender: #aba8e8;
@@ -23,8 +23,8 @@
   --color-rule: var(--rule);
   --color-bone: var(--bone);
   --color-dust: var(--dust);
-  --color-amber: var(--amber);
-  --color-amber-ink: var(--amber-ink);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
   --color-nova-violet: var(--nova-violet);
   --color-nova-lavender: var(--nova-lavender);
   --font-sans: 'Bricolage Grotesque', ui-sans-serif, system-ui, sans-serif;
@@ -47,13 +47,13 @@ body {
 }
 
 :focus-visible {
-  outline: 2px solid var(--amber);
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
 
 ::selection {
-  background: var(--amber);
-  color: var(--amber-ink);
+  background: var(--accent);
+  color: var(--accent-ink);
 }
 
 /* ---------------------------------------------------------------------------
@@ -97,10 +97,10 @@ body {
     @apply max-w-[64ch] text-dust;
   }
   .link {
-    @apply text-bone underline decoration-amber decoration-2 underline-offset-[5px] transition-colors hover:text-amber;
+    @apply text-bone underline decoration-accent decoration-2 underline-offset-[5px] transition-colors hover:text-accent;
   }
   .btn {
-    @apply inline-flex items-center gap-2 rounded-[2px] bg-amber px-4 py-2.5 text-[15px] font-semibold text-amber-ink hover:bg-[#e6b556];
+    @apply inline-flex items-center gap-2 rounded-[2px] bg-accent px-4 py-2.5 text-[15px] font-semibold text-accent-ink hover:bg-[#c2bff2];
   }
   .btn-quiet {
     @apply inline-flex items-center gap-2 rounded-[2px] border border-rule px-4 py-2.5 text-[15px] font-medium text-bone hover:border-dust;
@@ -151,7 +151,7 @@ body {
   @apply rounded-[2px] px-2 py-1 font-mono text-[11px] text-dust hover:text-bone disabled:opacity-40;
 }
 .hud-button[aria-pressed='true'] {
-  @apply bg-amber text-amber-ink;
+  @apply bg-accent text-accent-ink;
 }
 
 /* Log del hero: lo escribe el motor mientras construye la entrada. */
@@ -175,8 +175,8 @@ body {
   @apply mt-0.5 block font-mono text-[11.5px] text-dust;
 }
 .node[data-lit] {
-  border-color: var(--amber);
-  box-shadow: inset 0 0 0 1px var(--amber);
+  border-color: var(--accent);
+  box-shadow: inset 0 0 0 1px var(--accent);
 }
 .node.node-nova {
   border-color: var(--nova-violet);
@@ -187,7 +187,7 @@ body {
   stroke-width: 1.5;
 }
 #nova-wires path[data-lit] {
-  stroke: var(--amber);
+  stroke: var(--accent);
 }
 
 /* ---------------------------------------------------------------------------
@@ -244,14 +244,48 @@ body {
   image-rendering: pixelated;
   display: block;
 }
-#nova-subtitle {
+#nova-subtitle,
+.nova-subtitle {
   min-height: 4.6em;
   font-size: 15.5px;
   line-height: 1.5;
 }
-#nova-subtitle b {
-  color: var(--amber);
+#nova-subtitle b,
+.nova-subtitle b {
+  color: var(--accent);
   font-weight: 600;
+}
+
+/* NOVA fuera del recuadro, dando el tour. */
+#nova-guide {
+  position: fixed;
+  inset: 0;
+  z-index: 62;
+  pointer-events: none;
+}
+#nova-guide[hidden] {
+  display: none;
+}
+.nova-guide-canvas {
+  position: absolute;
+  left: 0;
+  top: 0;
+  image-rendering: pixelated;
+  will-change: transform;
+}
+.nova-bubble {
+  position: absolute;
+  pointer-events: auto;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  background: var(--ink-2);
+}
+.nova-bubble #nova-subtitle {
+  min-height: 3em;
+}
+#nova-dock[hidden] {
+  display: none;
 }
 .nova-chip {
   @apply rounded-[2px] border border-rule px-2.5 py-1 text-left text-[13px] text-bone hover:border-nova-lavender;
@@ -279,7 +313,7 @@ body {
   display: none;
 }
 [data-nova-focus] {
-  outline: 2px solid var(--nova-lavender);
+  outline: 2px solid var(--accent);
   outline-offset: 6px;
   border-radius: 2px;
 }

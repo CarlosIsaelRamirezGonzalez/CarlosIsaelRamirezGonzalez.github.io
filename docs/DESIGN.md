@@ -2,36 +2,34 @@
 
 ## La decisión en diez líneas
 
-1. **Oscuro cálido, no azul.** Fondo tinta `#15120F` y texto hueso `#EDE6DA`. Se eligió oscuro por NOVA: su cuerpo es blanco y sus llamas lavanda; sobre papel claro desaparecería. Cálido para alejarse del marino de todos los sitios de IA.
-2. **Un solo acento: ámbar `#D9A441`**, el color de los monitores de fósforo ámbar. Viene del mundo de Carlos (terminal, logs) y no del catálogo de "sitio de IA". Sin brillos, sin degradados, sin neón. Contraste 9.4:1 sobre el fondo.
-3. **NOVA conserva su paleta** (lavanda, violeta, blanco) porque es un personaje con hoja propia, no un color de interfaz. Aparece solo donde está ella.
-4. **Tipografía:** Bricolage Grotesque para títulos y cuerpo (una sola familia con eje óptico: expresiva en grande, sobria en texto) e IBM Plex Mono para rutas, fechas, logs y comandos. Nada de Inter ni Space Grotesk. Carga con `font-display: swap` y fallbacks del sistema.
-5. **Retícula de 12 columnas visible en la asimetría:** títulos a la izquierda en 4 columnas, contenido a la derecha en 7, metadatos en mono alineados a la derecha. Nada centrado salvo el cierre.
-6. **Sin tarjetas.** Las listas se separan con líneas de 1 px y espacio; los bloques que necesitan contorno llevan radio de 2 px y ninguna sombra.
-7. **Los detalles salen del oficio:** el hero muestra un log de construcción del enjambre (qué agente arma qué); los proyectos se presentan como casos con "problema / qué hice / stack"; la arquitectura de NOVA es un diagrama con los componentes reales del repo.
-8. **La numeración solo donde hay secuencia:** la trayectoria. Las demás secciones no llevan "01 —".
-9. **Movimiento con propósito:** la única animación es el enjambre que construye la página, una vez por sección, en menos de un segundo por bloque. NOVA se anima porque está viva; nada más se mueve solo.
-10. **Copy en primera persona, corto y verificable.** Fuera "apasionado", "soluciones", "potenciar", y la fórmula "no solo X, sino Y".
+1. **Una sola fuente de color: la hoja de NOVA.** Tinta índigo casi negra (`#11101F`, su contorno y su visor aclarados), blanco azulado (`#EEEDF8`, su casco) y lavanda (`#ABA8E8`, sus llamas) como único acento. Así ella y la página son lo mismo; antes competían un ámbar con sus violetas.
+2. **Oscuro, no papel.** Su cuerpo es blanco; sobre papel desaparecía.
+3. **Sin brillos ni degradados.** La lavanda va plana: enlaces, foco, cursor principal y botón. Nada de neón.
+4. **Los cursores del enjambre** usan seis tonos de la misma hoja (lavanda, pervinca, orquídea, crema, blanco suave y violeta oscuro): se distinguen entre sí sin salirse de la familia.
+5. **Tipografía:** Bricolage Grotesque para títulos y cuerpo (una familia con eje óptico) e IBM Plex Mono para rutas, fechas y logs. Carga con `font-display: swap`.
+6. **Retícula de 12 columnas en asimetría:** títulos en 4 columnas a la izquierda, contenido en 7 a la derecha. Nada centrado salvo el cierre.
+7. **Sin tarjetas.** Listas separadas con líneas de 1 px; los bloques con contorno llevan radio de 2 px y ninguna sombra.
+8. **Los detalles salen del oficio:** el hero muestra el log de construcción del enjambre; los proyectos son casos; la arquitectura de NOVA es un diagrama con los componentes reales del repo.
+9. **Numeración solo donde hay secuencia:** la trayectoria.
+10. **Movimiento con propósito:** el enjambre construye cada sección una vez; NOVA se anima porque está viva y, en el tour, vuela de un apartado a otro con su voz real.
 
 ## Tokens
 
-| Token | Valor | Uso |
-|---|---|---|
-| `--ink` | `#15120F` | Fondo |
-| `--ink-2` | `#1E1A16` | Fondo de bloques y del panel de NOVA |
-| `--rule` | `#3A332C` | Líneas de 1 px |
-| `--bone` | `#EDE6DA` | Texto principal (14.6:1) |
-| `--dust` | `#A49A8C` | Texto secundario (6.9:1) |
-| `--amber` | `#D9A441` | Acento: enlaces, foco, cursor principal, marcas de la retícula |
-| `--nova-violet` | `#5B46C4` · `#ABA8E8` · `#F3F3FF` | Solo NOVA (de su renderizador real) |
+| Token | Valor | Contraste sobre `--ink` | Uso |
+|---|---|---|---|
+| `--ink` | `#11101F` | | Fondo |
+| `--ink-2` | `#19182D` | | Bloques, panel y burbuja de NOVA |
+| `--rule` | `#2C2B49` | | Líneas de 1 px |
+| `--bone` | `#EEEDF8` | 16.6:1 | Texto principal |
+| `--dust` | `#9D9BBE` | 7.1:1 | Texto secundario, mono |
+| `--accent` | `#ABA8E8` | 8.3:1 | Enlaces, foco, botón (texto `#16123F` encima, 8.6:1) |
 
-Cursores del enjambre (identidad de cada agente, muteados para el fondo cálido): ámbar `#D9A441`, salvia `#8FB38A`, rosa `#D98C8C`, cielo `#8FB3C9`, lavanda `#ABA8E8`, hueso `#EDE6DA`.
+Cursores del enjambre: `#ABA8E8`, `#8FA2FF`, `#CA83F9`, `#FEE7C5`, `#D9D9F7`, `#7E73D6`. Todos salen del renderizador real de NOVA.
 
 ## Tipografía
 
-- **Bricolage Grotesque** (Google Fonts, ejes `opsz` y `wght`): títulos 600 con `opsz` alto y tracking −0.02em; cuerpo 400 a 17 px, interlínea 1.55, líneas de 60–70 caracteres.
-- **IBM Plex Mono** 400/500 a 13–14 px: fechas, rutas, comandos, log del enjambre, etiquetas de estado de NOVA.
-- Escala: 13 · 15 · 17 · 21 · 28 · 40 · `clamp(3.2rem, 8vw, 7rem)` para el nombre.
+- **Bricolage Grotesque** (ejes `opsz` y `wght`): títulos 600 con `opsz` alto y tracking −0.02em; cuerpo 400 a 17 px, interlínea 1.55, líneas de 60–70 caracteres.
+- **IBM Plex Mono** 400/500 a 13–14 px: fechas, rutas, comandos, log del enjambre, estado de NOVA.
 
 ## Estructura
 
@@ -48,6 +46,6 @@ Contacto       correo, GitHub, CV
 
 ## Qué se revisó contra el borrador genérico
 
-- El primer borrador tenía fondo cálido con acento **terracota** y una serif: es la combinación que hoy producen todas las herramientas. Se cambió a ámbar y grotesca.
+- El primer borrador tenía fondo cálido con acento **terracota** y una serif: la combinación que hoy producen todas las herramientas. La segunda versión usó ámbar sobre tinta cálida, y el ámbar chocaba con los violetas de NOVA. La tercera toma todo de su hoja.
 - Tenía un bloque de "tres cosas que hago" en tres columnas iguales. Se cambió a una lista con líneas, de anchos distintos.
 - Tenía etiquetas en mayúsculas con tracking sobre cada título. Se quitaron.

@@ -17,14 +17,14 @@
  */
 import type { Box, Glyph, Point, Pose, RoleScript, Script, Task } from './types'
 
-const SELECTION = '#D9A441'
-const PLACEHOLDER = 'rgba(237, 230, 218, 0.06)'
-const NODE_FILL = '#15120F'
+const SELECTION = '#ABA8E8'
+const PLACEHOLDER = 'rgba(238, 237, 248, 0.06)'
+const NODE_FILL = '#11101F'
 
 /** Letras por segundo de un cursor a 1×; cada agente varía un poco. */
-const BASE_CPS = 140
+const BASE_CPS = 95
 /** Ningún bloque tarda más que esto en teclearse a 1×. */
-const MAX_TYPING = 0.6
+const MAX_TYPING = 0.9
 /** Textos más largos que esto se reparten por líneas entre varios agentes. */
 export const LONG_TEXT = 120
 

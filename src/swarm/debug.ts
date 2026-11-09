@@ -63,7 +63,7 @@ export class Debug {
     this.panel = document.createElement('pre')
     this.panel.setAttribute('aria-hidden', 'true')
     this.panel.style.cssText =
-      'position:fixed;top:64px;left:8px;z-index:60;max-width:380px;margin:0;padding:8px 10px;font:11px/1.45 "IBM Plex Mono",monospace;color:#EDE6DA;background:rgba(21,18,15,.94);border:1px solid #3A332C;border-radius:2px;pointer-events:none;white-space:pre-wrap'
+      'position:fixed;top:64px;left:8px;z-index:60;max-width:380px;margin:0;padding:8px 10px;font:11px/1.45 "IBM Plex Mono",monospace;color:#EEEDF8;background:rgba(17,16,31,.94);border:1px solid #2C2B49;border-radius:2px;pointer-events:none;white-space:pre-wrap'
     document.body.append(this.panel)
     this.stats = {
       violations: 0,
@@ -127,8 +127,8 @@ export class Debug {
   frame(ctx: CanvasRenderingContext2D, tasks: Task[], agents: Agent[], scrollY: number, info: FrameInfo): void {
     ctx.save()
     ctx.font = '10px "IBM Plex Mono", monospace'
-    ctx.strokeStyle = '#D9A441'
-    ctx.fillStyle = '#D9A441'
+    ctx.strokeStyle = '#ABA8E8'
+    ctx.fillStyle = '#ABA8E8'
     for (const task of tasks) {
       if (task.crew.length === 0) continue
       const x = task.box.x - window.scrollX

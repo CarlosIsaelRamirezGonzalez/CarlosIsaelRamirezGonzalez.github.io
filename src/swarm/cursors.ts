@@ -5,7 +5,7 @@
 import type { Tool } from './types'
 
 /** Colores de los cursores: uno por agente, siempre el mismo. */
-export const COLORS = ['#D9A441', '#8FB38A', '#D98C8C', '#8FB3C9', '#ABA8E8', '#EDE6DA']
+export const COLORS = ['#ABA8E8', '#8FA2FF', '#CA83F9', '#FEE7C5', '#D9D9F7', '#7E73D6']
 
 /** Nombres de los agentes; cada uno conserva el suyo. */
 export const NAMES = [
@@ -62,7 +62,7 @@ function traceTool(ctx: CanvasRenderingContext2D, tool: Tool, color: string): vo
         path.moveTo(-3, 9)
         path.lineTo(3, 9)
       }
-      ctx.strokeStyle = '#07101F'
+      ctx.strokeStyle = '#11101F'
       ctx.lineWidth = 3.5
       ctx.stroke(path)
       ctx.strokeStyle = '#ffffff'
@@ -134,7 +134,7 @@ export function sprite(tool: Tool, color: string, label: string | null, ratio: n
     ctx.beginPath()
     ctx.roundRect(12, 15, labelWidth, 17, 4)
     ctx.fill()
-    ctx.fillStyle = '#07101F'
+    ctx.fillStyle = '#16123F'
     ctx.font = font
     ctx.textBaseline = 'middle'
     ctx.fillText(label, 18, 24)

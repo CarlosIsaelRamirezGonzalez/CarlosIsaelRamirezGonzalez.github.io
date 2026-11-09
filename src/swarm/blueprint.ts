@@ -13,7 +13,7 @@ import type { BuildKind, Box, Glyph, Task } from './types'
 
 const KINDS: readonly BuildKind[] = ['rect', 'media', 'text', 'line', 'dup', 'network', 'converge']
 /** Letras por segundo que se usan para estimar la duración antes de crear el guion. */
-const ESTIMATED_CPS = 140
+const ESTIMATED_CPS = 95
 
 const clamp = (value: number, min: number, max: number): number => Math.min(max, Math.max(min, value))
 
@@ -105,19 +105,19 @@ function dragTimeOf(task: Task): number {
   const area = (task.box.w * task.box.h) / 900_000
   switch (task.kind) {
     case 'text':
-      return 0.08
+      return 0.12
     case 'line':
-      return task.svgPath ? 0.5 : 0.4
+      return task.svgPath ? 0.7 : 0.55
     case 'media':
-      return clamp(0.35 + area, 0.35, 0.6)
+      return clamp(0.5 + area, 0.5, 0.85)
     case 'dup':
-      return task.master ? 0.3 : clamp(0.25 + area, 0.25, 0.45)
+      return task.master ? 0.45 : clamp(0.35 + area, 0.35, 0.6)
     case 'network':
-      return 1.3
+      return 1.8
     case 'converge':
-      return 0.6
+      return 0.8
     default:
-      return clamp(0.22 + area, 0.22, 0.45)
+      return clamp(0.32 + area, 0.32, 0.6)
   }
 }
 
@@ -180,7 +180,7 @@ export function collectTasks(mobile: boolean, maxCrew: number): { tasks: Task[];
       hero: hero?.contains(el) ?? false,
     }
     task.dragTime = dragTimeOf(task)
-    task.duration = task.dragTime + Math.min(0.7, task.glyphs.length / ESTIMATED_CPS)
+    task.duration = task.dragTime + Math.min(0.9, task.glyphs.length / ESTIMATED_CPS)
     parent?.children.push(task)
     byElement.set(el, task)
     tasks.push(task)
